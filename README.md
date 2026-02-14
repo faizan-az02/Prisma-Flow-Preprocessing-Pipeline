@@ -1,12 +1,12 @@
 # PrismaFlow
 
-> *“Transforming raw data into ML-ready insights, effortlessly.”*
+Transforming raw data into ML-ready insights, effortlessly.
 
-PrismaFlow is an **automated, modular preprocessing pipeline** designed to simplify data cleaning, normalization, and transformation. It’s built to handle multiple workflows and scales with your projects. ⚡
+PrismaFlow is an **automated, modular preprocessing pipeline** designed to simplify data cleaning, normalization, and transformation. It’s built to handle multiple workflows and scales with your projects.
 
 ---
 
-## 🔧 Features
+## Features
 - Modular preprocessing steps: cleaning, normalization, encoding  
 - Extensible design for custom workflows  
 - Logging and progress tracking for transparency  
@@ -14,7 +14,7 @@ PrismaFlow is an **automated, modular preprocessing pipeline** designed to simpl
 
 ---
 
-## 🚧 Work in Progress
+## Work in Progress
 - [ ] Parallel processing for faster large-scale data handling  
 - [ ] Advanced feature engineering modules  
 - [ ] Integration with cloud storage & databases  
