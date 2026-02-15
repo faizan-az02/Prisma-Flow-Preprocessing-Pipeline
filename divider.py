@@ -1,13 +1,5 @@
 import logging
 
-logging.basicConfig(
-    filename="logs.txt",
-    filemode="w",
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(message)s",
-    force=True,
-)
-
 def divider():
     
     logger = logging.getLogger()
