@@ -27,10 +27,14 @@ logging.basicConfig(
 csv_file = "housing.csv"
 
 target_col = "median_house_value"
+row_number_col = "row_number"
 
 df = pd.read_csv(csv_file)
 
-df, y = remove_target(df, target_col)
+# Manual row numbers: 1..N (stable ID for re-attaching target after row drops)
+df[row_number_col] = range(1, len(df) + 1)
+
+df, y = remove_target(df, target_col, id_col=row_number_col)
 
 df = clear_columns(df)
 
@@ -40,16 +44,16 @@ df = finalize_dtypes(df)
 
 df = remove_columns(df, None)
 
-df = remove_outliers(df, True)
+df = remove_outliers(df, True, exclude_cols=[row_number_col])
 
 df = encode_features(df, "label")
 
-df = feature_selection(df)
+df = feature_selection(df, exclude_cols=[row_number_col])
 
 df = extract_temporal_features(df)
 
-df = scale_features(df, "standard")
+df = scale_features(df, "standard", exclude_cols=[row_number_col])
 
-df = add_target(df, y, target_col)
+df = add_target(df, y, target_col, key_col=row_number_col)
 
 export_file(df, "processed_dataset.csv")

@@ -4,11 +4,13 @@ from divider import divider
 
 # Standard Removal of Outliers
 
-def remove_outliers(df, drop ,multiplier=1.5):
+def remove_outliers(df, drop, multiplier=1.5, exclude_cols=None):
 
     logging.info("=== OUTLIER HANDLING STARTED ===")
 
-    numeric_cols = df.select_dtypes(include=[np.number]).columns
+    numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
+    if exclude_cols:
+        numeric_cols = [c for c in numeric_cols if c not in set(exclude_cols)]
     total_outliers = 0
 
     for col in numeric_cols:

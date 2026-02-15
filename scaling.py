@@ -4,13 +4,15 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import logging
 from divider import divider
 
-def scale_features(df, method="standard", columns=None):
+def scale_features(df, method="standard", columns=None, exclude_cols=None):
 
     logging.info(f"=== SCALING STARTED")
 
     # Auto detect numeric columns if not provided
     if columns is None:
         columns = df.select_dtypes(include=[np.number]).columns.tolist()
+    if exclude_cols:
+        columns = [c for c in columns if c not in set(exclude_cols)]
 
     logging.info(f"Columns selected for scaling: {columns}")
 

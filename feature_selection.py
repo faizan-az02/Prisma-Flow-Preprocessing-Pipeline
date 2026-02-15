@@ -4,7 +4,7 @@ from sklearn.feature_selection import VarianceThreshold
 import logging
 from divider import divider
 
-def feature_selection(df, variance_threshold=0.01, correlation_threshold=0.9):
+def feature_selection(df, variance_threshold=0.01, correlation_threshold=0.9, exclude_cols=None):
  
     logging.info("=== FEATURE SELECTION STARTED ===")
 
@@ -12,6 +12,8 @@ def feature_selection(df, variance_threshold=0.01, correlation_threshold=0.9):
     logging.info("Running Variance Filtering")
 
     numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
+    if exclude_cols:
+        numeric_cols = [c for c in numeric_cols if c not in set(exclude_cols)]
 
     if len(numeric_cols) == 0:
 
@@ -34,6 +36,8 @@ def feature_selection(df, variance_threshold=0.01, correlation_threshold=0.9):
     logging.info("Running Correlation Filtering")
 
     numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
+    if exclude_cols:
+        numeric_cols = [c for c in numeric_cols if c not in set(exclude_cols)]
 
     if len(numeric_cols) == 0:
         logging.warning("No numeric columns found for correlation filtering")
