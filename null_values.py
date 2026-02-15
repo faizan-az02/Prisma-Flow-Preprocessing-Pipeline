@@ -3,6 +3,8 @@ from pandas.api.types import is_numeric_dtype
 import logging
 from divider import divider
 
+# Automatic Removal of Null Values
+
 def clear_null_values(df, threshold):
 
     total_dropped_rows = 0

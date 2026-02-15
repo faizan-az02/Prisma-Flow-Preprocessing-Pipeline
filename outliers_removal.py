@@ -1,7 +1,10 @@
 import numpy as np
 import logging
+from divider import divider
 
-def remove_outliers(df, multiplier=1.5, drop=True):
+# Standard Removal of Outliers
+
+def remove_outliers(df, drop ,multiplier=1.5):
 
     logging.info("=== OUTLIER HANDLING STARTED ===")
 
@@ -34,8 +37,9 @@ def remove_outliers(df, multiplier=1.5, drop=True):
         else:
             logging.info(f'No outliers detected in column "{col}"')
 
+    divider()
+
     logging.info(f"Total outliers handled: {total_outliers}")
-    logging.info("=== OUTLIER HANDLING COMPLETED ===")
 
     divider()
 

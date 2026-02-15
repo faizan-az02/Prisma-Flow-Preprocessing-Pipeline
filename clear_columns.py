@@ -2,6 +2,8 @@ import pandas as pd
 import logging
 from divider import divider
 
+# Automatic Removal of Columns
+
 def clear_columns(df):
 
     dropped_columns = 0

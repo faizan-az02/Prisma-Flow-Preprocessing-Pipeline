@@ -5,6 +5,7 @@ from null_values import clear_null_values
 from clear_columns import clear_columns
 from finalize_types import finalize_dtypes
 from outliers_removal import remove_outliers
+from remove_columns import remove_columns
 
 log_file = "log.txt"
 
@@ -24,10 +25,6 @@ df = clear_null_values(df, 0.05)
 
 df = finalize_dtypes(df)
 
-df = remove_outliers(df)
+df = remove_columns(df, ["Note"])
 
-print(df.head())
-
-print(df.info())
-
-print(df.describe())
+df = remove_outliers(df, True)
