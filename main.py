@@ -7,6 +7,7 @@ from finalize_types import finalize_dtypes
 from outliers_removal import remove_outliers
 from remove_columns import remove_columns
 from encoding import encode_features
+from scaling import scale_features
 
 log_file = "logs.txt"
 
@@ -31,5 +32,7 @@ df = remove_columns(df, ["Note", "username"])
 df = remove_outliers(df, True)
 
 df = encode_features(df, "label")
+
+df = scale_features(df, "standard")
 
 print(df.head())

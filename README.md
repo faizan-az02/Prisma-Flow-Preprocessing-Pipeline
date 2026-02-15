@@ -6,40 +6,6 @@ PrismaFlow is an **automated, modular preprocessing pipeline** designed to simpl
 
 ---
 
-Feature Encoding (Categorical → Numeric)
-
-ML models usually need numbers.
-
-    Common Approaches:
-
-    Label Encoding → ordinal categories
-
-    One-Hot Encoding → nominal categories
-
-    Target Encoding → high cardinality
-
-Feature Scaling / Normalization
-
-Very important for many models.
-
-    Options:
-
-    Standard Scaling (mean=0, std=1)
-
-    Min-Max Scaling (0 → 1)
-
-    Robust Scaling (good if outliers exist)
-
-    Critical For:
-
-    Neural Networks
-
-    SVM
-
-    KNN
-
-    Gradient methods
-
 Feature Selection
 
 Remove useless or harmful features.
