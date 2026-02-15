@@ -35,4 +35,7 @@ def scale_features(df, method="standard", columns=None):
         logging.error(f"Scaling failed | {e}")
 
     logging.info("=== SCALING COMPLETED ===")
+
+    divider()
+
     return df
