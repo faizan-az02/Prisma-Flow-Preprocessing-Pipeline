@@ -8,20 +8,7 @@ PrismaFlow is an **automated, modular preprocessing pipeline** designed to simpl
 
 Work In Progress
 
-1️⃣ Data Type & Schema Finalization
-
-Make sure everything is the correct type.
-
-Do:
-
-    Convert dates → datetime objects
-
-    Ensure numeric columns are numeric
-
-    Ensure categorical columns are string/category
-
-
-2️⃣ Outlier Detection & Handling
+Outlier Detection & Handling
 
 Basic cleaning doesn’t usually handle extreme values.
 
@@ -34,7 +21,7 @@ Basic cleaning doesn’t usually handle extreme values.
     Winsorization (cap extremes)
 
 
-3️⃣ Feature Encoding (Categorical → Numeric)
+Feature Encoding (Categorical → Numeric)
 
 ML models usually need numbers.
 
@@ -46,7 +33,7 @@ ML models usually need numbers.
 
     Target Encoding → high cardinality
 
-4️⃣ Feature Scaling / Normalization
+Feature Scaling / Normalization
 
 Very important for many models.
 
@@ -68,7 +55,7 @@ Very important for many models.
 
     Gradient methods
 
-5️⃣ Feature Selection
+Feature Selection
 
 Remove useless or harmful features.
 
@@ -82,7 +69,7 @@ Remove useless or harmful features.
 
     Tree-based feature importance
 
-6️⃣ Feature Engineering
+Feature Engineering
 
 Now you create better signals.
 
@@ -94,7 +81,7 @@ Now you create better signals.
 
     Interaction features → A * B
 
-7️⃣ Class Imbalance Handling (If Classification)
+Class Imbalance Handling (If Classification)
 
 Check target distribution.
 
@@ -106,7 +93,7 @@ Check target distribution.
 
     Class weights
 
-8️⃣ Train / Test Preparation
+Train / Test Preparation
 
 Split BEFORE final fitting transforms (important).
 
@@ -116,7 +103,7 @@ Split BEFORE final fitting transforms (important).
 
     Possibly Validation split
 
-9️⃣ Pipeline Object Creation (Very Important)
+Pipeline Object Creation (Very Important)
 
     Bundle preprocessing steps.
 
@@ -124,7 +111,7 @@ Split BEFORE final fitting transforms (important).
     Prevents data leakage.
     Ensures inference uses same transforms.
 
-🔟 Data Leakage Checks
+Data Leakage Checks
 
 Make sure you didn’t accidentally use future info.
 
