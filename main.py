@@ -24,9 +24,13 @@ logging.basicConfig(
     force=True,
 )
 
-df = pd.read_csv('accounts.csv')
+csv_file = "housing.csv"
 
-df, y = remove_target(df)
+target_col = "median_house_value"
+
+df = pd.read_csv(csv_file)
+
+df, y = remove_target(df, target_col)
 
 df = clear_columns(df)
 
@@ -34,7 +38,7 @@ df = clear_null_values(df, 0.05)
 
 df = finalize_dtypes(df)
 
-df = remove_columns(df, ["Note", "username"])
+df = remove_columns(df, None)
 
 df = remove_outliers(df, True)
 
@@ -46,6 +50,6 @@ df = extract_temporal_features(df)
 
 df = scale_features(df, "standard")
 
-df = add_target(df, y, "target")
+df = add_target(df, y, target_col)
 
 export_file(df, "processed_dataset.csv")

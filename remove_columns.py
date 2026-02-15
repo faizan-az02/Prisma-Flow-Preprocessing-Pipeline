@@ -6,6 +6,10 @@ from divider import divider
 
 def remove_columns(df, cols):
 
+    if cols is None:
+        
+        return df
+
     logging.info(f"=== MANUAL REMOVAL OF COLUMNS STARTED ===")
 
     for col in cols:
