@@ -1,7 +1,7 @@
 import logging
 
 logging.basicConfig(
-    filename="log.txt",
+    filename="logs.txt",
     filemode="w",
     level=logging.INFO,
     format="%(asctime)s | %(levelname)s | %(message)s",

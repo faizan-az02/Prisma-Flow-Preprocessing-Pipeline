@@ -6,21 +6,6 @@ PrismaFlow is an **automated, modular preprocessing pipeline** designed to simpl
 
 ---
 
-Work In Progress
-
-Outlier Detection & Handling
-
-Basic cleaning doesn’t usually handle extreme values.
-
-    Options:
-
-    IQR filtering
-
-    Z-score filtering
-
-    Winsorization (cap extremes)
-
-
 Feature Encoding (Categorical → Numeric)
 
 ML models usually need numbers.

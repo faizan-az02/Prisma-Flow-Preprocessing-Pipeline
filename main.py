@@ -7,7 +7,7 @@ from finalize_types import finalize_dtypes
 from outliers_removal import remove_outliers
 from remove_columns import remove_columns
 
-log_file = "log.txt"
+log_file = "logs.txt"
 
 logging.basicConfig(
     filename=log_file,
