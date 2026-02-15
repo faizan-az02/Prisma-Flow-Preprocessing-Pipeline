@@ -6,14 +6,4 @@ PrismaFlow is an **automated, modular preprocessing pipeline** designed to simpl
 
 ---
 
-Class Imbalance Handling (If Classification)
-
-Check target distribution.
-
-    If Imbalanced:
-
-    SMOTE
-
-    Undersampling
-
-    Class weights
+Work in Progress
