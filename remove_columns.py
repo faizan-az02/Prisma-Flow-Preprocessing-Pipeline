@@ -6,11 +6,15 @@ from divider import divider
 
 def remove_columns(df, cols):
 
+    logging.info(f"=== MANUAL REMOVAL OF COLUMNS STARTED ===")
+
     for col in cols:
 
         df.drop(columns=[col], inplace=True)
 
         logging.info(f"Removed column \"{col}\"")
+
+    logging.info(f"=== MANUAL REMOVAL OF COLUMNS COMPLETED ===")
 
     divider()
 

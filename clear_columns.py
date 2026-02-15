@@ -6,6 +6,8 @@ from divider import divider
 
 def clear_columns(df):
 
+    logging.info(f"=== AUTO REMOVAL OF EMPTY COLUMNS STARTED ===")
+
     dropped_columns = 0
 
     for column in df.columns:
@@ -21,6 +23,8 @@ def clear_columns(df):
     divider()
 
     logging.info(f"Total dropped columns: {dropped_columns}")
+
+    logging.info(f"=== AUTO REMOVAL OF EMPTY COLUMNS COMPLETED ===")
 
     divider()
 

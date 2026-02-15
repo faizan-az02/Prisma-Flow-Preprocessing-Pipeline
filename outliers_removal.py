@@ -41,6 +41,8 @@ def remove_outliers(df, drop ,multiplier=1.5):
 
     logging.info(f"Total outliers handled: {total_outliers}")
 
+    logging.info(f"=== OUTLIER HANDLING COMPLETED ===")
+
     divider()
 
     return df

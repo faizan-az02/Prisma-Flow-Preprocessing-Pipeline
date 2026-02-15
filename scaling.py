@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import logging
+from divider import divider
 
 def scale_features(df, method="standard", columns=None):
 

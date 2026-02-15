@@ -1,52 +1,69 @@
-2026-02-15 18:09:22,883 | INFO | Column "Candy" is empty
-2026-02-15 18:09:22,883 | INFO | Column "Ginger Breads" is empty
-2026-02-15 18:09:22,885 | INFO | Column "cookie_data" is empty
+2026-02-15 23:46:56,610 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS STARTED ===
+2026-02-15 23:46:56,610 | INFO | Column "Candy" is empty
+2026-02-15 23:46:56,610 | INFO | Column "Ginger Breads" is empty
+2026-02-15 23:46:56,613 | INFO | Column "cookie_data" is empty
 --------------------------------
-2026-02-15 18:09:22,885 | INFO | Total dropped columns: 3
+2026-02-15 23:46:56,613 | INFO | Total dropped columns: 3
+2026-02-15 23:46:56,613 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS COMPLETED ===
 --------------------------------
-2026-02-15 18:09:22,885 | INFO | Dropped 23 rows with nulls from the column "username"
-2026-02-15 18:09:22,887 | INFO | Dropped 19 rows with nulls from the column "Note"
-2026-02-15 18:09:22,887 | INFO | Filled with the mean - 25764.4 of the column "Money"
-2026-02-15 18:09:22,889 | INFO | Filled with the mean - 31.56 of the column "Potion"
-2026-02-15 18:09:22,889 | INFO | Dropped 4 rows with nulls from the column "Event_currency"
-2026-02-15 18:09:22,891 | INFO | Dropped 26 rows with nulls from the column "Total Pets"
-2026-02-15 18:09:22,891 | INFO | Dropped 15 rows with nulls from the column "Event Currency per Minute"
-2026-02-15 18:09:22,893 | INFO | Dropped 10 rows with nulls from the column "Potion per Minute"
-2026-02-15 18:09:22,893 | INFO | Filled with the mode - 2026-02-14T20:59:10.931Z of the column "updated_at"
+2026-02-15 23:46:56,613 | INFO | === AUTO REMOVAL OF NULL VALUES STARTED ===
+2026-02-15 23:46:56,613 | INFO | Dropped 23 rows with nulls from the column "username"
+2026-02-15 23:46:56,616 | INFO | Dropped 19 rows with nulls from the column "Note"
+2026-02-15 23:46:56,616 | INFO | Filled with the mean - 25764.4 of the column "Money"
+2026-02-15 23:46:56,616 | INFO | Filled with the mean - 31.56 of the column "Potion"
+2026-02-15 23:46:56,616 | INFO | Dropped 4 rows with nulls from the column "Event_currency"
+2026-02-15 23:46:56,616 | INFO | Dropped 26 rows with nulls from the column "Total Pets"
+2026-02-15 23:46:56,616 | INFO | Dropped 15 rows with nulls from the column "Event Currency per Minute"
+2026-02-15 23:46:56,616 | INFO | Dropped 10 rows with nulls from the column "Potion per Minute"
+2026-02-15 23:46:56,616 | INFO | Filled with the mode - 2026-02-14T20:59:10.931Z of the column "updated_at"
 --------------------------------
-2026-02-15 18:09:22,893 | INFO | Total dropped rows: 97
+2026-02-15 23:46:56,616 | INFO | Total dropped rows: 97
+2026-02-15 23:46:56,616 | INFO | === AUTO REMOVAL OF NULL VALUES COMPLETED ===
 --------------------------------
-2026-02-15 18:09:22,893 | INFO | === DTYPE FINALIZATION STARTED ===
-2026-02-15 18:09:22,895 | INFO | Kept Column "username" as string
-2026-02-15 18:09:22,897 | INFO | Kept Column "Note" as string
-2026-02-15 18:09:22,897 | INFO | Column "Money" kept as float64
-2026-02-15 18:09:22,897 | INFO | Column "Potion" kept as float64
-2026-02-15 18:09:22,897 | INFO | Column "Event_currency" kept as float64
-2026-02-15 18:09:22,897 | INFO | Column "Total Pets" kept as float64
-2026-02-15 18:09:22,897 | INFO | Column "Event Currency per Minute" kept as float64
-2026-02-15 18:09:22,897 | INFO | Column "Potion per Minute" kept as float64
-2026-02-15 18:09:22,899 | INFO | Converted column "updated_at" to datetime64[us]
-2026-02-15 18:09:22,899 | INFO | === DTYPE FINALIZATION COMPLETED ===
+2026-02-15 23:46:56,616 | INFO | === DTYPE FINALIZATION STARTED ===
+2026-02-15 23:46:56,624 | INFO | Kept Column "username" as string
+2026-02-15 23:46:56,627 | INFO | Kept Column "Note" as string
+2026-02-15 23:46:56,627 | INFO | Column "Money" kept as float64
+2026-02-15 23:46:56,629 | INFO | Column "Potion" kept as float64
+2026-02-15 23:46:56,629 | INFO | Column "Event_currency" kept as float64
+2026-02-15 23:46:56,629 | INFO | Column "Total Pets" kept as float64
+2026-02-15 23:46:56,629 | INFO | Column "Event Currency per Minute" kept as float64
+2026-02-15 23:46:56,629 | INFO | Column "Potion per Minute" kept as float64
+2026-02-15 23:46:56,631 | INFO | Converted column "updated_at" to datetime64[us]
+2026-02-15 23:46:56,631 | INFO | === DTYPE FINALIZATION COMPLETED ===
 --------------------------------
-2026-02-15 18:09:22,899 | INFO | Removed column "Note"
-2026-02-15 18:09:22,899 | INFO | Removed column "username"
+2026-02-15 23:46:56,633 | INFO | === MANUAL REMOVAL OF COLUMNS STARTED ===
+2026-02-15 23:46:56,633 | INFO | Removed column "Note"
+2026-02-15 23:46:56,633 | INFO | Removed column "username"
+2026-02-15 23:46:56,633 | INFO | === MANUAL REMOVAL OF COLUMNS COMPLETED ===
 --------------------------------
-2026-02-15 18:09:22,899 | INFO | === OUTLIER HANDLING STARTED ===
-2026-02-15 18:09:22,901 | INFO | Removed 91 outliers from column "Money"
-2026-02-15 18:09:22,902 | INFO | Removed 12 outliers from column "Potion"
-2026-02-15 18:09:22,904 | INFO | No outliers detected in column "Event_currency"
-2026-02-15 18:09:22,906 | INFO | Removed 3 outliers from column "Total Pets"
-2026-02-15 18:09:22,908 | INFO | No outliers detected in column "Event Currency per Minute"
-2026-02-15 18:09:22,909 | INFO | No outliers detected in column "Potion per Minute"
+2026-02-15 23:46:56,633 | INFO | === OUTLIER HANDLING STARTED ===
+2026-02-15 23:46:56,633 | INFO | Removed 91 outliers from column "Money"
+2026-02-15 23:46:56,633 | INFO | Removed 12 outliers from column "Potion"
+2026-02-15 23:46:56,633 | INFO | No outliers detected in column "Event_currency"
+2026-02-15 23:46:56,638 | INFO | Removed 3 outliers from column "Total Pets"
+2026-02-15 23:46:56,641 | INFO | No outliers detected in column "Event Currency per Minute"
+2026-02-15 23:46:56,643 | INFO | No outliers detected in column "Potion per Minute"
 --------------------------------
-2026-02-15 18:09:22,909 | INFO | Total outliers handled: 106
+2026-02-15 23:46:56,643 | INFO | Total outliers handled: 106
+2026-02-15 23:46:56,643 | INFO | === OUTLIER HANDLING COMPLETED ===
 --------------------------------
-2026-02-15 18:09:22,909 | INFO | === ENCODING STARTED ===
-2026-02-15 18:09:22,911 | INFO | Columns selected for encoding: []
-2026-02-15 18:09:22,911 | INFO | Method : Label Encoding
-2026-02-15 18:09:22,911 | INFO | === ENCODING COMPLETED ===
+2026-02-15 23:46:56,643 | INFO | === ENCODING STARTED ===
+2026-02-15 23:46:56,643 | INFO | Columns selected for encoding: []
+2026-02-15 23:46:56,643 | INFO | Method : Label Encoding
+2026-02-15 23:46:56,643 | INFO | === ENCODING COMPLETED ===
 --------------------------------
-2026-02-15 18:09:22,911 | INFO | === SCALING STARTED
-2026-02-15 18:09:22,911 | INFO | Columns selected for scaling: ['Money', 'Potion', 'Event_currency', 'Total Pets', 'Event Currency per Minute', 'Potion per Minute']
-2026-02-15 18:09:22,914 | INFO | Scaled columns using Standard Scaler
-2026-02-15 18:09:22,914 | INFO | === SCALING COMPLETED ===
+2026-02-15 23:46:56,643 | INFO | === FEATURE SELECTION STARTED ===
+2026-02-15 23:46:56,643 | INFO | Running Variance Filtering
+2026-02-15 23:46:56,643 | INFO | Variance Threshold Removed Columns: ['Event Currency per Minute', 'Event_currency', 'Potion per Minute']
+2026-02-15 23:46:56,643 | INFO | Remaining Columns After Variance Filter: 4
+2026-02-15 23:46:56,643 | INFO | Running Correlation Filtering
+2026-02-15 23:46:56,643 | INFO | Correlation Removed Columns: []
+2026-02-15 23:46:56,643 | INFO | Remaining Columns After Correlation Filter: 4
+2026-02-15 23:46:56,643 | INFO | === FEATURE SELECTION COMPLETED ===
+--------------------------------
+2026-02-15 23:46:56,643 | INFO | === SCALING STARTED
+2026-02-15 23:46:56,643 | INFO | Columns selected for scaling: ['Money', 'Potion', 'Total Pets']
+2026-02-15 23:46:56,643 | INFO | Scaled columns using Standard Scaler
+2026-02-15 23:46:56,643 | INFO | === SCALING COMPLETED ===
+--------------------------------

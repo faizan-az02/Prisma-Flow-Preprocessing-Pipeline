@@ -7,6 +7,8 @@ from divider import divider
 
 def clear_null_values(df, threshold):
 
+    logging.info(f"=== AUTO REMOVAL OF NULL VALUES STARTED ===")
+
     total_dropped_rows = 0
 
     if df is None or len(df) == 0:
@@ -46,6 +48,8 @@ def clear_null_values(df, threshold):
     divider()
 
     logging.info(f"Total dropped rows: {total_dropped_rows}")
+
+    logging.info(f"=== AUTO REMOVAL OF NULL VALUES COMPLETED ===")
 
     divider()
 
