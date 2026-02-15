@@ -11,6 +11,8 @@ from scaling import scale_features
 from feature_selection import feature_selection
 from export_file import export_file
 from temporal_features import extract_temporal_features
+from remove_target import remove_target
+from add_target import add_target
 
 log_file = "logs.txt"
 
@@ -22,32 +24,28 @@ logging.basicConfig(
     force=True,
 )
 
-def prismaflow_pipeline(input_file):
+df = pd.read_csv('accounts.csv')
 
-    df = pd.read_csv(input_file)
+df, y = remove_target(df)
 
-    df = clear_columns(df)
+df = clear_columns(df)
 
-    df = clear_null_values(df, 0.05)
+df = clear_null_values(df, 0.05)
 
-    df = finalize_dtypes(df)
+df = finalize_dtypes(df)
 
-    df = remove_columns(df, ["Note", "username"])
+df = remove_columns(df, ["Note", "username"])
 
-    df = remove_outliers(df, True)
+df = remove_outliers(df, True)
 
-    df = encode_features(df, "label")
+df = encode_features(df, "label")
 
-    df = feature_selection(df)
+df = feature_selection(df)
 
-    df = extract_temporal_features(df)
+df = extract_temporal_features(df)
 
-    df = scale_features(df, "standard")
+df = scale_features(df, "standard")
 
-    export_file(df, "processed_dataset.csv")
+df = add_target(df, y, "target")
 
-if __name__ == "__main__":
-
-    input_file = "accounts.csv"
-
-    prismaflow_pipeline(input_file)
+export_file(df, "processed_dataset.csv")
