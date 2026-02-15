@@ -19,5 +19,3 @@ df = pd.read_csv('accounts.csv')
 df = clear_columns(df)
 
 df = clear_null_values(df, 0.05)
-
-print(df.head())

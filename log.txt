@@ -1,3 +1,18 @@
-2026-02-15 16:24:29,564 | INFO | Column Candy is empty
-2026-02-15 16:24:29,564 | INFO | Column Ginger Breads is empty
-2026-02-15 16:24:29,564 | INFO | Column cookie_data is empty
+2026-02-15 16:42:32,950 | INFO | Column "Candy" is empty
+2026-02-15 16:42:32,950 | INFO | Column "Ginger Breads" is empty
+2026-02-15 16:42:32,950 | INFO | Column "cookie_data" is empty
+--------------------------------
+2026-02-15 16:42:32,955 | INFO | Total dropped columns: 3
+--------------------------------
+2026-02-15 16:42:32,955 | INFO | Dropped 23 rows with nulls from the column "username"
+2026-02-15 16:42:32,955 | INFO | Dropped 19 rows with nulls from the column "Note"
+2026-02-15 16:42:32,959 | INFO | Filled with the mean - 25764.4 of the column "Money"
+2026-02-15 16:42:32,959 | INFO | Filled with the mean - 31.56 of the column "Potion"
+2026-02-15 16:42:32,959 | INFO | Dropped 4 rows with nulls from the column "Event_currency"
+2026-02-15 16:42:32,963 | INFO | Dropped 26 rows with nulls from the column "Total Pets"
+2026-02-15 16:42:32,963 | INFO | Dropped 15 rows with nulls from the column "Event Currency per Minute"
+2026-02-15 16:42:32,963 | INFO | Dropped 10 rows with nulls from the column "Potion per Minute"
+2026-02-15 16:42:32,963 | INFO | Filled with the mode - 2026-02-14T20:59:10.931Z of the column "updated_at"
+--------------------------------
+2026-02-15 16:42:32,963 | INFO | Total dropped rows: 97
+--------------------------------
