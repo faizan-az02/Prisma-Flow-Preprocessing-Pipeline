@@ -24,7 +24,13 @@ logging.basicConfig(
     force=True,
 )
 
-def prismaflow_pipeline(df, target_col=None, manual_columns=None):
+def prismaflow_pipeline(df, target_col=None, manual_columns=None, outlier_skipping=None):
+
+    if df is None:
+
+        logging.error("DataFrame is None")
+
+        return False
 
     row_number_col = "row_number"
 
@@ -34,15 +40,20 @@ def prismaflow_pipeline(df, target_col=None, manual_columns=None):
 
     df, y = remove_target(df, target_col, id_col=row_number_col)
 
+    df = remove_columns(df, manual_columns)
+
     df = clear_columns(df)
 
     df = clear_null_values(df, 0.05)
 
     df = finalize_dtypes(df)
 
-    df = remove_columns(df, manual_columns)
+    if outlier_skipping is not None:
 
-    df = remove_outliers(df, True, exclude_cols=[row_number_col])
+        df = remove_outliers(df, True, exclude_cols=[row_number_col, *outlier_skipping])
+
+    else:
+        df = remove_outliers(df, True, exclude_cols=[row_number_col])
 
     df = encode_features(df, "label")
 
@@ -54,16 +65,17 @@ def prismaflow_pipeline(df, target_col=None, manual_columns=None):
 
     df = add_target(df, y, target_col, key_col=row_number_col)
 
-    # Don't export the internal row tracking column
     df.drop(columns=[row_number_col], inplace=True, errors="ignore")
 
     export_file(df, "processed_dataset.csv")
 
+    return True
 
 if __name__ == "__main__":
     
-    csv_file = "housing.csv"
-    target_col = "median_house_value"
+    csv_file = input("Enter the csv file name: ").strip()
+
+    csv_file = csv_file + ".csv"
 
     df = pd.read_csv(csv_file)
 
@@ -81,6 +93,15 @@ if __name__ == "__main__":
     manual_raw = input("Enter the manual columns to remove, separated by commas, leave blank if none: ").strip()
     manual_columns = None if manual_raw == "" else [c.strip() for c in manual_raw.split(",") if c.strip()]
 
-    prismaflow_pipeline(df, target_col, manual_columns)
+    outlier_skipping = input("Enter the outlier skipping columns, separated by commas, leave blank if none: ").strip()
+    outlier_skipping = None if outlier_skipping == "" else [c.strip() for c in outlier_skipping.split(",") if c.strip()]
 
-    print("Pipeline completed successfully")
+    result = prismaflow_pipeline(df, target_col, manual_columns, outlier_skipping)
+
+    if result is False:
+        print("Pipeline failed")
+        exit()
+
+    else:
+
+        print("Pipeline completed successfully")
