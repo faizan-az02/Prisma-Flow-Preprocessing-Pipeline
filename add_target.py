@@ -27,8 +27,6 @@ def add_target(df_features, target_series, target_col_name="target", key_col=Non
             how="left",
             validate="one_to_one",
         )
-        # Remove the key column (e.g., row_number) after attaching target
-        df_combined.drop(columns=[key_col], inplace=True)
     # Fallback: align by index (works as long as index is stable).
     elif isinstance(target_series, pd.Series):
         df_combined[target_col_name] = target_series.reindex(df_combined.index)
@@ -39,6 +37,10 @@ def add_target(df_features, target_series, target_col_name="target", key_col=Non
                 "Pass a pandas Series with the original index or a DataFrame with a join key."
             )
         df_combined[target_col_name] = target_series
+
+    # If we used a key column for alignment, drop it from the final output.
+    if key_col is not None and key_col in df_combined.columns:
+        df_combined.drop(columns=[key_col], inplace=True)
 
     logging.info(f"=== ADDING TARGET COLUMN COMPLETED ===")
 

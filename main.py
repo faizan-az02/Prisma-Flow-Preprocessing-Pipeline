@@ -24,36 +24,63 @@ logging.basicConfig(
     force=True,
 )
 
-csv_file = "housing.csv"
+def prismaflow_pipeline(df, target_col=None, manual_columns=None):
 
-target_col = "median_house_value"
-row_number_col = "row_number"
+    row_number_col = "row_number"
 
-df = pd.read_csv(csv_file)
+    df[row_number_col] = range(1, len(df) + 1)
 
-# Manual row numbers: 1..N (stable ID for re-attaching target after row drops)
-df[row_number_col] = range(1, len(df) + 1)
+    y = None
 
-df, y = remove_target(df, target_col, id_col=row_number_col)
+    df, y = remove_target(df, target_col, id_col=row_number_col)
 
-df = clear_columns(df)
+    df = clear_columns(df)
 
-df = clear_null_values(df, 0.05)
+    df = clear_null_values(df, 0.05)
 
-df = finalize_dtypes(df)
+    df = finalize_dtypes(df)
 
-df = remove_columns(df, None)
+    df = remove_columns(df, manual_columns)
 
-df = remove_outliers(df, True, exclude_cols=[row_number_col])
+    df = remove_outliers(df, True, exclude_cols=[row_number_col])
 
-df = encode_features(df, "label")
+    df = encode_features(df, "label")
 
-df = feature_selection(df, exclude_cols=[row_number_col])
+    df = feature_selection(df, exclude_cols=[row_number_col])
 
-df = extract_temporal_features(df)
+    df = extract_temporal_features(df)
 
-df = scale_features(df, "standard", exclude_cols=[row_number_col])
+    df = scale_features(df, "standard", exclude_cols=[row_number_col])
 
-df = add_target(df, y, target_col, key_col=row_number_col)
+    df = add_target(df, y, target_col, key_col=row_number_col)
 
-export_file(df, "processed_dataset.csv")
+    # Don't export the internal row tracking column
+    df.drop(columns=[row_number_col], inplace=True, errors="ignore")
+
+    export_file(df, "processed_dataset.csv")
+
+
+if __name__ == "__main__":
+    
+    csv_file = "housing.csv"
+    target_col = "median_house_value"
+
+    df = pd.read_csv(csv_file)
+
+    print(df.head())
+
+    target_col = input("Enter the target column: ").strip()
+
+    if target_col == "" or target_col not in df.columns:
+
+        target_col = None
+
+    else:
+        target_col = target_col
+
+    manual_raw = input("Enter the manual columns to remove, separated by commas, leave blank if none: ").strip()
+    manual_columns = None if manual_raw == "" else [c.strip() for c in manual_raw.split(",") if c.strip()]
+
+    prismaflow_pipeline(df, target_col, manual_columns)
+
+    print("Pipeline completed successfully")

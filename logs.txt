@@ -1,81 +1,81 @@
-2026-02-16 00:59:13,837 | INFO | === REMOVING TARGET COLUMN STARTED ===
-2026-02-16 00:59:13,839 | INFO | === REMOVING TARGET COLUMN COMPLETED ===
+2026-02-16 01:18:06,621 | INFO | === REMOVING TARGET COLUMN STARTED ===
+2026-02-16 01:18:06,623 | INFO | === REMOVING TARGET COLUMN COMPLETED ===
 --------------------------------
-2026-02-16 00:59:13,839 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS STARTED ===
+2026-02-16 01:18:06,623 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS STARTED ===
 --------------------------------
-2026-02-16 00:59:13,842 | INFO | Total dropped columns: 0
-2026-02-16 00:59:13,842 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS COMPLETED ===
+2026-02-16 01:18:06,631 | INFO | Total dropped columns: 0
+2026-02-16 01:18:06,631 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS COMPLETED ===
 --------------------------------
-2026-02-16 00:59:13,842 | INFO | === AUTO REMOVAL OF NULL VALUES STARTED ===
-2026-02-16 00:59:13,844 | INFO | Dropped 0 rows with nulls from the column "longitude"
-2026-02-16 00:59:13,848 | INFO | Dropped 0 rows with nulls from the column "latitude"
-2026-02-16 00:59:13,850 | INFO | Dropped 0 rows with nulls from the column "housing_median_age"
-2026-02-16 00:59:13,851 | INFO | Dropped 0 rows with nulls from the column "total_rooms"
-2026-02-16 00:59:13,855 | INFO | Dropped 207 rows with nulls from the column "total_bedrooms"
-2026-02-16 00:59:13,856 | INFO | Dropped 0 rows with nulls from the column "population"
-2026-02-16 00:59:13,858 | INFO | Dropped 0 rows with nulls from the column "households"
-2026-02-16 00:59:13,859 | INFO | Dropped 0 rows with nulls from the column "median_income"
-2026-02-16 00:59:13,867 | INFO | Dropped 0 rows with nulls from the column "ocean_proximity"
-2026-02-16 00:59:13,869 | INFO | Dropped 0 rows with nulls from the column "row_number"
+2026-02-16 01:18:06,631 | INFO | === AUTO REMOVAL OF NULL VALUES STARTED ===
+2026-02-16 01:18:06,632 | INFO | Dropped 0 rows with nulls from the column "longitude"
+2026-02-16 01:18:06,633 | INFO | Dropped 0 rows with nulls from the column "latitude"
+2026-02-16 01:18:06,634 | INFO | Dropped 0 rows with nulls from the column "housing_median_age"
+2026-02-16 01:18:06,635 | INFO | Dropped 0 rows with nulls from the column "total_rooms"
+2026-02-16 01:18:06,637 | INFO | Dropped 207 rows with nulls from the column "total_bedrooms"
+2026-02-16 01:18:06,638 | INFO | Dropped 0 rows with nulls from the column "population"
+2026-02-16 01:18:06,638 | INFO | Dropped 0 rows with nulls from the column "households"
+2026-02-16 01:18:06,640 | INFO | Dropped 0 rows with nulls from the column "median_income"
+2026-02-16 01:18:06,642 | INFO | Dropped 0 rows with nulls from the column "ocean_proximity"
+2026-02-16 01:18:06,644 | INFO | Dropped 0 rows with nulls from the column "row_number"
 --------------------------------
-2026-02-16 00:59:13,869 | INFO | Total dropped rows: 207
-2026-02-16 00:59:13,869 | INFO | === AUTO REMOVAL OF NULL VALUES COMPLETED ===
+2026-02-16 01:18:06,644 | INFO | Total dropped rows: 207
+2026-02-16 01:18:06,644 | INFO | === AUTO REMOVAL OF NULL VALUES COMPLETED ===
 --------------------------------
-2026-02-16 00:59:13,869 | INFO | === DTYPE FINALIZATION STARTED ===
-2026-02-16 00:59:13,870 | INFO | Column "longitude" kept as float64
-2026-02-16 00:59:13,870 | INFO | Column "latitude" kept as float64
-2026-02-16 00:59:13,870 | INFO | Column "housing_median_age" kept as float64
-2026-02-16 00:59:13,870 | INFO | Column "total_rooms" kept as float64
-2026-02-16 00:59:13,871 | INFO | Column "total_bedrooms" kept as float64
-2026-02-16 00:59:13,871 | INFO | Column "population" kept as float64
-2026-02-16 00:59:13,871 | INFO | Column "households" kept as float64
-2026-02-16 00:59:13,871 | INFO | Column "median_income" kept as float64
-2026-02-16 00:59:13,877 | INFO | Kept Column "ocean_proximity" as string
-2026-02-16 00:59:13,878 | INFO | Column "row_number" kept as int64
-2026-02-16 00:59:13,878 | INFO | === DTYPE FINALIZATION COMPLETED ===
+2026-02-16 01:18:06,644 | INFO | === DTYPE FINALIZATION STARTED ===
+2026-02-16 01:18:06,644 | INFO | Column "longitude" kept as float64
+2026-02-16 01:18:06,645 | INFO | Column "latitude" kept as float64
+2026-02-16 01:18:06,645 | INFO | Column "housing_median_age" kept as float64
+2026-02-16 01:18:06,645 | INFO | Column "total_rooms" kept as float64
+2026-02-16 01:18:06,645 | INFO | Column "total_bedrooms" kept as float64
+2026-02-16 01:18:06,646 | INFO | Column "population" kept as float64
+2026-02-16 01:18:06,646 | INFO | Column "households" kept as float64
+2026-02-16 01:18:06,646 | INFO | Column "median_income" kept as float64
+2026-02-16 01:18:06,654 | INFO | Kept Column "ocean_proximity" as string
+2026-02-16 01:18:06,655 | INFO | Column "row_number" kept as int64
+2026-02-16 01:18:06,655 | INFO | === DTYPE FINALIZATION COMPLETED ===
 --------------------------------
-2026-02-16 00:59:13,878 | INFO | === OUTLIER HANDLING STARTED ===
-2026-02-16 00:59:13,884 | INFO | No outliers detected in column "longitude"
-2026-02-16 00:59:13,886 | INFO | No outliers detected in column "latitude"
-2026-02-16 00:59:13,888 | INFO | No outliers detected in column "housing_median_age"
-2026-02-16 00:59:13,892 | INFO | Removed 1290 outliers from column "total_rooms"
-2026-02-16 00:59:13,904 | INFO | Removed 547 outliers from column "total_bedrooms"
-2026-02-16 00:59:13,921 | INFO | Removed 479 outliers from column "population"
-2026-02-16 00:59:13,933 | INFO | Removed 176 outliers from column "households"
-2026-02-16 00:59:13,938 | INFO | Removed 584 outliers from column "median_income"
+2026-02-16 01:18:06,655 | INFO | === OUTLIER HANDLING STARTED ===
+2026-02-16 01:18:06,657 | INFO | No outliers detected in column "longitude"
+2026-02-16 01:18:06,659 | INFO | No outliers detected in column "latitude"
+2026-02-16 01:18:06,662 | INFO | No outliers detected in column "housing_median_age"
+2026-02-16 01:18:06,665 | INFO | Removed 1290 outliers from column "total_rooms"
+2026-02-16 01:18:06,668 | INFO | Removed 547 outliers from column "total_bedrooms"
+2026-02-16 01:18:06,670 | INFO | Removed 479 outliers from column "population"
+2026-02-16 01:18:06,672 | INFO | Removed 176 outliers from column "households"
+2026-02-16 01:18:06,674 | INFO | Removed 584 outliers from column "median_income"
 --------------------------------
-2026-02-16 00:59:13,938 | INFO | Total outliers handled: 3076
-2026-02-16 00:59:13,938 | INFO | === OUTLIER HANDLING COMPLETED ===
+2026-02-16 01:18:06,675 | INFO | Total outliers handled: 3076
+2026-02-16 01:18:06,675 | INFO | === OUTLIER HANDLING COMPLETED ===
 --------------------------------
-2026-02-16 00:59:13,939 | INFO | === ENCODING STARTED ===
-2026-02-16 00:59:13,940 | INFO | Columns selected for encoding: ['ocean_proximity']
-2026-02-16 00:59:13,940 | INFO | Method : Label Encoding
-2026-02-16 00:59:13,948 | INFO | Label encoded column "ocean_proximity"
-2026-02-16 00:59:13,948 | INFO | === ENCODING COMPLETED ===
+2026-02-16 01:18:06,675 | INFO | === ENCODING STARTED ===
+2026-02-16 01:18:06,675 | INFO | Columns selected for encoding: ['ocean_proximity']
+2026-02-16 01:18:06,675 | INFO | Method : Label Encoding
+2026-02-16 01:18:06,679 | INFO | Label encoded column "ocean_proximity"
+2026-02-16 01:18:06,679 | INFO | === ENCODING COMPLETED ===
 --------------------------------
-2026-02-16 00:59:13,949 | INFO | === FEATURE SELECTION STARTED ===
-2026-02-16 00:59:13,949 | INFO | Running Variance Filtering
-2026-02-16 00:59:13,958 | INFO | Variance Threshold Removed Columns: []
-2026-02-16 00:59:13,959 | INFO | Remaining Columns After Variance Filter: 10
-2026-02-16 00:59:13,959 | INFO | Running Correlation Filtering
-2026-02-16 00:59:13,970 | INFO | Correlation Removed Columns: ['latitude', 'households']
-2026-02-16 00:59:13,970 | INFO | Remaining Columns After Correlation Filter: 8
-2026-02-16 00:59:13,970 | INFO | === FEATURE SELECTION COMPLETED ===
+2026-02-16 01:18:06,679 | INFO | === FEATURE SELECTION STARTED ===
+2026-02-16 01:18:06,679 | INFO | Running Variance Filtering
+2026-02-16 01:18:06,682 | INFO | Variance Threshold Removed Columns: []
+2026-02-16 01:18:06,682 | INFO | Remaining Columns After Variance Filter: 10
+2026-02-16 01:18:06,682 | INFO | Running Correlation Filtering
+2026-02-16 01:18:06,688 | INFO | Correlation Removed Columns: ['latitude', 'households']
+2026-02-16 01:18:06,688 | INFO | Remaining Columns After Correlation Filter: 8
+2026-02-16 01:18:06,688 | INFO | === FEATURE SELECTION COMPLETED ===
 --------------------------------
-2026-02-16 00:59:13,970 | INFO | === TEMPORAL FEATURE EXTRACTION STARTED ===
-2026-02-16 00:59:13,971 | INFO | No Date-Time columns detected.
-2026-02-16 00:59:13,971 | INFO | No Time-Only columns detected.
-2026-02-16 00:59:13,971 | INFO | === TEMPORAL FEATURE EXTRACTION COMPLETED ===
+2026-02-16 01:18:06,688 | INFO | === TEMPORAL FEATURE EXTRACTION STARTED ===
+2026-02-16 01:18:06,688 | INFO | No Date-Time columns detected.
+2026-02-16 01:18:06,689 | INFO | No Time-Only columns detected.
+2026-02-16 01:18:06,689 | INFO | === TEMPORAL FEATURE EXTRACTION COMPLETED ===
 --------------------------------
-2026-02-16 00:59:13,971 | INFO | === SCALING STARTED
-2026-02-16 00:59:13,971 | INFO | Columns selected for scaling: ['longitude', 'housing_median_age', 'total_rooms', 'total_bedrooms', 'population', 'median_income', 'ocean_proximity']
-2026-02-16 00:59:13,982 | INFO | Scaled columns using Standard Scaler
-2026-02-16 00:59:13,982 | INFO | === SCALING COMPLETED ===
+2026-02-16 01:18:06,689 | INFO | === SCALING STARTED
+2026-02-16 01:18:06,689 | INFO | Columns selected for scaling: ['longitude', 'housing_median_age', 'total_rooms', 'total_bedrooms', 'population', 'median_income', 'ocean_proximity']
+2026-02-16 01:18:06,695 | INFO | Scaled columns using Standard Scaler
+2026-02-16 01:18:06,695 | INFO | === SCALING COMPLETED ===
 --------------------------------
-2026-02-16 00:59:13,982 | INFO | === ADDING TARGET COLUMN STARTED ===
-2026-02-16 00:59:13,991 | INFO | === ADDING TARGET COLUMN COMPLETED ===
+2026-02-16 01:18:06,695 | INFO | === ADDING TARGET COLUMN STARTED ===
+2026-02-16 01:18:06,702 | INFO | === ADDING TARGET COLUMN COMPLETED ===
 --------------------------------
-2026-02-16 00:59:13,991 | INFO | === EXPORT FILE STARTED ===
-2026-02-16 00:59:14,202 | INFO | Processed dataset exported to processed_dataset.csv
-2026-02-16 00:59:14,202 | INFO | === EXPORT FILE COMPLETED ===
+2026-02-16 01:18:06,702 | INFO | === EXPORT FILE STARTED ===
+2026-02-16 01:18:06,907 | INFO | Processed dataset exported to processed_dataset.csv
+2026-02-16 01:18:06,907 | INFO | === EXPORT FILE COMPLETED ===
 --------------------------------
