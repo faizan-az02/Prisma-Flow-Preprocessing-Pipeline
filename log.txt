@@ -1,0 +1,3 @@
+2026-02-15 16:24:29,564 | INFO | Column Candy is empty
+2026-02-15 16:24:29,564 | INFO | Column Ginger Breads is empty
+2026-02-15 16:24:29,564 | INFO | Column cookie_data is empty
