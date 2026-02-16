@@ -2,7 +2,7 @@ import pandas as pd
 import logging
 from divider import divider
 
-def extract_temporal_features(df, drop_original=True):
+def extract_temporal_features(df, drop_original=True, exclude_cols=None):
     """
     Extract temporal features from datetime64 columns and time-only columns.
     
@@ -22,9 +22,10 @@ def extract_temporal_features(df, drop_original=True):
     """
     
     logging.info("=== TEMPORAL FEATURE EXTRACTION STARTED ===")
+    exclude = set(exclude_cols or [])
     
     # ---------------- DATETIME64 COLUMNS ----------------
-    datetime_cols = df.select_dtypes(include=["datetime64[ns]"]).columns.tolist()
+    datetime_cols = [c for c in df.select_dtypes(include=["datetime64[ns]"]).columns.tolist() if c not in exclude]
     
     if datetime_cols:
         logging.info(f"Detected Date-Time columns: {datetime_cols}")
@@ -48,6 +49,8 @@ def extract_temporal_features(df, drop_original=True):
     # ---------------- TIME-ONLY COLUMNS ----------------
     time_cols = []
     for col in df.select_dtypes(include=["object"]).columns:
+        if col in exclude:
+            continue
         try:
             pd.to_datetime(df[col], format="%H:%M:%S", errors="raise")
             time_cols.append(col)

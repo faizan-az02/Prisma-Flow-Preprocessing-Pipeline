@@ -24,7 +24,7 @@ logging.basicConfig(
     force=True,
 )
 
-def prismaflow_pipeline(df, target_col=None, manual_columns=None, outlier_skipping=None):
+def prismaflow_pipeline(df, target_col=None, manual_columns=None, outlier_skipping=None, columns_to_keep=None):
 
     if df is None:
 
@@ -33,6 +33,7 @@ def prismaflow_pipeline(df, target_col=None, manual_columns=None, outlier_skippi
         return False
 
     row_number_col = "row_number"
+    keep = list(columns_to_keep or [])
 
     df[row_number_col] = range(1, len(df) + 1)
 
@@ -40,28 +41,28 @@ def prismaflow_pipeline(df, target_col=None, manual_columns=None, outlier_skippi
 
     df, y = remove_target(df, target_col, id_col=row_number_col)
 
-    df = remove_columns(df, manual_columns)
+    df = remove_columns(df, manual_columns, exclude_cols=keep)
 
-    df = clear_columns(df)
+    df = clear_columns(df, exclude_cols=keep)
 
-    df = clear_null_values(df, 0.05)
+    df = clear_null_values(df, 0.05, exclude_cols=keep)
 
-    df = finalize_dtypes(df)
+    df = finalize_dtypes(df, exclude_cols=keep)
 
     if outlier_skipping is not None:
 
-        df = remove_outliers(df, True, exclude_cols=[row_number_col, *outlier_skipping])
+        df = remove_outliers(df, True, exclude_cols=[row_number_col, *keep, *outlier_skipping])
 
     else:
-        df = remove_outliers(df, True, exclude_cols=[row_number_col])
+        df = remove_outliers(df, True, exclude_cols=[row_number_col, *keep])
 
-    df = encode_features(df, "label")
+    df = encode_features(df, "label", exclude_cols=keep)
 
-    df = feature_selection(df, exclude_cols=[row_number_col])
+    df = feature_selection(df, exclude_cols=[row_number_col, *keep])
 
-    df = extract_temporal_features(df)
+    df = extract_temporal_features(df, exclude_cols=keep)
 
-    df = scale_features(df, "standard", exclude_cols=[row_number_col])
+    df = scale_features(df, "standard", exclude_cols=[row_number_col, *keep])
 
     df = add_target(df, y, target_col, key_col=row_number_col)
 
@@ -96,7 +97,10 @@ if __name__ == "__main__":
     outlier_skipping = input("Enter the outlier skipping columns, separated by commas, leave blank if none: ").strip()
     outlier_skipping = None if outlier_skipping == "" else [c.strip() for c in outlier_skipping.split(",") if c.strip()]
 
-    result = prismaflow_pipeline(df, target_col, manual_columns, outlier_skipping)
+    columns_to_keep = input("Enter the columns to keep, separated by commas, leave blank if none: ").strip()
+    columns_to_keep = None if columns_to_keep == "" else [c.strip() for c in columns_to_keep.split(",") if c.strip()]
+
+    result = prismaflow_pipeline(df, target_col, manual_columns, outlier_skipping, columns_to_keep)
 
     if result is False:
         print("Pipeline failed")

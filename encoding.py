@@ -2,14 +2,16 @@ import pandas as pd
 import logging
 from divider import divider
 
-def encode_features(df, method="onehot", target_col=None, columns=None):
+def encode_features(df, method="onehot", target_col=None, columns=None, exclude_cols=None):
 
     logging.info(f"=== ENCODING STARTED ===")
+    exclude = set(exclude_cols or [])
 
     # Auto detect categorical columns if not provided
     if columns is None:
 
         columns = df.select_dtypes(include=["object", "category", "string"]).columns.tolist()
+    columns = [c for c in columns if c not in exclude]
 
     logging.info(f"Columns selected for encoding: {columns}")
 

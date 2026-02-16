@@ -4,13 +4,16 @@ from divider import divider
 
 # Automatic Removal of Columns
 
-def clear_columns(df):
+def clear_columns(df, exclude_cols=None):
 
     logging.info(f"=== AUTO REMOVAL OF EMPTY COLUMNS STARTED ===")
 
     dropped_columns = 0
+    exclude = set(exclude_cols or [])
 
-    for column in df.columns:
+    for column in list(df.columns):
+        if column in exclude:
+            continue
 
         if df[column].isna().all():
 

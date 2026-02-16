@@ -3,11 +3,14 @@ import logging
 from divider import divider
 from pandas.api.types import is_object_dtype, is_string_dtype
 
-def finalize_dtypes(df):
+def finalize_dtypes(df, exclude_cols=None):
 
     logging.info("=== DTYPE FINALIZATION STARTED ===")
+    exclude = set(exclude_cols or [])
 
     for col in df.columns:
+        if col in exclude:
+            continue
         original_dtype = df[col].dtype
 
         # Try numeric conversion

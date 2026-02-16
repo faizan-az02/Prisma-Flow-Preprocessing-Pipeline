@@ -5,11 +5,12 @@ from divider import divider
 
 # Automatic Removal of Null Values
 
-def clear_null_values(df, threshold):
+def clear_null_values(df, threshold, exclude_cols=None):
 
     logging.info(f"=== AUTO REMOVAL OF NULL VALUES STARTED ===")
 
     total_dropped_rows = 0
+    exclude = set(exclude_cols or [])
 
     if df is None or len(df) == 0:
 
@@ -18,6 +19,8 @@ def clear_null_values(df, threshold):
         return df
 
     for column in df.columns:
+        if column in exclude:
+            continue
 
         if (df[column].isnull().sum()) / len(df) > threshold:
 
