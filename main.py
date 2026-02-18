@@ -87,57 +87,15 @@ def prismaflow_pipeline(
     time_elapsed = end_time - start_time
 
     logging.info("Pipeline completed successfully")
+
     divider()
+
     logging.info(f"Time elapsed: {round(time_elapsed, 2)} seconds")
+    
     divider()
 
     if output_file:
         export_file(df, output_file)
 
     return df if return_df else True
-
-if __name__ == "__main__":
-    
-    csv_file = input("Enter the csv file name: ").strip()
-
-    csv_file = csv_file + ".csv"
-
-    df = pd.read_csv(csv_file)
-
-    print(df.head())
-
-    target_col = input("Enter the target column: ").strip()
-
-    if target_col == "" or target_col not in df.columns:
-
-        target_col = None
-
-    else:
-        target_col = target_col
-
-    manual_raw = input("Enter the manual columns to remove, separated by commas, leave blank if none: ").strip()
-    manual_columns = None if manual_raw == "" else [c.strip() for c in manual_raw.split(",") if c.strip()]
-
-    outlier_skipping = input("Enter the outlier skipping columns, separated by commas, leave blank if none: ").strip()
-    outlier_skipping = None if outlier_skipping == "" else [c.strip() for c in outlier_skipping.split(",") if c.strip()]
-
-    columns_to_keep = input("Enter the columns to keep, separated by commas, leave blank if none: ").strip()
-    columns_to_keep = None if columns_to_keep == "" else [c.strip() for c in columns_to_keep.split(",") if c.strip()]
-
-    logging.info(f"Starting Prismaflow Pipeline")
-    start_time = time.time()
-    divider()
-
-    result = prismaflow_pipeline(df, target_col, manual_columns, outlier_skipping, columns_to_keep)
-
-    if result is False:
-        print("Pipeline failed")
-        exit()
-
-    else:
-        logging.info(f"Pipeline completed successfully")
-        divider()
-        logging.info(f"Time elapsed: {time.time() - start_time} seconds")
-        divider()
-        print("Pipeline completed successfully")
     
