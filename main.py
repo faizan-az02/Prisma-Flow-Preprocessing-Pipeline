@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import logging
+import time
 from null_values import clear_null_values
 from clear_columns import clear_columns
 from finalize_types import finalize_dtypes
@@ -13,6 +14,7 @@ from export_file import export_file
 from temporal_features import extract_temporal_features
 from remove_target import remove_target
 from add_target import add_target
+from divider import divider
 
 log_file = "logs.txt"
 
@@ -24,13 +26,25 @@ logging.basicConfig(
     force=True,
 )
 
-def prismaflow_pipeline(df, target_col=None, manual_columns=None, outlier_skipping=None, columns_to_keep=None):
+def prismaflow_pipeline(
+    df,
+    target_col=None,
+    manual_columns=None,
+    outlier_skipping=None,
+    columns_to_keep=None,
+    output_file="processed_dataset.csv",
+    return_df=False,
+):
 
     if df is None:
 
         logging.error("DataFrame is None")
 
-        return False
+        return None if return_df else False
+
+    logging.info(f"Starting Prismaflow Pipeline")
+    start_time = time.time()
+    divider()
 
     row_number_col = "row_number"
     keep = list(columns_to_keep or [])
@@ -68,9 +82,19 @@ def prismaflow_pipeline(df, target_col=None, manual_columns=None, outlier_skippi
 
     df.drop(columns=[row_number_col], inplace=True, errors="ignore")
 
-    export_file(df, "processed_dataset.csv")
+    end_time = time.time()
 
-    return True
+    time_elapsed = end_time - start_time
+
+    logging.info("Pipeline completed successfully")
+    divider()
+    logging.info(f"Time elapsed: {round(time_elapsed, 2)} seconds")
+    divider()
+
+    if output_file:
+        export_file(df, output_file)
+
+    return df if return_df else True
 
 if __name__ == "__main__":
     
@@ -100,6 +124,10 @@ if __name__ == "__main__":
     columns_to_keep = input("Enter the columns to keep, separated by commas, leave blank if none: ").strip()
     columns_to_keep = None if columns_to_keep == "" else [c.strip() for c in columns_to_keep.split(",") if c.strip()]
 
+    logging.info(f"Starting Prismaflow Pipeline")
+    start_time = time.time()
+    divider()
+
     result = prismaflow_pipeline(df, target_col, manual_columns, outlier_skipping, columns_to_keep)
 
     if result is False:
@@ -107,5 +135,9 @@ if __name__ == "__main__":
         exit()
 
     else:
-
+        logging.info(f"Pipeline completed successfully")
+        divider()
+        logging.info(f"Time elapsed: {time.time() - start_time} seconds")
+        divider()
         print("Pipeline completed successfully")
+    

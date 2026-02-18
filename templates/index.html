@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PrismaFlow — Preprocessing Pipeline</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <div>
+          <div class="brand">PrismaFlow</div>
+          <div class="subtitle">Upload a CSV, preview your data, then preprocess.</div>
+        </div>
+      </header>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="toasts">
+            {% for category, message in messages %}
+              <div class="toast {{ category }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <main class="grid">
+        <section class="card">
+          <h2>1) Upload CSV</h2>
+          <form class="upload" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+            <input class="file" type="file" name="file" accept=".csv,text/csv" required />
+            <button class="btn primary" type="submit">Upload & Preview</button>
+          </form>
+
+          <div class="meta">
+            {% if uploaded_filename %}
+              <div><span class="label">Uploaded:</span> {{ uploaded_filename }}</div>
+            {% else %}
+              <div><span class="label">Uploaded:</span> none</div>
+            {% endif %}
+          </div>
+
+          <div class="actions">
+            <form action="{{ url_for('run_default') }}" method="post">
+              <button class="btn" type="submit" {% if not preview_html %}disabled{% endif %}>
+                Run default preprocessing
+              </button>
+            </form>
+          </div>
+
+          <details class="details" {% if preview_html %}open{% endif %}>
+            <summary>Customize preprocessing</summary>
+            <form class="custom" action="{{ url_for('run_custom') }}" method="post">
+              <div class="form-row">
+                <label for="target_col">Target column (optional)</label>
+                <select id="target_col" name="target_col" {% if not preview_html %}disabled{% endif %}>
+                  <option value="">(none)</option>
+                  {% for col in columns %}
+                    <option value="{{ col }}">{{ col }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="form-row">
+                <label for="manual_columns">Manual columns to remove</label>
+                <select id="manual_columns" name="manual_columns" multiple size="8" {% if not preview_html %}disabled{% endif %}>
+                  {% for col in columns %}
+                    <option value="{{ col }}">{{ col }}</option>
+                  {% endfor %}
+                </select>
+                <div class="hint">Tip: Ctrl/Shift-click to select multiple.</div>
+              </div>
+
+              <div class="form-row">
+                <label for="outlier_skipping">Skip outlier removal for columns</label>
+                <select id="outlier_skipping" name="outlier_skipping" multiple size="8" {% if not preview_html %}disabled{% endif %}>
+                  {% for col in columns %}
+                    <option value="{{ col }}">{{ col }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="form-row">
+                <label for="columns_to_keep">Columns to keep (protected from drops)</label>
+                <select id="columns_to_keep" name="columns_to_keep" multiple size="8" {% if not preview_html %}disabled{% endif %}>
+                  {% for col in columns %}
+                    <option value="{{ col }}">{{ col }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <button class="btn primary" type="submit" {% if not preview_html %}disabled{% endif %}>
+                Run customized preprocessing
+              </button>
+            </form>
+          </details>
+
+          {% if has_processed %}
+            <div class="download">
+              <a class="btn primary" href="{{ url_for('download') }}">Download processed CSV</a>
+            </div>
+          {% endif %}
+
+          {% if has_logs %}
+            <div class="download">
+              <a class="btn" href="{{ url_for('download_logs') }}">Download logs</a>
+            </div>
+          {% endif %}
+        </section>
+
+        <section class="card">
+          <h2>2) Preview</h2>
+
+          <div class="preview-block">
+            <div class="preview-title">Raw data (df.head)</div>
+            {% if preview_html %}
+              <div class="table-wrap">{{ preview_html | safe }}</div>
+            {% else %}
+              <div class="empty">Upload a CSV to see a preview here.</div>
+            {% endif %}
+          </div>
+
+          <div class="preview-block">
+            <div class="preview-title">Processed data (head)</div>
+            {% if processed_preview_html %}
+              <div class="table-wrap">{{ processed_preview_html | safe }}</div>
+            {% else %}
+              <div class="empty">Run preprocessing to see a processed preview here.</div>
+            {% endif %}
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div>Pipeline logs are written to <code>logs.txt</code> on each run.</div>
+      </footer>
+    </div>
+  </body>
+</html>
+

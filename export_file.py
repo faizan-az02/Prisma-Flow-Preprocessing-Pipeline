@@ -6,8 +6,8 @@ def export_file(df, filename):
 
     logging.info(f"=== EXPORT FILE STARTED ===")
     
-    df.to_csv("processed_dataset.csv", index=False)
-    logging.info("Processed dataset exported to processed_dataset.csv")
+    df.to_csv(filename, index=False)
+    logging.info(f"Processed dataset exported to {filename}")
 
     logging.info(f"=== EXPORT FILE COMPLETED ===")
 
