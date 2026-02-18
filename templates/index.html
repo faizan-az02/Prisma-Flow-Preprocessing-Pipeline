@@ -15,127 +15,390 @@
         </div>
       </header>
 
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          <div class="toasts">
-            {% for category, message in messages %}
-              <div class="toast {{ category }}">{{ message }}</div>
-            {% endfor %}
-          </div>
-        {% endif %}
-      {% endwith %}
-
       <main class="grid">
         <section class="card">
-          <h2>1) Upload CSV</h2>
+          <h2>Upload CSV</h2>
           <form class="upload" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
-            <input class="file" type="file" name="file" accept=".csv,text/csv" required />
-            <button class="btn primary" type="submit">Upload & Preview</button>
+            <div class="file-row">
+              <input id="file" class="file-hidden" type="file" name="file" accept=".csv,text/csv" required />
+              <label class="file-picker" for="file">Choose CSV</label>
+              <span class="file-name" id="file-name">No file chosen</span>
+            </div>
+            <button class="btn primary" type="submit">Upload</button>
           </form>
 
           <div class="meta">
             {% if uploaded_filename %}
               <div><span class="label">Uploaded:</span> {{ uploaded_filename }}</div>
             {% else %}
-              <div><span class="label">Uploaded:</span> none</div>
+              <div><span class="label">Uploaded:</span> - </div>
             {% endif %}
           </div>
 
-          <div class="actions">
-            <form action="{{ url_for('run_default') }}" method="post">
-              <button class="btn" type="submit" {% if not preview_html %}disabled{% endif %}>
-                Run default preprocessing
-              </button>
-            </form>
-          </div>
-
-          <details class="details" {% if preview_html %}open{% endif %}>
-            <summary>Customize preprocessing</summary>
-            <form class="custom" action="{{ url_for('run_custom') }}" method="post">
-              <div class="form-row">
-                <label for="target_col">Target column (optional)</label>
-                <select id="target_col" name="target_col" {% if not preview_html %}disabled{% endif %}>
-                  <option value="">(none)</option>
-                  {% for col in columns %}
-                    <option value="{{ col }}">{{ col }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-
-              <div class="form-row">
-                <label for="manual_columns">Manual columns to remove</label>
-                <select id="manual_columns" name="manual_columns" multiple size="8" {% if not preview_html %}disabled{% endif %}>
-                  {% for col in columns %}
-                    <option value="{{ col }}">{{ col }}</option>
-                  {% endfor %}
-                </select>
-                <div class="hint">Tip: Ctrl/Shift-click to select multiple.</div>
-              </div>
-
-              <div class="form-row">
-                <label for="outlier_skipping">Skip outlier removal for columns</label>
-                <select id="outlier_skipping" name="outlier_skipping" multiple size="8" {% if not preview_html %}disabled{% endif %}>
-                  {% for col in columns %}
-                    <option value="{{ col }}">{{ col }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-
-              <div class="form-row">
-                <label for="columns_to_keep">Columns to keep (protected from drops)</label>
-                <select id="columns_to_keep" name="columns_to_keep" multiple size="8" {% if not preview_html %}disabled{% endif %}>
-                  {% for col in columns %}
-                    <option value="{{ col }}">{{ col }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-
-              <button class="btn primary" type="submit" {% if not preview_html %}disabled{% endif %}>
-                Run customized preprocessing
-              </button>
-            </form>
-          </details>
-
-          {% if has_processed %}
-            <div class="download">
-              <a class="btn primary" href="{{ url_for('download') }}">Download processed CSV</a>
-            </div>
-          {% endif %}
-
-          {% if has_logs %}
-            <div class="download">
-              <a class="btn" href="{{ url_for('download_logs') }}">Download logs</a>
-            </div>
-          {% endif %}
+          {# Download buttons are shown under processed metrics #}
         </section>
 
         <section class="card">
-          <h2>2) Preview</h2>
+          <h2>Preview</h2>
 
           <div class="preview-block">
-            <div class="preview-title">Raw data (df.head)</div>
+            <div class="preview-title">Raw Data Sample</div>
             {% if preview_html %}
               <div class="table-wrap">{{ preview_html | safe }}</div>
+              {% if raw_shape %}
+                <div class="shape">Rows: <b>{{ raw_shape.rows }}</b> · Columns: <b>{{ raw_shape.cols }}</b></div>
+              {% endif %}
             {% else %}
               <div class="empty">Upload a CSV to see a preview here.</div>
             {% endif %}
           </div>
 
-          <div class="preview-block">
-            <div class="preview-title">Processed data (head)</div>
-            {% if processed_preview_html %}
+          {% if processed_preview_html %}
+            <div class="preview-block">
+              <div class="preview-title">Processed Data Sample</div>
               <div class="table-wrap">{{ processed_preview_html | safe }}</div>
-            {% else %}
-              <div class="empty">Run preprocessing to see a processed preview here.</div>
-            {% endif %}
-          </div>
+              {% if processed_shape %}
+                <div class="shape">Rows: <b>{{ processed_shape.rows }}</b> · Columns: <b>{{ processed_shape.cols }}</b></div>
+              {% endif %}
+              {% if metrics %}
+                <div class="metrics">
+                  <div class="metric">
+                    <span>Time processed</span>
+                    <span class="metric-value"><b>{{ metrics.time_processed_seconds }}</b><span class="unit">s</span></span>
+                  </div>
+                  <div class="metric"><span>Outliers removed</span><b>{{ metrics.outliers_removed }}</b></div>
+                  <div class="metric"><span>Columns removed</span><b>{{ metrics.columns_removed }}</b></div>
+                  <div class="metric"><span>Rows dropped</span><b>{{ metrics.rows_dropped }}</b></div>
+                </div>
+                <div class="metrics-actions">
+                  <a class="btn primary" href="{{ url_for('download') }}">Download processed CSV</a>
+                  {% if has_logs %}
+                    <a class="btn" href="{{ url_for('download_logs') }}">Download Logs</a>
+                  {% else %}
+                    <button class="btn" type="button" disabled>Download Logs</button>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="preview-block">
+              <div class="preview-title">Preprocessing Type</div>
+              {% if preview_html %}
+                <div class="preprocess-tabs" role="tablist" aria-label="Preprocessing Type">
+                  <button class="tab-btn active" type="button" id="tab-default" role="tab" aria-selected="true" aria-controls="panel-default">
+                    Default
+                  </button>
+                  <button class="tab-btn" type="button" id="tab-advanced" role="tab" aria-selected="false" aria-controls="panel-advanced">
+                    Advanced
+                  </button>
+                </div>
+
+                <div id="panel-default" class="tab-panel">
+                  <div class="defaults">
+                    <div class="metric"><span>Encoding</span><b>Label</b></div>
+                    <div class="metric"><span>Null threshold</span><span class="metric-value"><b>5</b><span class="unit">%</span></span></div>
+                    <div class="metric"><span>Outlier handling</span><b>IQR Based Removal</b></div>
+                    <div class="metric"><span>Scaling</span><b>Standard</b></div>
+                  </div>
+
+                  <div class="pipeline-flow">
+                    <div class="shape">Pipeline</div>
+                    <ol class="pipeline-list">
+                      {# Default preprocessing doesn't include user-selected column removal #}
+                      {% for step in pipeline_steps if step.key != "manual_columns" %}
+                        <li>{{ step.label }}</li>
+                      {% endfor %}
+                    </ol>
+                  </div>
+
+                  <div class="metrics-actions">
+                    <form action="{{ url_for('run_default') }}" method="post">
+                      <button class="btn primary" type="submit">Run Default Preprocessing</button>
+                    </form>
+                  </div>
+                </div>
+
+                <div id="panel-advanced" class="tab-panel hidden">
+                  <div class="advanced-details details">
+                  <form class="custom" action="{{ url_for('run_custom') }}" method="post">
+                  <div class="form-row">
+                    <div class="row-head">
+                      <label>Steps to perform</label>
+                      <div class="row-actions">
+                        <button class="btn mini" type="button" data-action="select_all" data-field="steps">Select all</button>
+                        <button class="btn mini" type="button" data-action="clear_all" data-field="steps">Clear all</button>
+                      </div>
+                    </div>
+                    <div class="checklist" {% if not preview_html %}aria-disabled="true"{% endif %}>
+                      {% for step in pipeline_steps %}
+                        <label class="check-item">
+                          <input type="checkbox" name="steps" value="{{ step.key }}" checked {% if not preview_html %}disabled{% endif %} />
+                          <span>{{ step.label }}</span>
+                        </label>
+                      {% endfor %}
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <label for="null_threshold">Threshold Percentage For Dropping Rows With Null Values</label>
+                    <input
+                      id="null_threshold"
+                      name="null_threshold"
+                      type="number"
+                      min="0"
+                      max="100"
+                      step="0.1"
+                      value="5"
+                      {% if not preview_html %}disabled{% endif %}
+                    />
+                  </div>
+
+                  <div class="form-row">
+                    <label>Encoding for categorical columns</label>
+                    <div class="radio-row">
+                      <label class="radio-pill">
+                        <input type="radio" name="encoding_method" value="label" checked {% if not preview_html %}disabled{% endif %} />
+                        <span>Label</span>
+                      </label>
+                      <label class="radio-pill">
+                        <input type="radio" name="encoding_method" value="onehot" {% if not preview_html %}disabled{% endif %} />
+                        <span>One-hot</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <label>Outlier handling</label>
+                    <div class="radio-row">
+                      <label class="radio-pill">
+                        <input type="radio" name="outlier_action" value="remove" checked {% if not preview_html %}disabled{% endif %} />
+                        <span>Remove outliers</span>
+                      </label>
+                      <label class="radio-pill">
+                        <input type="radio" name="outlier_action" value="keep" {% if not preview_html %}disabled{% endif %} />
+                        <span>Keep outliers</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <label>Scaling Method</label>
+                    <div class="radio-row">
+                      <label class="radio-pill">
+                        <input type="radio" name="scaling_method" value="standard" checked {% if not preview_html %}disabled{% endif %} />
+                        <span>Standard</span>
+                      </label>
+                      <label class="radio-pill">
+                        <input type="radio" name="scaling_method" value="minmax" {% if not preview_html %}disabled{% endif %} />
+                        <span>Minmax</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <label for="target_col">Target Column</label>
+                    <select id="target_col" name="target_col" {% if not preview_html %}disabled{% endif %}>
+                      <option value="">-</option>
+                      {% for col in columns %}
+                        <option value="{{ col }}">{{ col }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="row-head">
+                      <label>Columns To Remove</label>
+                      <div class="row-actions">
+                        <button class="btn mini" type="button" data-action="select_all" data-field="manual_columns">Select all</button>
+                        <button class="btn mini" type="button" data-action="clear_all" data-field="manual_columns">Clear all</button>
+                      </div>
+                    </div>
+                    <div class="checklist" {% if not preview_html %}aria-disabled="true"{% endif %}>
+                      {% for col in columns %}
+                        <label class="check-item">
+                          <input type="checkbox" name="manual_columns" value="{{ col }}" {% if not preview_html %}disabled{% endif %} />
+                          <span>{{ col }}</span>
+                        </label>
+                      {% endfor %}
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="row-head">
+                      <label>Skip Outlier Handling For Columns</label>
+                      <div class="row-actions">
+                        <button class="btn mini" type="button" data-action="select_all" data-field="outlier_skipping">Select all</button>
+                        <button class="btn mini" type="button" data-action="clear_all" data-field="outlier_skipping">Clear all</button>
+                      </div>
+                    </div>
+                    <div class="checklist" {% if not preview_html %}aria-disabled="true"{% endif %}>
+                      {% for col in columns %}
+                        <label class="check-item">
+                          <input type="checkbox" name="outlier_skipping" value="{{ col }}" {% if not preview_html %}disabled{% endif %} />
+                          <span>{{ col }}</span>
+                        </label>
+                      {% endfor %}
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="row-head">
+                      <label>Skip Scaling For Columns</label>
+                      <div class="row-actions">
+                        <button class="btn mini" type="button" data-action="select_all" data-field="scaling_skipping">Select all</button>
+                        <button class="btn mini" type="button" data-action="clear_all" data-field="scaling_skipping">Clear all</button>
+                      </div>
+                    </div>
+                    <div class="checklist" {% if not preview_html %}aria-disabled="true"{% endif %}>
+                      {% for col in columns %}
+                        <label class="check-item">
+                          <input type="checkbox" name="scaling_skipping" value="{{ col }}" {% if not preview_html %}disabled{% endif %} />
+                          <span>{{ col }}</span>
+                        </label>
+                      {% endfor %}
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="row-head">
+                      <label>Columns To Keep</label>
+                      <div class="row-actions">
+                        <button class="btn mini" type="button" data-action="select_all" data-field="columns_to_keep">Select all</button>
+                        <button class="btn mini" type="button" data-action="clear_all" data-field="columns_to_keep">Clear all</button>
+                      </div>
+                    </div>
+                    <div class="checklist" {% if not preview_html %}aria-disabled="true"{% endif %}>
+                      {% for col in columns %}
+                        <label class="check-item">
+                          <input type="checkbox" name="columns_to_keep" value="{{ col }}" {% if not preview_html %}disabled{% endif %} />
+                          <span>{{ col }}</span>
+                        </label>
+                      {% endfor %}
+                    </div>
+                  </div>
+
+                  <div class="metrics-actions">
+                    <button class="btn primary" type="submit" {% if not preview_html %}disabled{% endif %}>
+                      Run Advanced Preprocessing
+                    </button>
+                  </div>
+                </form>
+                </div>
+              </div>
+              {% else %}
+                <div class="empty">Upload a CSV to choose preprocessing type.</div>
+              {% endif %}
+            </div>
+          {% endif %}
         </section>
       </main>
 
-      <footer class="footer">
-        <div>Pipeline logs are written to <code>logs.txt</code> on each run.</div>
-      </footer>
     </div>
+    <script>
+      (function () {
+        var input = document.getElementById("file");
+        var nameEl = document.getElementById("file-name");
+        if (!input || !nameEl) return;
+        input.addEventListener("change", function () {
+          var file = input.files && input.files[0];
+          nameEl.textContent = file ? file.name : "No file chosen";
+        });
+      })();
+
+      (function () {
+        function autosizeSelect(select) {
+          if (!select) return;
+          var parent = select.parentElement;
+          if (!parent) return;
+
+          // Measure option text widths using a hidden span.
+          var span = document.createElement("span");
+          var s = window.getComputedStyle(select);
+          span.style.position = "absolute";
+          span.style.visibility = "hidden";
+          span.style.whiteSpace = "nowrap";
+          span.style.font = s.font;
+          span.style.letterSpacing = s.letterSpacing;
+          document.body.appendChild(span);
+
+          var max = 0;
+          for (var i = 0; i < select.options.length; i++) {
+            span.textContent = select.options[i].text;
+            max = Math.max(max, span.getBoundingClientRect().width);
+          }
+          document.body.removeChild(span);
+
+          // Account for padding + arrow + borders.
+          var extra = 64;
+          var desired = Math.ceil(max + extra);
+          var min = 240;
+          var maxW = Math.min(520, parent.getBoundingClientRect().width);
+          var finalW = Math.max(min, Math.min(desired, maxW));
+          select.style.width = finalW + "px";
+        }
+
+        function run() {
+          autosizeSelect(document.getElementById("target_col"));
+        }
+
+        // Run on load and on resize (layout changes).
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", run);
+        } else {
+          run();
+        }
+        window.addEventListener("resize", function () {
+          run();
+        });
+      })();
+
+      (function () {
+        var tabDefault = document.getElementById("tab-default");
+        var tabAdvanced = document.getElementById("tab-advanced");
+        var panelDefault = document.getElementById("panel-default");
+        var panelAdvanced = document.getElementById("panel-advanced");
+        if (!tabDefault || !tabAdvanced || !panelDefault || !panelAdvanced) return;
+
+        function setTab(which) {
+          var isDefault = which === "default";
+          tabDefault.classList.toggle("active", isDefault);
+          tabAdvanced.classList.toggle("active", !isDefault);
+          tabDefault.setAttribute("aria-selected", isDefault ? "true" : "false");
+          tabAdvanced.setAttribute("aria-selected", !isDefault ? "true" : "false");
+          panelDefault.classList.toggle("hidden", !isDefault);
+          panelAdvanced.classList.toggle("hidden", isDefault);
+        }
+
+        tabDefault.addEventListener("click", function () {
+          setTab("default");
+        });
+        tabAdvanced.addEventListener("click", function () {
+          setTab("advanced");
+          panelAdvanced.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      })();
+
+      (function () {
+        document.addEventListener("click", function (e) {
+          var t = e.target;
+          if (!t || !t.dataset) return;
+          var action = t.dataset.action;
+          var field = t.dataset.field;
+          if (!action || !field) return;
+
+          var formRow = t.closest(".form-row");
+          if (!formRow) return;
+
+          var boxes = formRow.querySelectorAll('input[type=\"checkbox\"][name=\"' + field + '\"]:not(:disabled)');
+          if (!boxes || boxes.length === 0) return;
+
+          var shouldCheck = action === "select_all";
+          boxes.forEach(function (b) {
+            b.checked = shouldCheck;
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
 

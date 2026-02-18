@@ -8,7 +8,6 @@ from datetime import timedelta
 import pandas as pd
 from flask import (
     Flask,
-    flash,
     redirect,
     render_template,
     request,
@@ -25,6 +24,18 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_PATH = os.path.join(BASE_DIR, "logs.txt")
 
 ALLOWED_EXTENSIONS = {"csv"}
+
+PIPELINE_STEPS = [
+    {"key": "manual_columns", "label": "Selected Columns Removal"},
+    {"key": "drop_empty_columns", "label": "Drop Empty Columns"},
+    {"key": "handle_nulls", "label": "Handle Null Values"},
+    {"key": "finalize_dtypes", "label": "Finalize Data Types"},
+    {"key": "handle_outliers", "label": "Handle Outliers"},
+    {"key": "encoding", "label": "Encode Categorical Features"},
+    {"key": "feature_selection", "label": "Feature Selection"},
+    {"key": "temporal_features", "label": "Extract Temporal Features"},
+    {"key": "scaling", "label": "Scaling"},
+]
 
 _STORE_TTL_SECONDS = 60 * 60  # 1 hour
 _STORE_MAX_BYTES = 50 * 1024 * 1024  # 50MB
@@ -45,10 +56,8 @@ def _read_csv_safely_bytes(data: bytes) -> pd.DataFrame:
         return pd.read_csv(io.BytesIO(data), encoding="latin1")
 
 
-def _df_head_html(df: pd.DataFrame, max_cols: int = 50) -> str:
-    preview = df.head()
-    if preview.shape[1] > max_cols:
-        preview = preview.iloc[:, :max_cols]
+def _df_head_html(df: pd.DataFrame, max_rows: int = 15) -> str:
+    preview = df.head(max_rows)
     return preview.to_html(index=False, classes="df-table", border=0, escape=True)
 
 def _cleanup_store() -> None:
@@ -90,7 +99,11 @@ def index():
         preview_html=state.get("preview_html"),
         processed_preview_html=state.get("processed_preview_html"),
         has_processed=bool(state.get("processed_bytes")),
+        raw_shape=state.get("raw_shape"),
+        processed_shape=state.get("processed_shape"),
+        metrics=state.get("metrics"),
         has_logs=os.path.exists(LOG_PATH) and os.path.getsize(LOG_PATH) > 0,
+        pipeline_steps=PIPELINE_STEPS,
     )
 
 
@@ -99,26 +112,21 @@ def upload():
     _cleanup_store()
     file = request.files.get("file")
     if not file or not file.filename:
-        flash("Please choose a CSV file to upload.", "error")
         return redirect(url_for("index"))
 
     if not _allowed_file(file.filename):
-        flash("Only .csv files are supported.", "error")
         return redirect(url_for("index"))
 
     original_name = secure_filename(file.filename)
     raw_bytes = file.read()
     if not raw_bytes:
-        flash("Uploaded file is empty.", "error")
         return redirect(url_for("index"))
     if len(raw_bytes) > _STORE_MAX_BYTES:
-        flash("File too large (max 50MB).", "error")
         return redirect(url_for("index"))
 
     try:
         df = _read_csv_safely_bytes(raw_bytes)
     except Exception as e:
-        flash(f"Failed to read CSV: {e}", "error")
         return redirect(url_for("index"))
 
     session.permanent = True
@@ -130,11 +138,13 @@ def upload():
         "raw_bytes": raw_bytes,
         "columns": [str(c) for c in df.columns.tolist()],
         "preview_html": _df_head_html(df),
+        "raw_shape": {"rows": int(df.shape[0]), "cols": int(df.shape[1])},
         "processed_preview_html": None,
         "processed_bytes": None,
+        "processed_shape": None,
+        "metrics": None,
     }
 
-    flash("Upload successful. Preview shown below.", "success")
     return redirect(url_for("index"))
 
 
@@ -143,37 +153,38 @@ def run_default():
     _cleanup_store()
     token = _get_token()
     if not token:
-        flash("Upload a CSV first.", "error")
         return redirect(url_for("index"))
 
     try:
         df = _read_csv_safely_bytes(_STORE[token]["raw_bytes"])
     except Exception as e:
-        flash(f"Failed to read uploaded CSV: {e}", "error")
         return redirect(url_for("index"))
 
     processed_df = prismaflow_pipeline(
         df,
         target_col=None,
         manual_columns=None,
-        outlier_skipping=None,
         columns_to_keep=None,
         output_file=None,
         return_df=True,
+        collect_metrics=True,
     )
-    if processed_df is None:
-        flash("Pipeline failed. Check logs.txt for details.", "error")
+    if processed_df is None or (isinstance(processed_df, tuple) and processed_df[0] is None):
         return redirect(url_for("index"))
+    if isinstance(processed_df, tuple):
+        processed_df, metrics = processed_df
+    else:
+        metrics = None
 
     try:
         processed_bytes = processed_df.to_csv(index=False).encode("utf-8")
     except Exception as e:
-        flash(f"Failed to generate processed CSV: {e}", "error")
         return redirect(url_for("index"))
 
     _STORE[token]["processed_preview_html"] = _df_head_html(processed_df)
     _STORE[token]["processed_bytes"] = processed_bytes
-    flash("Default preprocessing complete. Download is ready.", "success")
+    _STORE[token]["processed_shape"] = {"rows": int(processed_df.shape[0]), "cols": int(processed_df.shape[1])}
+    _STORE[token]["metrics"] = metrics
     return redirect(url_for("index"))
 
 
@@ -182,19 +193,29 @@ def run_custom():
     _cleanup_store()
     token = _get_token()
     if not token:
-        flash("Upload a CSV first.", "error")
         return redirect(url_for("index"))
 
     try:
         df = _read_csv_safely_bytes(_STORE[token]["raw_bytes"])
     except Exception as e:
-        flash(f"Failed to read uploaded CSV: {e}", "error")
         return redirect(url_for("index"))
 
     target_col = (request.form.get("target_col") or "").strip() or None
     manual_columns = request.form.getlist("manual_columns") or None
     outlier_skipping = request.form.getlist("outlier_skipping") or None
     columns_to_keep = request.form.getlist("columns_to_keep") or None
+    scaling_skipping = request.form.getlist("scaling_skipping") or None
+    steps = request.form.getlist("steps") or None
+    outlier_action = (request.form.get("outlier_action") or "remove").strip().lower()
+    handle_outliers = outlier_action != "keep"
+    encoding_method = (request.form.get("encoding_method") or "label").strip().lower()
+    scaling_method = (request.form.get("scaling_method") or "standard").strip().lower()
+    raw_threshold = (request.form.get("null_threshold") or "").strip()
+    try:
+        null_threshold_percent = float(raw_threshold) if raw_threshold != "" else 5.0
+    except Exception:
+        null_threshold_percent = 5.0
+    null_threshold = max(0.0, min(1.0, null_threshold_percent / 100.0))
 
     try:
         processed_df = prismaflow_pipeline(
@@ -203,26 +224,35 @@ def run_custom():
             manual_columns=manual_columns,
             outlier_skipping=outlier_skipping,
             columns_to_keep=columns_to_keep,
+            scaling_skipping=scaling_skipping,
+            handle_outliers=handle_outliers,
+            null_threshold=null_threshold,
+            encoding_method=encoding_method,
+            scaling_method=scaling_method,
+            steps=steps,
             output_file=None,
             return_df=True,
+            collect_metrics=True,
         )
     except Exception as e:
-        flash(f"Pipeline error: {e}", "error")
         return redirect(url_for("index"))
 
-    if processed_df is None:
-        flash("Pipeline failed. Check logs.txt for details.", "error")
+    if processed_df is None or (isinstance(processed_df, tuple) and processed_df[0] is None):
         return redirect(url_for("index"))
+    if isinstance(processed_df, tuple):
+        processed_df, metrics = processed_df
+    else:
+        metrics = None
 
     try:
         processed_bytes = processed_df.to_csv(index=False).encode("utf-8")
     except Exception as e:
-        flash(f"Failed to generate processed CSV: {e}", "error")
         return redirect(url_for("index"))
 
     _STORE[token]["processed_preview_html"] = _df_head_html(processed_df)
     _STORE[token]["processed_bytes"] = processed_bytes
-    flash("Custom preprocessing complete. Download is ready.", "success")
+    _STORE[token]["processed_shape"] = {"rows": int(processed_df.shape[0]), "cols": int(processed_df.shape[1])}
+    _STORE[token]["metrics"] = metrics
     return redirect(url_for("index"))
 
 
@@ -231,11 +261,9 @@ def download():
     _cleanup_store()
     token = _get_token()
     if not token:
-        flash("Upload a CSV and run preprocessing first.", "error")
         return redirect(url_for("index"))
     processed_bytes = _STORE[token].get("processed_bytes")
     if not processed_bytes:
-        flash("Run preprocessing first.", "error")
         return redirect(url_for("index"))
 
     base = (_STORE[token].get("uploaded_filename") or "processed").rsplit(".", 1)[0]
@@ -251,7 +279,6 @@ def download():
 @app.get("/download/logs")
 def download_logs():
     if not os.path.exists(LOG_PATH) or os.path.getsize(LOG_PATH) == 0:
-        flash("No logs available yet. Run preprocessing first.", "error")
         return redirect(url_for("index"))
     return send_file(
         LOG_PATH,

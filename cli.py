@@ -30,12 +30,15 @@ outlier_skipping = _parse_csv_list(input("Enter the outlier skipping columns, se
 
 columns_to_keep = _parse_csv_list(input("Enter the columns to keep, separated by commas (blank for none): "))
 
+scaling_skipping = _parse_csv_list(input("Enter the scaling skipping columns, separated by commas (blank for none): "))
+
 ok = prismaflow_pipeline(
     df,
     target_col=target_col,
     manual_columns=manual_columns,
     outlier_skipping=outlier_skipping,
     columns_to_keep=columns_to_keep,
+    scaling_skipping=scaling_skipping,
     output_file="processed_dataset.csv",
     return_df=False,
 )
@@ -43,6 +46,6 @@ ok = prismaflow_pipeline(
 if ok is False:
     print("Pipeline failed")
     exit(1)
-    
+
 print("Pipeline completed successfully")
 
