@@ -59,6 +59,9 @@
               {% if raw_shape %}
                 <div class="shape">Rows: <b>{{ raw_shape.rows }}</b> · Columns: <b>{{ raw_shape.cols }}</b></div>
               {% endif %}
+              <div class="report-actions">
+                <button class="btn" type="button" id="btn-report">Data Report</button>
+              </div>
             {% else %}
               <div class="empty">Upload a CSV to see a preview here.</div>
             {% endif %}
@@ -246,7 +249,7 @@
                   <div class="form-row">
                     <label for="target_col">Target Column</label>
                     <select id="target_col" name="target_col" {% if not preview_html %}disabled{% endif %}>
-                      <option value="">-</option>
+                      <option value="">Select Target Column</option>
                       {% for col in columns %}
                         <option value="{{ col }}">{{ col }}</option>
                       {% endfor %}
@@ -342,6 +345,44 @@
       </main>
 
     </div>
+
+    <dialog class="modal" id="report-dialog" aria-label="Data report">
+      <form method="dialog" class="modal-card">
+        <div class="modal-head">
+          <div class="modal-title">Data Report</div>
+          <button class="btn mini" value="close" aria-label="Close">Close</button>
+        </div>
+        <div class="modal-body">
+          {% if data_report %}
+            <div class="report-wrap">
+              <table class="report-table" role="table" aria-label="Data report table">
+                <thead>
+                  <tr>
+                    <th>Column</th>
+                    <th>Null Percentage</th>
+                    <th>Unique Values</th>
+                    <th>Data Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for r in data_report %}
+                    <tr>
+                      <td class="mono">{{ r.column }}</td>
+                      <td>{{ "%.2f"|format(r.null_pct) }}%</td>
+                      <td>{{ r.unique }}</td>
+                      <td class="mono muted">{{ r.dtype }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <div class="empty">Upload a CSV to generate a data report.</div>
+          {% endif %}
+        </div>
+      </form>
+    </dialog>
+
     <script>
       (function () {
         var input = document.getElementById("file");
@@ -563,6 +604,98 @@
         });
 
         sync();
+      })();
+
+      (function () {
+        var btn = document.getElementById("btn-report");
+        var dlg = document.getElementById("report-dialog");
+        if (!btn || !dlg) return;
+
+        btn.addEventListener("click", function () {
+          if (typeof dlg.showModal === "function") {
+            dlg.showModal();
+          } else {
+            dlg.setAttribute("open", "open");
+          }
+        });
+
+        dlg.addEventListener("click", function (e) {
+          // click outside modal-card closes
+          if (e.target === dlg) dlg.close();
+        });
+      })();
+
+      (function () {
+        var radios = document.querySelectorAll('input[type="radio"][name="outlier_action"]');
+        var boxes = document.querySelectorAll('input[type="checkbox"][name="outlier_skipping"]');
+        var buttons = document.querySelectorAll('button[data-field="outlier_skipping"]');
+        if (!radios.length || !boxes.length) return;
+
+        boxes.forEach(function (b) {
+          b.dataset.baseDisabled = b.dataset.baseDisabled || (b.disabled ? "1" : "0");
+        });
+
+        var prev = null;
+
+        function isSkip() {
+          var selected = document.querySelector('input[name="outlier_action"]:checked');
+          return selected && selected.value === "skip";
+        }
+
+        function capture() {
+          var s = {};
+          boxes.forEach(function (b) {
+            if (b.checked) s[b.value] = true;
+          });
+          return s;
+        }
+
+        function restore(sel) {
+          boxes.forEach(function (b) {
+            b.checked = !!(sel && sel[b.value]);
+          });
+        }
+
+        function lockAll() {
+          if (prev === null) prev = capture();
+          boxes.forEach(function (b) {
+            b.checked = true;
+            b.disabled = true;
+          });
+          buttons.forEach(function (btn) {
+            btn.disabled = true;
+          });
+        }
+
+        function unlock() {
+          if (prev !== null) restore(prev);
+          prev = null;
+          boxes.forEach(function (b) {
+            var label = b.closest("label");
+            if (label && label.classList.contains("is-hidden")) {
+              b.disabled = true;
+              b.checked = false;
+              return;
+            }
+            b.disabled = b.dataset.baseDisabled === "1";
+          });
+          buttons.forEach(function (btn) {
+            btn.disabled = false;
+          });
+        }
+
+        function apply() {
+          if (isSkip()) lockAll();
+          else unlock();
+        }
+
+        document.addEventListener("change", function (e) {
+          var t = e.target;
+          if (!t) return;
+          if (t.name === "outlier_action" || t.name === "manual_columns") apply();
+        });
+
+        apply();
       })();
     </script>
   </body>

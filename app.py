@@ -66,6 +66,41 @@ def _df_head_html(df: pd.DataFrame, max_rows: int = 15) -> str:
         float_format=lambda x: f"{x:.2f}",
     )
 
+def _data_report(df: pd.DataFrame) -> list[dict]:
+    missing_tokens = {
+        "",
+        "nan",
+        "none",
+        "null",
+        "na",
+        "n/a",
+        "nat",
+        "missing",
+        "nil",
+    }
+    rows: list[dict] = []
+    for col in df.columns:
+        s = df[col]
+        null_mask = s.isna()
+        if pd.api.types.is_object_dtype(s) or pd.api.types.is_string_dtype(s):
+            norm = s.astype(str).str.strip().str.lower()
+            null_mask = null_mask | norm.isin(missing_tokens)
+
+        null_pct = float(null_mask.mean() * 100.0) if len(s) else 0.0
+        try:
+            unique = int(s[~null_mask].nunique(dropna=True))
+        except Exception:
+            unique = int(s.nunique(dropna=True))
+        rows.append(
+            {
+                "column": str(col),
+                "null_pct": round(null_pct, 2),
+                "unique": unique,
+                "dtype": str(s.dtype),
+            }
+        )
+    return rows
+
 def _cleanup_store() -> None:
     now = time.time()
     expired = [k for k, v in _STORE.items() if (now - float(v.get("created_at", 0))) > _STORE_TTL_SECONDS]
@@ -102,13 +137,16 @@ def index():
         try:
             df = _read_csv_safely_bytes(state["raw_bytes"])
             state["numeric_columns"] = [str(c) for c in df.select_dtypes(include="number").columns.tolist()]
+            state["data_report"] = _data_report(df)
         except Exception:
             state["numeric_columns"] = []
+            state["data_report"] = []
     return render_template(
         "index.html",
         uploaded_filename=state.get("uploaded_filename"),
         columns=state.get("columns", []),
         numeric_columns=state.get("numeric_columns", []),
+        data_report=state.get("data_report", []),
         preview_html=state.get("preview_html"),
         processed_preview_html=state.get("processed_preview_html"),
         has_processed=bool(state.get("processed_bytes")),
@@ -151,6 +189,7 @@ def upload():
         "raw_bytes": raw_bytes,
         "columns": [str(c) for c in df.columns.tolist()],
         "numeric_columns": [str(c) for c in df.select_dtypes(include="number").columns.tolist()],
+        "data_report": _data_report(df),
         "preview_html": _df_head_html(df),
         "raw_shape": {"rows": int(df.shape[0]), "cols": int(df.shape[1])},
         "processed_preview_html": None,
