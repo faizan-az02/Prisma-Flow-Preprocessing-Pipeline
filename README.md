@@ -31,38 +31,6 @@ PrismaFlow is a powerful, automated preprocessing pipeline that transforms raw d
 
 ---
 
-## 🚀 Quick Start
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/Prisma-Flow-Preprocessing-Pipeline.git
-cd Prisma-Flow-Preprocessing-Pipeline
-
-# Install dependencies
-pip install pandas scikit-learn flask werkzeug
-```
-
-### Web Interface
-
-```bash
-# Start the Flask server
-python app.py
-
-# Open your browser to
-http://127.0.0.1:5000
-```
-
-### Command Line Interface
-
-```bash
-# Run the interactive CLI
-python cli.py
-```
-
----
-
 ## 📖 Usage
 
 ### Web Interface
@@ -81,34 +49,6 @@ python cli.py
 4. **Run Pipeline**: Click "Run Default Preprocessing" or "Run Advanced Preprocessing"
 5. **Download Results**: Get your processed CSV and detailed logs
 
-### Command Line Interface
-
-```python
-# Interactive mode
-python cli.py
-
-# Programmatic usage
-from main import prismaflow_pipeline
-import pandas as pd
-
-df = pd.read_csv("your_data.csv")
-
-processed_df, metrics = prismaflow_pipeline(
-    df,
-    target_col="target",
-    manual_columns=["id", "unwanted_col"],
-    handle_outliers=True,
-    outlier_method="iqr",
-    outlier_drop=True,
-    null_threshold=0.05,
-    encoding_method="label",
-    scaling_method="standard",
-    return_df=True,
-    collect_metrics=True,
-)
-```
-
----
 
 ## 🔧 Pipeline Steps
 
@@ -186,55 +126,6 @@ Prisma-Flow-Preprocessing-Pipeline/
 └── logs.txt               # Pipeline execution logs
 ```
 
----
-
-## 🛠️ Technologies
-
-- **Python 3.8+**
-- **Pandas**: Data manipulation and analysis
-- **Scikit-learn**: Machine learning utilities (encoders, scalers, feature selection)
-- **Flask**: Web framework for the UI
-- **NumPy**: Numerical computations
-
----
-
-## 📊 Example Workflow
-
-### Scenario: Preparing a Food Dataset
-
-```python
-import pandas as pd
-from main import prismaflow_pipeline
-
-# Load your dataset
-df = pd.read_csv("food_data.csv")
-
-# Run preprocessing with custom configuration
-processed_df, metrics = prismaflow_pipeline(
-    df,
-    target_col="health_score",
-    manual_columns=["fdc_id", "food_name"],  # Remove IDs/names
-    outlier_skipping=["serving_size"],        # Don't remove outliers from serving_size
-    columns_to_keep=["brand_owner"],          # Protect brand_owner from removal
-    handle_outliers=True,
-    outlier_method="iqr",
-    outlier_drop=False,                       # Cap outliers instead of removing
-    outlier_param=1.5,
-    null_threshold=0.05,                      # Drop rows if >5% null
-    encoding_method="label",
-    scaling_method="standard",
-    steps=["drop_empty_columns", "handle_nulls", "handle_outliers", "encoding", "scaling"],
-    return_df=True,
-    collect_metrics=True,
-)
-
-print(f"Processed {metrics['rows_dropped']} rows")
-print(f"Removed {metrics['columns_removed']} columns")
-print(f"Handled {metrics['outliers_removed']} outliers")
-print(f"Time elapsed: {metrics['time_processed_seconds']}s")
-```
-
----
 
 ## 🎨 Web UI Features
 
@@ -289,7 +180,6 @@ Logs include:
 
 - [ ] Support for Excel, JSON, and database sources
 - [ ] Batch processing for multiple files
-- [ ] Custom transformation scripts
 - [ ] Integration with cloud storage (S3, GCS)
 - [ ] Real-time data streaming support
 - [ ] Advanced visualization dashboard
@@ -308,16 +198,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-## 🙏 Acknowledgments
-
-Built with ❤️ for data scientists and ML engineers who value clean, reproducible preprocessing pipelines.
-
----
-
-**Made with PrismaFlow** 🌊
