@@ -1,219 +1,108 @@
-2026-02-19 05:44:07,523 | INFO | Starting Prismaflow Pipeline
+2026-02-19 09:56:08,898 | INFO | Starting Prismaflow Pipeline
 --------------------------------
-2026-02-19 05:44:07,524 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS STARTED ===
+2026-02-19 09:56:08,898 | INFO | === REMOVING TARGET COLUMN STARTED ===
+2026-02-19 09:56:08,898 | INFO | === REMOVING TARGET COLUMN COMPLETED ===
 --------------------------------
-2026-02-19 05:44:07,534 | INFO | Total dropped columns: 0
-2026-02-19 05:44:07,534 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS COMPLETED ===
+2026-02-19 09:56:08,898 | INFO | === MANUAL REMOVAL OF COLUMNS STARTED ===
+2026-02-19 09:56:08,898 | INFO | Removed column "fdc_id"
+2026-02-19 09:56:08,898 | INFO | Removed column "food_name"
+2026-02-19 09:56:08,898 | INFO | Removed column "data_type"
+2026-02-19 09:56:08,898 | INFO | Removed column "serving_size"
+2026-02-19 09:56:08,898 | INFO | Removed column "serving_unit"
+2026-02-19 09:56:08,898 | INFO | Removed column "household_serving"
+2026-02-19 09:56:08,898 | INFO | Removed column "health_score"
+2026-02-19 09:56:08,906 | INFO | === MANUAL REMOVAL OF COLUMNS COMPLETED ===
 --------------------------------
-2026-02-19 05:44:07,534 | INFO | === AUTO REMOVAL OF NULL VALUES STARTED ===
-2026-02-19 05:44:07,538 | INFO | Dropped 0 rows with nulls from the column "patent_id"
-2026-02-19 05:44:07,541 | INFO | Dropped 0 rows with nulls from the column "patent_type"
-2026-02-19 05:44:07,543 | INFO | Dropped 0 rows with nulls from the column "patent_date"
-2026-02-19 05:44:07,546 | INFO | Dropped 0 rows with nulls from the column "patent_title"
-2026-02-19 05:44:07,547 | INFO | Dropped 0 rows with nulls from the column "year"
-2026-02-19 05:44:07,548 | INFO | Dropped 0 rows with nulls from the column "quarter"
-2026-02-19 05:44:07,549 | INFO | Dropped 0 rows with nulls from the column "month"
-2026-02-19 05:44:07,551 | INFO | Dropped 0 rows with nulls from the column "day_of_week"
-2026-02-19 05:44:07,553 | INFO | Dropped 0 rows with nulls from the column "day_of_year"
-2026-02-19 05:44:07,555 | INFO | Dropped 0 rows with nulls from the column "quarter_end"
-2026-02-19 05:44:07,556 | INFO | Dropped 0 rows with nulls from the column "title_len_chars"
-2026-02-19 05:44:07,557 | INFO | Dropped 0 rows with nulls from the column "title_len_words"
-2026-02-19 05:44:07,558 | INFO | Dropped 0 rows with nulls from the column "title_has_number"
-2026-02-19 05:44:07,559 | INFO | Dropped 0 rows with nulls from the column "title_has_acronym"
-2026-02-19 05:44:07,559 | INFO | Dropped 0 rows with nulls from the column "kw_5g"
-2026-02-19 05:44:07,560 | INFO | Dropped 0 rows with nulls from the column "kw_ai_ml"
-2026-02-19 05:44:07,561 | INFO | Dropped 0 rows with nulls from the column "kw_cloud_edge"
-2026-02-19 05:44:07,562 | INFO | Dropped 0 rows with nulls from the column "kw_security"
-2026-02-19 05:44:07,563 | INFO | Dropped 0 rows with nulls from the column "kw_iot"
-2026-02-19 05:44:07,564 | INFO | Dropped 0 rows with nulls from the column "kw_network"
-2026-02-19 05:44:07,564 | INFO | Dropped 0 rows with nulls from the column "kw_energy"
-2026-02-19 05:44:07,565 | INFO | Dropped 0 rows with nulls from the column "kw_antenna"
-2026-02-19 05:44:07,568 | INFO | Dropped 0 rows with nulls from the column "kw_data"
-2026-02-19 05:44:07,570 | INFO | Dropped 0 rows with nulls from the column "keyword_score"
-2026-02-19 05:44:07,571 | INFO | Dropped 0 rows with nulls from the column "is_utility"
-2026-02-19 05:44:07,572 | INFO | Dropped 0 rows with nulls from the column "is_design"
-2026-02-19 05:44:07,574 | INFO | Dropped 0 rows with nulls from the column "is_other_type"
-2026-02-19 05:44:07,578 | INFO | Dropped 0 rows with nulls from the column "tech_era"
-2026-02-19 05:44:07,579 | INFO | Dropped 0 rows with nulls from the column "patent_count"
-2026-02-19 05:44:07,580 | INFO | Dropped 0 rows with nulls from the column "patent_unique"
-2026-02-19 05:44:07,581 | INFO | Dropped 0 rows with nulls from the column "utility_share"
-2026-02-19 05:44:07,581 | INFO | Dropped 0 rows with nulls from the column "design_share"
-2026-02-19 05:44:07,583 | INFO | Dropped 0 rows with nulls from the column "avg_title_words"
-2026-02-19 05:44:07,584 | INFO | Dropped 0 rows with nulls from the column "avg_keyword_score"
-2026-02-19 05:44:07,587 | INFO | Dropped 0 rows with nulls from the column "kw_5g_count"
-2026-02-19 05:44:07,590 | INFO | Dropped 0 rows with nulls from the column "kw_ai_ml_count"
-2026-02-19 05:44:07,590 | INFO | Dropped 0 rows with nulls from the column "kw_cloud_edge_count"
-2026-02-19 05:44:07,591 | INFO | Dropped 0 rows with nulls from the column "kw_security_count"
-2026-02-19 05:44:07,592 | INFO | Dropped 0 rows with nulls from the column "kw_iot_count"
-2026-02-19 05:44:07,593 | INFO | Dropped 0 rows with nulls from the column "kw_network_count"
-2026-02-19 05:44:07,594 | INFO | Dropped 0 rows with nulls from the column "kw_energy_count"
-2026-02-19 05:44:07,595 | INFO | Dropped 0 rows with nulls from the column "kw_antenna_count"
-2026-02-19 05:44:07,595 | INFO | Dropped 0 rows with nulls from the column "kw_data_count"
-2026-02-19 05:44:07,596 | INFO | Dropped 0 rows with nulls from the column "patent_count_lag1"
-2026-02-19 05:44:07,597 | INFO | Dropped 0 rows with nulls from the column "patent_count_lag2"
-2026-02-19 05:44:07,598 | INFO | Dropped 0 rows with nulls from the column "patent_count_lag4"
-2026-02-19 05:44:07,598 | INFO | Dropped 0 rows with nulls from the column "patent_count_roll4_mean"
-2026-02-19 05:44:07,600 | INFO | Dropped 0 rows with nulls from the column "patent_count_roll8_mean"
-2026-02-19 05:44:07,603 | INFO | Dropped 0 rows with nulls from the column "patent_count_qoq"
-2026-02-19 05:44:07,604 | INFO | Dropped 0 rows with nulls from the column "patent_count_yoy"
-2026-02-19 05:44:07,605 | INFO | Dropped 0 rows with nulls from the column "target_patent_count_current"
-2026-02-19 05:44:07,620 | INFO | Dropped 408 rows with nulls from the column "target_patent_count_next_quarter"
-2026-02-19 05:44:07,622 | INFO | Dropped 0 rows with nulls from the column "years_since_first_patent"
-2026-02-19 05:44:07,622 | INFO | Dropped 0 rows with nulls from the column "patent_seq_global"
-2026-02-19 05:44:07,623 | INFO | Dropped 0 rows with nulls from the column "year_patent_count"
-2026-02-19 05:44:07,624 | INFO | Dropped 0 rows with nulls from the column "row_number"
+2026-02-19 09:56:08,906 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS STARTED ===
 --------------------------------
-2026-02-19 05:44:07,624 | INFO | Total dropped rows: 408
-2026-02-19 05:44:07,624 | INFO | === AUTO REMOVAL OF NULL VALUES COMPLETED ===
+2026-02-19 09:56:08,906 | INFO | Total dropped columns: 0
+2026-02-19 09:56:08,906 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS COMPLETED ===
 --------------------------------
-2026-02-19 05:44:07,624 | INFO | === DTYPE FINALIZATION STARTED ===
-2026-02-19 05:44:07,644 | INFO | Converted column "patent_id" to datetime64[us]
-2026-02-19 05:44:07,650 | INFO | Kept Column "patent_type" as string
-2026-02-19 05:44:07,657 | INFO | Converted column "patent_date" to datetime64[us]
-2026-02-19 05:44:07,681 | INFO | Kept Column "patent_title" as string
-2026-02-19 05:44:07,681 | INFO | Column "year" kept as int64
-2026-02-19 05:44:07,681 | INFO | Column "quarter" kept as int64
-2026-02-19 05:44:07,681 | INFO | Column "month" kept as int64
-2026-02-19 05:44:07,682 | INFO | Column "day_of_week" kept as int64
-2026-02-19 05:44:07,682 | INFO | Column "day_of_year" kept as int64
-2026-02-19 05:44:07,686 | INFO | Converted column "quarter_end" to datetime64[us]
-2026-02-19 05:44:07,686 | INFO | Column "title_len_chars" kept as int64
-2026-02-19 05:44:07,686 | INFO | Column "title_len_words" kept as int64
-2026-02-19 05:44:07,686 | INFO | Column "title_has_number" kept as int64
-2026-02-19 05:44:07,687 | INFO | Column "title_has_acronym" kept as int64
-2026-02-19 05:44:07,687 | INFO | Column "kw_5g" kept as int64
-2026-02-19 05:44:07,688 | INFO | Column "kw_ai_ml" kept as int64
-2026-02-19 05:44:07,688 | INFO | Column "kw_cloud_edge" kept as int64
-2026-02-19 05:44:07,688 | INFO | Column "kw_security" kept as int64
-2026-02-19 05:44:07,688 | INFO | Column "kw_iot" kept as int64
-2026-02-19 05:44:07,689 | INFO | Column "kw_network" kept as int64
-2026-02-19 05:44:07,689 | INFO | Column "kw_energy" kept as int64
-2026-02-19 05:44:07,689 | INFO | Column "kw_antenna" kept as int64
-2026-02-19 05:44:07,689 | INFO | Column "kw_data" kept as int64
-2026-02-19 05:44:07,689 | INFO | Column "keyword_score" kept as int64
-2026-02-19 05:44:07,690 | INFO | Column "is_utility" kept as int64
-2026-02-19 05:44:07,690 | INFO | Column "is_design" kept as int64
-2026-02-19 05:44:07,691 | INFO | Column "is_other_type" kept as int64
-2026-02-19 05:44:07,696 | INFO | Kept Column "tech_era" as string
-2026-02-19 05:44:07,696 | INFO | Column "patent_count" kept as int64
-2026-02-19 05:44:07,697 | INFO | Column "patent_unique" kept as int64
-2026-02-19 05:44:07,697 | INFO | Column "utility_share" kept as float64
-2026-02-19 05:44:07,697 | INFO | Column "design_share" kept as float64
-2026-02-19 05:44:07,697 | INFO | Column "avg_title_words" kept as float64
-2026-02-19 05:44:07,697 | INFO | Column "avg_keyword_score" kept as float64
-2026-02-19 05:44:07,698 | INFO | Column "kw_5g_count" kept as int64
-2026-02-19 05:44:07,698 | INFO | Column "kw_ai_ml_count" kept as int64
-2026-02-19 05:44:07,698 | INFO | Column "kw_cloud_edge_count" kept as int64
-2026-02-19 05:44:07,698 | INFO | Column "kw_security_count" kept as int64
-2026-02-19 05:44:07,698 | INFO | Column "kw_iot_count" kept as int64
-2026-02-19 05:44:07,698 | INFO | Column "kw_network_count" kept as int64
-2026-02-19 05:44:07,698 | INFO | Column "kw_energy_count" kept as int64
-2026-02-19 05:44:07,698 | INFO | Column "kw_antenna_count" kept as int64
-2026-02-19 05:44:07,700 | INFO | Column "kw_data_count" kept as int64
-2026-02-19 05:44:07,700 | INFO | Column "patent_count_lag1" kept as float64
-2026-02-19 05:44:07,700 | INFO | Column "patent_count_lag2" kept as float64
-2026-02-19 05:44:07,701 | INFO | Column "patent_count_lag4" kept as float64
-2026-02-19 05:44:07,701 | INFO | Column "patent_count_roll4_mean" kept as float64
-2026-02-19 05:44:07,701 | INFO | Column "patent_count_roll8_mean" kept as float64
-2026-02-19 05:44:07,702 | INFO | Column "patent_count_qoq" kept as float64
-2026-02-19 05:44:07,702 | INFO | Column "patent_count_yoy" kept as float64
-2026-02-19 05:44:07,702 | INFO | Column "target_patent_count_current" kept as int64
-2026-02-19 05:44:07,702 | INFO | Column "target_patent_count_next_quarter" kept as float64
-2026-02-19 05:44:07,703 | INFO | Column "years_since_first_patent" kept as int64
-2026-02-19 05:44:07,703 | INFO | Column "patent_seq_global" kept as int64
-2026-02-19 05:44:07,703 | INFO | Column "year_patent_count" kept as int64
-2026-02-19 05:44:07,703 | INFO | Column "row_number" kept as int64
-2026-02-19 05:44:07,704 | INFO | === DTYPE FINALIZATION COMPLETED ===
+2026-02-19 09:56:08,906 | INFO | === AUTO REMOVAL OF NULL VALUES STARTED ===
+2026-02-19 09:56:08,915 | INFO | Dropped 46 rows with nulls from the column "food_category"
+2026-02-19 09:56:08,931 | INFO | Filled with the mode - Beaver Street Fisheries Inc. of the column "brand_owner"
+2026-02-19 09:56:08,939 | INFO | Filled with the mode - AHOLD of the column "brand_name"
+2026-02-19 09:56:08,955 | INFO | Filled with the mode - REDUCED FAT MILK, VITAMIN A PALMITATE, VITAMIN D3. of the column "ingredients"
+2026-02-19 09:56:08,964 | INFO | Dropped 462 rows with nulls from the column "calories"
+2026-02-19 09:56:08,972 | INFO | Dropped 352 rows with nulls from the column "carbs_g"
+2026-02-19 09:56:08,973 | INFO | Filled with the mean - 106.56 of the column "calcium_mg"
+2026-02-19 09:56:08,981 | INFO | Dropped 79 rows with nulls from the column "fat_g"
+2026-02-19 09:56:08,989 | INFO | Dropped 98 rows with nulls from the column "protein_g"
+2026-02-19 09:56:08,989 | INFO | Filled with the mean - 4.4 of the column "saturated_fat_g"
+2026-02-19 09:56:08,989 | INFO | Filled with the mean - 24.41 of the column "vitamin_c_mg"
+2026-02-19 09:56:08,989 | INFO | Filled with the mean - 2.57 of the column "fiber_g"
+2026-02-19 09:56:08,989 | INFO | Filled with the mean - 2.41 of the column "iron_mg"
+2026-02-19 09:56:08,998 | INFO | Dropped 181 rows with nulls from the column "sodium_mg"
+2026-02-19 09:56:08,998 | INFO | Filled with the mean - 13.18 of the column "sugar_g"
+2026-02-19 09:56:08,998 | INFO | Filled with the mean - 59.89 of the column "cholesterol_mg"
+2026-02-19 09:56:08,998 | INFO | Dropped 0 rows with nulls from the column "row_number"
 --------------------------------
-2026-02-19 05:44:07,704 | INFO | === OUTLIER HANDLING STARTED ===
-2026-02-19 05:44:07,705 | INFO | Method : IQR (multiplier=1.5)
-2026-02-19 05:44:07,720 | INFO | Removed 436 outliers from column "year"
-2026-02-19 05:44:07,724 | INFO | No outliers detected in column "quarter"
-2026-02-19 05:44:07,726 | INFO | No outliers detected in column "month"
-2026-02-19 05:44:07,728 | INFO | No outliers detected in column "day_of_week"
-2026-02-19 05:44:07,729 | INFO | No outliers detected in column "day_of_year"
-2026-02-19 05:44:07,747 | INFO | Removed 638 outliers from column "title_len_chars"
-2026-02-19 05:44:07,765 | INFO | Removed 351 outliers from column "title_len_words"
-2026-02-19 05:44:07,782 | INFO | Removed 521 outliers from column "title_has_number"
-2026-02-19 05:44:07,798 | INFO | Removed 4344 outliers from column "title_has_acronym"
-2026-02-19 05:44:07,815 | INFO | Removed 26 outliers from column "kw_5g"
-2026-02-19 05:44:07,832 | INFO | Removed 82 outliers from column "kw_ai_ml"
-2026-02-19 05:44:07,847 | INFO | Removed 351 outliers from column "kw_cloud_edge"
-2026-02-19 05:44:07,863 | INFO | Removed 239 outliers from column "kw_security"
-2026-02-19 05:44:07,877 | INFO | Removed 65 outliers from column "kw_iot"
-2026-02-19 05:44:07,879 | INFO | No outliers detected in column "kw_network"
-2026-02-19 05:44:07,890 | INFO | Removed 1118 outliers from column "kw_energy"
-2026-02-19 05:44:07,900 | INFO | Removed 860 outliers from column "kw_antenna"
-2026-02-19 05:44:07,910 | INFO | Removed 1416 outliers from column "kw_data"
-2026-02-19 05:44:07,911 | INFO | No outliers detected in column "keyword_score"
-2026-02-19 05:44:07,921 | INFO | Removed 317 outliers from column "is_utility"
-2026-02-19 05:44:07,922 | INFO | No outliers detected in column "is_design"
-2026-02-19 05:44:07,923 | INFO | No outliers detected in column "is_other_type"
-2026-02-19 05:44:07,924 | INFO | No outliers detected in column "patent_count"
-2026-02-19 05:44:07,925 | INFO | No outliers detected in column "patent_unique"
-2026-02-19 05:44:07,933 | INFO | Removed 1377 outliers from column "utility_share"
-2026-02-19 05:44:07,941 | INFO | Removed 3596 outliers from column "design_share"
-2026-02-19 05:44:07,947 | INFO | Removed 218 outliers from column "avg_title_words"
-2026-02-19 05:44:07,954 | INFO | Removed 206 outliers from column "avg_keyword_score"
-2026-02-19 05:44:07,961 | INFO | Removed 206 outliers from column "kw_5g_count"
-2026-02-19 05:44:07,968 | INFO | Removed 850 outliers from column "kw_ai_ml_count"
-2026-02-19 05:44:07,970 | INFO | No outliers detected in column "kw_cloud_edge_count"
-2026-02-19 05:44:07,976 | INFO | Removed 216 outliers from column "kw_security_count"
-2026-02-19 05:44:07,982 | INFO | Removed 462 outliers from column "kw_iot_count"
-2026-02-19 05:44:07,990 | INFO | Removed 727 outliers from column "kw_network_count"
-2026-02-19 05:44:07,991 | INFO | No outliers detected in column "kw_energy_count"
-2026-02-19 05:44:07,992 | INFO | No outliers detected in column "kw_antenna_count"
-2026-02-19 05:44:07,993 | INFO | No outliers detected in column "kw_data_count"
-2026-02-19 05:44:07,998 | INFO | Removed 695 outliers from column "patent_count_lag1"
-2026-02-19 05:44:07,999 | INFO | No outliers detected in column "patent_count_lag2"
-2026-02-19 05:44:08,000 | INFO | No outliers detected in column "patent_count_lag4"
-2026-02-19 05:44:08,001 | INFO | No outliers detected in column "patent_count_roll4_mean"
-2026-02-19 05:44:08,003 | INFO | No outliers detected in column "patent_count_roll8_mean"
-2026-02-19 05:44:08,003 | INFO | No outliers detected in column "patent_count_qoq"
-2026-02-19 05:44:08,004 | INFO | No outliers detected in column "patent_count_yoy"
-2026-02-19 05:44:08,009 | INFO | Removed 344 outliers from column "target_patent_count_current"
-2026-02-19 05:44:08,015 | INFO | Removed 290 outliers from column "target_patent_count_next_quarter"
-2026-02-19 05:44:08,017 | INFO | No outliers detected in column "years_since_first_patent"
-2026-02-19 05:44:08,019 | INFO | No outliers detected in column "patent_seq_global"
-2026-02-19 05:44:08,020 | INFO | No outliers detected in column "year_patent_count"
+2026-02-19 09:56:08,998 | INFO | Total dropped rows: 1218
+2026-02-19 09:56:08,998 | INFO | === AUTO REMOVAL OF NULL VALUES COMPLETED ===
 --------------------------------
-2026-02-19 05:44:08,020 | INFO | Total outliers handled: 19951
-2026-02-19 05:44:08,020 | INFO | === OUTLIER HANDLING COMPLETED ===
+2026-02-19 09:56:08,998 | INFO | === DTYPE FINALIZATION STARTED ===
+2026-02-19 09:56:09,005 | INFO | Kept Column "food_category" as string
+2026-02-19 09:56:09,015 | INFO | Converted column "brand_owner" to datetime64[us]
+2026-02-19 09:56:09,022 | INFO | Converted column "brand_name" to datetime64[us]
+2026-02-19 09:56:09,072 | INFO | Kept Column "ingredients" as string
+2026-02-19 09:56:09,072 | INFO | Column "calories" kept as float64
+2026-02-19 09:56:09,072 | INFO | Column "carbs_g" kept as float64
+2026-02-19 09:56:09,072 | INFO | Column "calcium_mg" kept as float64
+2026-02-19 09:56:09,072 | INFO | Column "fat_g" kept as float64
+2026-02-19 09:56:09,072 | INFO | Column "protein_g" kept as float64
+2026-02-19 09:56:09,072 | INFO | Column "saturated_fat_g" kept as float64
+2026-02-19 09:56:09,072 | INFO | Column "vitamin_c_mg" kept as float64
+2026-02-19 09:56:09,072 | INFO | Column "fiber_g" kept as float64
+2026-02-19 09:56:09,072 | INFO | Column "iron_mg" kept as float64
+2026-02-19 09:56:09,072 | INFO | Column "sodium_mg" kept as float64
+2026-02-19 09:56:09,072 | INFO | Column "sugar_g" kept as float64
+2026-02-19 09:56:09,072 | INFO | Column "cholesterol_mg" kept as float64
+2026-02-19 09:56:09,072 | INFO | Column "row_number" kept as int64
+2026-02-19 09:56:09,072 | INFO | === DTYPE FINALIZATION COMPLETED ===
 --------------------------------
-2026-02-19 05:44:08,020 | INFO | === ENCODING STARTED ===
-2026-02-19 05:44:08,020 | INFO | Columns selected for encoding: ['patent_type', 'patent_title', 'tech_era']
-2026-02-19 05:44:08,020 | INFO | Method : Label Encoding
-2026-02-19 05:44:08,022 | INFO | Label encoded column "patent_type"
-2026-02-19 05:44:08,036 | INFO | Label encoded column "patent_title"
-2026-02-19 05:44:08,038 | INFO | Label encoded column "tech_era"
-2026-02-19 05:44:08,038 | INFO | === ENCODING COMPLETED ===
+2026-02-19 09:56:09,072 | INFO | === OUTLIER HANDLING STARTED ===
+2026-02-19 09:56:09,072 | INFO | Method : Z-Score (threshold=4.0)
+2026-02-19 09:56:09,072 | INFO | Capped 323 outliers in column "calories"
+2026-02-19 09:56:09,080 | INFO | Capped 21 outliers in column "carbs_g"
+2026-02-19 09:56:09,081 | INFO | Capped 17 outliers in column "calcium_mg"
+2026-02-19 09:56:09,081 | INFO | Capped 703 outliers in column "fat_g"
+2026-02-19 09:56:09,081 | INFO | Capped 172 outliers in column "protein_g"
+2026-02-19 09:56:09,081 | INFO | Capped 257 outliers in column "saturated_fat_g"
+2026-02-19 09:56:09,088 | INFO | Capped 5 outliers in column "vitamin_c_mg"
+2026-02-19 09:56:09,089 | INFO | Capped 220 outliers in column "fiber_g"
+2026-02-19 09:56:09,089 | INFO | Capped 11 outliers in column "iron_mg"
+2026-02-19 09:56:09,089 | INFO | Capped 23 outliers in column "sodium_mg"
+2026-02-19 09:56:09,089 | INFO | Capped 19 outliers in column "sugar_g"
+2026-02-19 09:56:09,089 | INFO | Capped 16 outliers in column "cholesterol_mg"
 --------------------------------
-2026-02-19 05:44:08,038 | INFO | === FEATURE SELECTION STARTED ===
-2026-02-19 05:44:08,038 | INFO | Running Variance Filtering
-2026-02-19 05:44:08,046 | INFO | Variance Threshold Removed Columns: ['kw_ai_ml', 'is_other_type', 'day_of_week', 'is_design', 'kw_antenna', 'patent_type', 'kw_energy', 'avg_keyword_score', 'is_utility', 'design_share', 'kw_cloud_edge', 'kw_security', 'kw_iot', 'title_has_acronym', 'kw_data', 'title_has_number', 'utility_share', 'kw_5g']
-2026-02-19 05:44:08,046 | INFO | Remaining Columns After Variance Filter: 38
-2026-02-19 05:44:08,046 | INFO | Running Correlation Filtering
-2026-02-19 05:44:08,073 | INFO | Correlation Removed Columns: ['month', 'day_of_year', 'title_len_words', 'keyword_score', 'patent_unique', 'target_patent_count_current', 'years_since_first_patent', 'patent_seq_global']
-2026-02-19 05:44:08,073 | INFO | Remaining Columns After Correlation Filter: 30
-2026-02-19 05:44:08,073 | INFO | === FEATURE SELECTION COMPLETED ===
+2026-02-19 09:56:09,089 | INFO | Total outliers handled: 1787
+2026-02-19 09:56:09,089 | INFO | === OUTLIER HANDLING COMPLETED ===
 --------------------------------
-2026-02-19 05:44:08,073 | INFO | === TEMPORAL FEATURE EXTRACTION STARTED ===
-2026-02-19 05:44:08,073 | INFO | Detected Date-Time columns: ['patent_id', 'patent_date', 'quarter_end']
-2026-02-19 05:44:08,076 | INFO | Extracted features from patent_id: Year, Month, Day, Hour, Minute, Second, Weekday
-2026-02-19 05:44:08,076 | INFO | Dropped Original Column: patent_id
-2026-02-19 05:44:08,080 | INFO | Extracted features from patent_date: Year, Month, Day, Hour, Minute, Second, Weekday
-2026-02-19 05:44:08,080 | INFO | Dropped Original Column: patent_date
-2026-02-19 05:44:08,084 | INFO | Extracted features from quarter_end: Year, Month, Day, Hour, Minute, Second, Weekday
-2026-02-19 05:44:08,085 | INFO | Dropped Original Column: quarter_end
-2026-02-19 05:44:08,085 | INFO | No Time-Only columns detected.
-2026-02-19 05:44:08,086 | INFO | === TEMPORAL FEATURE EXTRACTION COMPLETED ===
+2026-02-19 09:56:09,089 | INFO | === ENCODING STARTED ===
+2026-02-19 09:56:09,089 | INFO | Columns selected for encoding: ['food_category', 'ingredients']
+2026-02-19 09:56:09,089 | INFO | Method : Label Encoding
+2026-02-19 09:56:09,098 | INFO | Label encoded column "food_category"
+2026-02-19 09:56:09,154 | INFO | Label encoded column "ingredients"
+2026-02-19 09:56:09,154 | INFO | === ENCODING COMPLETED ===
 --------------------------------
-2026-02-19 05:44:08,086 | INFO | === SCALING STARTED
-2026-02-19 05:44:08,086 | INFO | Columns selected for scaling: ['patent_title', 'year', 'quarter', 'title_len_chars', 'kw_network', 'tech_era', 'patent_count', 'avg_title_words', 'kw_5g_count', 'kw_ai_ml_count', 'kw_cloud_edge_count', 'kw_security_count', 'kw_iot_count', 'kw_network_count', 'kw_energy_count', 'kw_antenna_count', 'kw_data_count', 'patent_count_lag1', 'patent_count_lag2', 'patent_count_lag4', 'patent_count_roll4_mean', 'patent_count_roll8_mean', 'patent_count_qoq', 'patent_count_yoy', 'target_patent_count_next_quarter', 'year_patent_count', 'patent_id_year', 'patent_id_month', 'patent_id_day', 'patent_id_hour', 'patent_id_minute', 'patent_id_second', 'patent_id_weekday', 'patent_date_year', 'patent_date_month', 'patent_date_day', 'patent_date_hour', 'patent_date_minute', 'patent_date_second', 'patent_date_weekday', 'quarter_end_year', 'quarter_end_month', 'quarter_end_day', 'quarter_end_hour', 'quarter_end_minute', 'quarter_end_second', 'quarter_end_weekday']
-2026-02-19 05:44:08,107 | INFO | Scaled columns using Standard Scaler
-2026-02-19 05:44:08,107 | INFO | === SCALING COMPLETED ===
+2026-02-19 09:56:09,154 | INFO | === FEATURE SELECTION STARTED ===
+2026-02-19 09:56:09,154 | INFO | Running Variance Filtering
+2026-02-19 09:56:09,174 | INFO | Variance Threshold Removed Columns: []
+2026-02-19 09:56:09,174 | INFO | Remaining Columns After Variance Filter: 17
+2026-02-19 09:56:09,174 | INFO | Running Correlation Filtering
+2026-02-19 09:56:09,182 | INFO | Correlation Removed Columns: []
+2026-02-19 09:56:09,182 | INFO | Remaining Columns After Correlation Filter: 17
+2026-02-19 09:56:09,182 | INFO | === FEATURE SELECTION COMPLETED ===
 --------------------------------
-2026-02-19 05:44:08,108 | INFO | Pipeline completed successfully
+2026-02-19 09:56:09,182 | INFO | === SCALING STARTED
+2026-02-19 09:56:09,182 | INFO | Columns selected for scaling: ['ingredients', 'calories', 'carbs_g', 'calcium_mg', 'fat_g', 'protein_g', 'saturated_fat_g', 'vitamin_c_mg', 'fiber_g', 'iron_mg', 'sodium_mg', 'sugar_g', 'cholesterol_mg']
+2026-02-19 09:56:09,207 | INFO | Scaled columns using Standard Scaler
+2026-02-19 09:56:09,207 | INFO | === SCALING COMPLETED ===
 --------------------------------
-2026-02-19 05:44:08,108 | INFO | Time elapsed: 0.58 seconds
+2026-02-19 09:56:09,207 | INFO | === ADDING TARGET COLUMN STARTED ===
+2026-02-19 09:56:09,231 | INFO | === ADDING TARGET COLUMN COMPLETED ===
+--------------------------------
+2026-02-19 09:56:09,235 | INFO | Pipeline completed successfully
+--------------------------------
+2026-02-19 09:56:09,235 | INFO | Time elapsed: 0.34 seconds
 --------------------------------

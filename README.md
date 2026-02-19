@@ -7,3 +7,7 @@ PrismaFlow is an **automated, modular preprocessing pipeline** designed to simpl
 ---
 
 Work in Progress
+
+TO DO:
+Scaling/Outlier - Numerical Columns Only
+Show Null Values Percentage On Loading
