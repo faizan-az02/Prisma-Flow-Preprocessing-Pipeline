@@ -1,108 +1,83 @@
-2026-02-19 09:56:08,898 | INFO | Starting Prismaflow Pipeline
+2026-02-19 10:54:51,324 | INFO | Starting Prismaflow Pipeline
 --------------------------------
-2026-02-19 09:56:08,898 | INFO | === REMOVING TARGET COLUMN STARTED ===
-2026-02-19 09:56:08,898 | INFO | === REMOVING TARGET COLUMN COMPLETED ===
+2026-02-19 10:54:51,332 | INFO | === REMOVING TARGET COLUMN STARTED ===
+2026-02-19 10:54:51,332 | INFO | === REMOVING TARGET COLUMN COMPLETED ===
 --------------------------------
-2026-02-19 09:56:08,898 | INFO | === MANUAL REMOVAL OF COLUMNS STARTED ===
-2026-02-19 09:56:08,898 | INFO | Removed column "fdc_id"
-2026-02-19 09:56:08,898 | INFO | Removed column "food_name"
-2026-02-19 09:56:08,898 | INFO | Removed column "data_type"
-2026-02-19 09:56:08,898 | INFO | Removed column "serving_size"
-2026-02-19 09:56:08,898 | INFO | Removed column "serving_unit"
-2026-02-19 09:56:08,898 | INFO | Removed column "household_serving"
-2026-02-19 09:56:08,898 | INFO | Removed column "health_score"
-2026-02-19 09:56:08,906 | INFO | === MANUAL REMOVAL OF COLUMNS COMPLETED ===
+2026-02-19 10:54:51,332 | INFO | === MANUAL REMOVAL OF COLUMNS STARTED ===
+2026-02-19 10:54:51,332 | INFO | Removed column "fdc_id"
+2026-02-19 10:54:51,332 | INFO | Removed column "food_name"
+2026-02-19 10:54:51,332 | INFO | === MANUAL REMOVAL OF COLUMNS COMPLETED ===
 --------------------------------
-2026-02-19 09:56:08,906 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS STARTED ===
+2026-02-19 10:54:51,332 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS STARTED ===
 --------------------------------
-2026-02-19 09:56:08,906 | INFO | Total dropped columns: 0
-2026-02-19 09:56:08,906 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS COMPLETED ===
+2026-02-19 10:54:51,448 | INFO | Total dropped columns: 0
+2026-02-19 10:54:51,448 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS COMPLETED ===
 --------------------------------
-2026-02-19 09:56:08,906 | INFO | === AUTO REMOVAL OF NULL VALUES STARTED ===
-2026-02-19 09:56:08,915 | INFO | Dropped 46 rows with nulls from the column "food_category"
-2026-02-19 09:56:08,931 | INFO | Filled with the mode - Beaver Street Fisheries Inc. of the column "brand_owner"
-2026-02-19 09:56:08,939 | INFO | Filled with the mode - AHOLD of the column "brand_name"
-2026-02-19 09:56:08,955 | INFO | Filled with the mode - REDUCED FAT MILK, VITAMIN A PALMITATE, VITAMIN D3. of the column "ingredients"
-2026-02-19 09:56:08,964 | INFO | Dropped 462 rows with nulls from the column "calories"
-2026-02-19 09:56:08,972 | INFO | Dropped 352 rows with nulls from the column "carbs_g"
-2026-02-19 09:56:08,973 | INFO | Filled with the mean - 106.56 of the column "calcium_mg"
-2026-02-19 09:56:08,981 | INFO | Dropped 79 rows with nulls from the column "fat_g"
-2026-02-19 09:56:08,989 | INFO | Dropped 98 rows with nulls from the column "protein_g"
-2026-02-19 09:56:08,989 | INFO | Filled with the mean - 4.4 of the column "saturated_fat_g"
-2026-02-19 09:56:08,989 | INFO | Filled with the mean - 24.41 of the column "vitamin_c_mg"
-2026-02-19 09:56:08,989 | INFO | Filled with the mean - 2.57 of the column "fiber_g"
-2026-02-19 09:56:08,989 | INFO | Filled with the mean - 2.41 of the column "iron_mg"
-2026-02-19 09:56:08,998 | INFO | Dropped 181 rows with nulls from the column "sodium_mg"
-2026-02-19 09:56:08,998 | INFO | Filled with the mean - 13.18 of the column "sugar_g"
-2026-02-19 09:56:08,998 | INFO | Filled with the mean - 59.89 of the column "cholesterol_mg"
-2026-02-19 09:56:08,998 | INFO | Dropped 0 rows with nulls from the column "row_number"
+2026-02-19 10:54:51,448 | INFO | === AUTO REMOVAL OF NULL VALUES STARTED ===
+2026-02-19 10:54:51,456 | INFO | Dropped 0 rows with nulls from the column "data_type"
+2026-02-19 10:54:51,466 | INFO | Dropped 46 rows with nulls from the column "food_category"
+2026-02-19 10:54:51,466 | INFO | Filled with the mode - Beaver Street Fisheries Inc. of the column "brand_owner"
+2026-02-19 10:54:51,473 | INFO | Filled with the mode - AHOLD of the column "brand_name"
+2026-02-19 10:54:51,489 | INFO | Filled with the mode - REDUCED FAT MILK, VITAMIN A PALMITATE, VITAMIN D3. of the column "ingredients"
+2026-02-19 10:54:51,489 | INFO | Filled with the mean - 92.54 of the column "serving_size"
+2026-02-19 10:54:51,497 | INFO | Filled with the mode - g of the column "serving_unit"
+2026-02-19 10:54:51,499 | INFO | Filled with the mode - 1 Tbsp of the column "household_serving"
+2026-02-19 10:54:51,512 | INFO | Dropped 462 rows with nulls from the column "calories"
+2026-02-19 10:54:51,522 | INFO | Dropped 352 rows with nulls from the column "carbs_g"
+2026-02-19 10:54:51,532 | INFO | Dropped 5466 rows with nulls from the column "calcium_mg"
+2026-02-19 10:54:51,538 | INFO | Dropped 57 rows with nulls from the column "fat_g"
+2026-02-19 10:54:51,547 | INFO | Dropped 77 rows with nulls from the column "protein_g"
+2026-02-19 10:54:51,555 | INFO | Dropped 1222 rows with nulls from the column "saturated_fat_g"
+2026-02-19 10:54:51,555 | INFO | Filled with the mean - 9.18 of the column "vitamin_c_mg"
+2026-02-19 10:54:51,565 | INFO | Dropped 854 rows with nulls from the column "fiber_g"
+2026-02-19 10:54:51,572 | INFO | Dropped 102 rows with nulls from the column "iron_mg"
+2026-02-19 10:54:51,580 | INFO | Dropped 36 rows with nulls from the column "sodium_mg"
+2026-02-19 10:54:51,588 | INFO | Dropped 1327 rows with nulls from the column "sugar_g"
+2026-02-19 10:54:51,598 | INFO | Dropped 236 rows with nulls from the column "cholesterol_mg"
+2026-02-19 10:54:51,598 | INFO | Dropped 0 rows with nulls from the column "health_score"
+2026-02-19 10:54:51,605 | INFO | Dropped 0 rows with nulls from the column "row_number"
 --------------------------------
-2026-02-19 09:56:08,998 | INFO | Total dropped rows: 1218
-2026-02-19 09:56:08,998 | INFO | === AUTO REMOVAL OF NULL VALUES COMPLETED ===
+2026-02-19 10:54:51,605 | INFO | Total dropped rows: 10237
+2026-02-19 10:54:51,605 | INFO | === AUTO REMOVAL OF NULL VALUES COMPLETED ===
 --------------------------------
-2026-02-19 09:56:08,998 | INFO | === DTYPE FINALIZATION STARTED ===
-2026-02-19 09:56:09,005 | INFO | Kept Column "food_category" as string
-2026-02-19 09:56:09,015 | INFO | Converted column "brand_owner" to datetime64[us]
-2026-02-19 09:56:09,022 | INFO | Converted column "brand_name" to datetime64[us]
-2026-02-19 09:56:09,072 | INFO | Kept Column "ingredients" as string
-2026-02-19 09:56:09,072 | INFO | Column "calories" kept as float64
-2026-02-19 09:56:09,072 | INFO | Column "carbs_g" kept as float64
-2026-02-19 09:56:09,072 | INFO | Column "calcium_mg" kept as float64
-2026-02-19 09:56:09,072 | INFO | Column "fat_g" kept as float64
-2026-02-19 09:56:09,072 | INFO | Column "protein_g" kept as float64
-2026-02-19 09:56:09,072 | INFO | Column "saturated_fat_g" kept as float64
-2026-02-19 09:56:09,072 | INFO | Column "vitamin_c_mg" kept as float64
-2026-02-19 09:56:09,072 | INFO | Column "fiber_g" kept as float64
-2026-02-19 09:56:09,072 | INFO | Column "iron_mg" kept as float64
-2026-02-19 09:56:09,072 | INFO | Column "sodium_mg" kept as float64
-2026-02-19 09:56:09,072 | INFO | Column "sugar_g" kept as float64
-2026-02-19 09:56:09,072 | INFO | Column "cholesterol_mg" kept as float64
-2026-02-19 09:56:09,072 | INFO | Column "row_number" kept as int64
-2026-02-19 09:56:09,072 | INFO | === DTYPE FINALIZATION COMPLETED ===
+2026-02-19 10:54:51,605 | INFO | === DTYPE FINALIZATION STARTED ===
+2026-02-19 10:54:51,613 | INFO | Kept Column "data_type" as string
+2026-02-19 10:54:51,613 | INFO | Kept Column "food_category" as string
+2026-02-19 10:54:51,629 | INFO | Kept Column "brand_owner" as string
+2026-02-19 10:54:51,637 | INFO | Kept Column "brand_name" as string
+2026-02-19 10:54:51,646 | INFO | Kept Column "ingredients" as string
+2026-02-19 10:54:51,646 | INFO | Column "serving_size" kept as float64
+2026-02-19 10:54:51,656 | INFO | Kept Column "serving_unit" as string
+2026-02-19 10:54:51,664 | INFO | Kept Column "household_serving" as string
+2026-02-19 10:54:51,664 | INFO | Column "calories" kept as float64
+2026-02-19 10:54:51,664 | INFO | Column "carbs_g" kept as float64
+2026-02-19 10:54:51,664 | INFO | Column "calcium_mg" kept as float64
+2026-02-19 10:54:51,664 | INFO | Column "fat_g" kept as float64
+2026-02-19 10:54:51,664 | INFO | Column "protein_g" kept as float64
+2026-02-19 10:54:51,664 | INFO | Column "saturated_fat_g" kept as float64
+2026-02-19 10:54:51,664 | INFO | Column "vitamin_c_mg" kept as float64
+2026-02-19 10:54:51,664 | INFO | Column "fiber_g" kept as float64
+2026-02-19 10:54:51,664 | INFO | Column "iron_mg" kept as float64
+2026-02-19 10:54:51,664 | INFO | Column "sodium_mg" kept as float64
+2026-02-19 10:54:51,664 | INFO | Column "sugar_g" kept as float64
+2026-02-19 10:54:51,664 | INFO | Column "cholesterol_mg" kept as float64
+2026-02-19 10:54:51,664 | INFO | Column "health_score" kept as int64
+2026-02-19 10:54:51,664 | INFO | Column "row_number" kept as int64
+2026-02-19 10:54:51,664 | INFO | === DTYPE FINALIZATION COMPLETED ===
 --------------------------------
-2026-02-19 09:56:09,072 | INFO | === OUTLIER HANDLING STARTED ===
-2026-02-19 09:56:09,072 | INFO | Method : Z-Score (threshold=4.0)
-2026-02-19 09:56:09,072 | INFO | Capped 323 outliers in column "calories"
-2026-02-19 09:56:09,080 | INFO | Capped 21 outliers in column "carbs_g"
-2026-02-19 09:56:09,081 | INFO | Capped 17 outliers in column "calcium_mg"
-2026-02-19 09:56:09,081 | INFO | Capped 703 outliers in column "fat_g"
-2026-02-19 09:56:09,081 | INFO | Capped 172 outliers in column "protein_g"
-2026-02-19 09:56:09,081 | INFO | Capped 257 outliers in column "saturated_fat_g"
-2026-02-19 09:56:09,088 | INFO | Capped 5 outliers in column "vitamin_c_mg"
-2026-02-19 09:56:09,089 | INFO | Capped 220 outliers in column "fiber_g"
-2026-02-19 09:56:09,089 | INFO | Capped 11 outliers in column "iron_mg"
-2026-02-19 09:56:09,089 | INFO | Capped 23 outliers in column "sodium_mg"
-2026-02-19 09:56:09,089 | INFO | Capped 19 outliers in column "sugar_g"
-2026-02-19 09:56:09,089 | INFO | Capped 16 outliers in column "cholesterol_mg"
+2026-02-19 10:54:51,664 | INFO | === FEATURE SELECTION STARTED ===
+2026-02-19 10:54:51,664 | INFO | Running Variance Filtering
+2026-02-19 10:54:51,670 | INFO | Variance Threshold Removed Columns: []
+2026-02-19 10:54:51,670 | INFO | Remaining Columns After Variance Filter: 22
+2026-02-19 10:54:51,670 | INFO | Running Correlation Filtering
+2026-02-19 10:54:51,687 | INFO | Correlation Removed Columns: []
+2026-02-19 10:54:51,687 | INFO | Remaining Columns After Correlation Filter: 22
+2026-02-19 10:54:51,687 | INFO | === FEATURE SELECTION COMPLETED ===
 --------------------------------
-2026-02-19 09:56:09,089 | INFO | Total outliers handled: 1787
-2026-02-19 09:56:09,089 | INFO | === OUTLIER HANDLING COMPLETED ===
+2026-02-19 10:54:51,687 | INFO | === ADDING TARGET COLUMN STARTED ===
+2026-02-19 10:54:51,697 | INFO | === ADDING TARGET COLUMN COMPLETED ===
 --------------------------------
-2026-02-19 09:56:09,089 | INFO | === ENCODING STARTED ===
-2026-02-19 09:56:09,089 | INFO | Columns selected for encoding: ['food_category', 'ingredients']
-2026-02-19 09:56:09,089 | INFO | Method : Label Encoding
-2026-02-19 09:56:09,098 | INFO | Label encoded column "food_category"
-2026-02-19 09:56:09,154 | INFO | Label encoded column "ingredients"
-2026-02-19 09:56:09,154 | INFO | === ENCODING COMPLETED ===
+2026-02-19 10:54:51,697 | INFO | Pipeline completed successfully
 --------------------------------
-2026-02-19 09:56:09,154 | INFO | === FEATURE SELECTION STARTED ===
-2026-02-19 09:56:09,154 | INFO | Running Variance Filtering
-2026-02-19 09:56:09,174 | INFO | Variance Threshold Removed Columns: []
-2026-02-19 09:56:09,174 | INFO | Remaining Columns After Variance Filter: 17
-2026-02-19 09:56:09,174 | INFO | Running Correlation Filtering
-2026-02-19 09:56:09,182 | INFO | Correlation Removed Columns: []
-2026-02-19 09:56:09,182 | INFO | Remaining Columns After Correlation Filter: 17
-2026-02-19 09:56:09,182 | INFO | === FEATURE SELECTION COMPLETED ===
---------------------------------
-2026-02-19 09:56:09,182 | INFO | === SCALING STARTED
-2026-02-19 09:56:09,182 | INFO | Columns selected for scaling: ['ingredients', 'calories', 'carbs_g', 'calcium_mg', 'fat_g', 'protein_g', 'saturated_fat_g', 'vitamin_c_mg', 'fiber_g', 'iron_mg', 'sodium_mg', 'sugar_g', 'cholesterol_mg']
-2026-02-19 09:56:09,207 | INFO | Scaled columns using Standard Scaler
-2026-02-19 09:56:09,207 | INFO | === SCALING COMPLETED ===
---------------------------------
-2026-02-19 09:56:09,207 | INFO | === ADDING TARGET COLUMN STARTED ===
-2026-02-19 09:56:09,231 | INFO | === ADDING TARGET COLUMN COMPLETED ===
---------------------------------
-2026-02-19 09:56:09,235 | INFO | Pipeline completed successfully
---------------------------------
-2026-02-19 09:56:09,235 | INFO | Time elapsed: 0.34 seconds
+2026-02-19 10:54:51,697 | INFO | Time elapsed: 0.37 seconds
 --------------------------------

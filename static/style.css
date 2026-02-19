@@ -662,6 +662,10 @@ select optgroup {
   font-size: 13px; /* content */
 }
 
+.check-item.is-hidden {
+  display: none;
+}
+
 .check-item:hover {
   background: rgba(255, 255, 255, 0.06);
 }

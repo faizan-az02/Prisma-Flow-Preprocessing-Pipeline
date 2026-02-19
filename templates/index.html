@@ -280,7 +280,7 @@
                       </div>
                     </div>
                     <div class="checklist" {% if not preview_html %}aria-disabled="true"{% endif %}>
-                      {% for col in columns %}
+                      {% for col in numeric_columns %}
                         <label class="check-item">
                           <input type="checkbox" name="outlier_skipping" value="{{ col }}" {% if not preview_html %}disabled{% endif %} />
                           <span>{{ col }}</span>
@@ -298,7 +298,7 @@
                       </div>
                     </div>
                     <div class="checklist" {% if not preview_html %}aria-disabled="true"{% endif %}>
-                      {% for col in columns %}
+                      {% for col in numeric_columns %}
                         <label class="check-item">
                           <input type="checkbox" name="scaling_skipping" value="{{ col }}" {% if not preview_html %}disabled{% endif %} />
                           <span>{{ col }}</span>
@@ -511,6 +511,58 @@
             b.checked = shouldCheck;
           });
         });
+      })();
+
+      (function () {
+        var removeBoxes = document.querySelectorAll('input[type="checkbox"][name="manual_columns"]');
+        if (!removeBoxes || removeBoxes.length === 0) return;
+
+        var dependentNames = ["columns_to_keep", "outlier_skipping", "scaling_skipping"];
+        var dependentBoxes = [];
+        dependentNames.forEach(function (name) {
+          document
+            .querySelectorAll('input[type="checkbox"][name="' + name + '"]')
+            .forEach(function (b) {
+              b.dataset.baseDisabled = b.disabled ? "1" : "0";
+              dependentBoxes.push(b);
+            });
+        });
+
+        function getRemovedSet() {
+          var s = {};
+          removeBoxes.forEach(function (b) {
+            if (b.checked) s[b.value] = true;
+          });
+          return s;
+        }
+
+        function sync() {
+          var removed = getRemovedSet();
+          dependentBoxes.forEach(function (b) {
+            var shouldHide = !!removed[b.value];
+            var label = b.closest("label");
+            if (shouldHide) {
+              b.checked = false;
+              b.disabled = true;
+              if (label) label.classList.add("is-hidden");
+            } else {
+              if (b.dataset.baseDisabled === "1") {
+                b.disabled = true;
+              } else {
+                b.disabled = false;
+              }
+              if (label) label.classList.remove("is-hidden");
+            }
+          });
+        }
+
+        document.addEventListener("change", function (e) {
+          var t = e.target;
+          if (!t) return;
+          if (t.name === "manual_columns") sync();
+        });
+
+        sync();
       })();
     </script>
   </body>

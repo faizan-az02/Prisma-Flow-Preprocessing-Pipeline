@@ -25,7 +25,8 @@ def extract_temporal_features(df, drop_original=True, exclude_cols=None):
     exclude = set(exclude_cols or [])
     
     # ---------------- DATETIME64 COLUMNS ----------------
-    datetime_cols = [c for c in df.select_dtypes(include=["datetime64[ns]"]).columns.tolist() if c not in exclude]
+    # Accept any datetime64 unit (ns/us/ms/s) so upstream casting always works.
+    datetime_cols = [c for c in df.select_dtypes(include=["datetime64"]).columns.tolist() if c not in exclude]
     
     if datetime_cols:
         logging.info(f"Detected Date-Time columns: {datetime_cols}")

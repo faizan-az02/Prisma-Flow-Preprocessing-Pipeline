@@ -98,10 +98,17 @@ def index():
     _cleanup_store()
     token = _get_token()
     state = _STORE.get(token, {}) if token else {}
+    if token and state and ("numeric_columns" not in state) and state.get("raw_bytes"):
+        try:
+            df = _read_csv_safely_bytes(state["raw_bytes"])
+            state["numeric_columns"] = [str(c) for c in df.select_dtypes(include="number").columns.tolist()]
+        except Exception:
+            state["numeric_columns"] = []
     return render_template(
         "index.html",
         uploaded_filename=state.get("uploaded_filename"),
         columns=state.get("columns", []),
+        numeric_columns=state.get("numeric_columns", []),
         preview_html=state.get("preview_html"),
         processed_preview_html=state.get("processed_preview_html"),
         has_processed=bool(state.get("processed_bytes")),
@@ -143,6 +150,7 @@ def upload():
         "uploaded_filename": original_name,
         "raw_bytes": raw_bytes,
         "columns": [str(c) for c in df.columns.tolist()],
+        "numeric_columns": [str(c) for c in df.select_dtypes(include="number").columns.tolist()],
         "preview_html": _df_head_html(df),
         "raw_shape": {"rows": int(df.shape[0]), "cols": int(df.shape[1])},
         "processed_preview_html": None,

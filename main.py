@@ -173,7 +173,9 @@ def prismaflow_pipeline(
 
     if "drop_empty_columns" in enabled_steps:
         cols_before = set(df.columns)
-        df = clear_columns(df, exclude_cols=keep)
+        # Always drop mostly-empty columns (>=95% empty), even if user "kept" them.
+        # Keeping columns is meant for later processing exclusions, not retaining near-empty columns.
+        df = clear_columns(df, exclude_cols=[row_number_col], empty_threshold=0.95)
         if metrics is not None:
             dropped = (cols_before - set(df.columns)) - {row_number_col}
             metrics["columns_removed_empty"] += len(dropped)
