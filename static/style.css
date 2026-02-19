@@ -91,15 +91,64 @@ code {
   margin-bottom: 18px;
 }
 
+.brand-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  margin: 4px 0;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.05));
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+.brand-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, rgba(43, 107, 255, 0.95), rgba(0, 183, 255, 0.88));
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.32);
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.brand-mark::before {
+  content: "";
+  position: absolute;
+  inset: 7px 8px 7px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.92);
+  clip-path: polygon(0% 100%, 50% 0%, 100% 100%, 75% 100%, 50% 40%, 25% 100%);
+  opacity: 0.92;
+}
+
 .brand {
-  font-size: 26px;
-  font-weight: 750;
+  font-size: 30px;
+  font-weight: 900;
   letter-spacing: 0.2px;
+  line-height: 1.05;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(191, 231, 255, 0.92));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
 }
 
 .subtitle {
-  margin-top: 6px;
-  color: var(--muted);
+  margin-top: 2px;
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 650;
+  letter-spacing: 0.2px;
 }
 
 .toasts {
@@ -147,11 +196,26 @@ code {
   min-width: 0;
 }
 
-.card h2 {
-  margin: 0 0 10px;
-  font-size: 16px;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.92);
+.card > h2 {
+  margin: 0 0 14px;
+  font-size: 20px;
+  font-weight: 950;
+  letter-spacing: 0.4px;
+  color: transparent;
+  background: linear-gradient(135deg, rgba(0, 183, 255, 0.95), rgba(43, 107, 255, 0.95));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.card > h2::after {
+  content: "";
+  display: block;
+  width: 74px;
+  height: 3px;
+  margin-top: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(0, 183, 255, 0.9), rgba(43, 107, 255, 0.85));
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
 .upload {
@@ -160,6 +224,56 @@ code {
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: 12px;
+}
+
+.source-select {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.source-title {
+  color: rgba(0, 183, 255, 0.95);
+  font-weight: 950;
+  font-size: 14px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.source-btn {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.16);
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 850;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease, box-shadow 120ms ease;
+}
+
+.source-btn:hover:not(:disabled) {
+  border-color: rgba(0, 183, 255, 0.40);
+  transform: translateY(-1px);
+}
+
+.source-btn.active {
+  border-color: rgba(43, 107, 255, 0.65);
+  background: linear-gradient(135deg, rgba(43, 107, 255, 0.50), rgba(0, 183, 255, 0.18));
+  box-shadow: 0 0 0 3px rgba(43, 107, 255, 0.15);
+}
+
+.source-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .file-row {
@@ -455,6 +569,12 @@ input[type="number"] {
   color: rgba(255, 255, 255, 0.9);
 }
 
+.input-compact {
+  width: 180px !important;
+  max-width: 100%;
+  display: inline-block;
+}
+
 /* Improve dropdown list readability on Windows browsers */
 select option,
 select optgroup {
@@ -521,6 +641,11 @@ select optgroup {
   background: rgba(0, 0, 0, 0.20);
   border-radius: 12px;
   padding: 8px;
+}
+
+.checklist.checklist-steps {
+  max-height: none;
+  overflow: visible;
 }
 
 .check-item {
@@ -601,6 +726,14 @@ select optgroup {
   margin-bottom: 8px;
   font-size: 14px;
   letter-spacing: 0.2px;
+}
+
+.preview-title.major {
+  font-weight: 950;
+  font-size: 16px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: rgba(0, 183, 255, 0.95);
 }
 
 .empty {

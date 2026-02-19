@@ -58,7 +58,13 @@ def _read_csv_safely_bytes(data: bytes) -> pd.DataFrame:
 
 def _df_head_html(df: pd.DataFrame, max_rows: int = 15) -> str:
     preview = df.head(max_rows)
-    return preview.to_html(index=False, classes="df-table", border=0, escape=True)
+    return preview.to_html(
+        index=False,
+        classes="df-table",
+        border=0,
+        escape=True,
+        float_format=lambda x: f"{x:.2f}",
+    )
 
 def _cleanup_store() -> None:
     now = time.time()
@@ -207,7 +213,14 @@ def run_custom():
     scaling_skipping = request.form.getlist("scaling_skipping") or None
     steps = request.form.getlist("steps") or None
     outlier_action = (request.form.get("outlier_action") or "remove").strip().lower()
-    handle_outliers = outlier_action != "keep"
+    handle_outliers = outlier_action != "skip"
+    outlier_drop = outlier_action != "cap"
+    outlier_method = (request.form.get("outlier_method") or "iqr").strip().lower()
+    raw_outlier_param = (request.form.get("outlier_param") or "").strip()
+    try:
+        outlier_param = float(raw_outlier_param) if raw_outlier_param != "" else None
+    except Exception:
+        outlier_param = None
     encoding_method = (request.form.get("encoding_method") or "label").strip().lower()
     scaling_method = (request.form.get("scaling_method") or "standard").strip().lower()
     raw_threshold = (request.form.get("null_threshold") or "").strip()
@@ -226,6 +239,9 @@ def run_custom():
             columns_to_keep=columns_to_keep,
             scaling_skipping=scaling_skipping,
             handle_outliers=handle_outliers,
+            outlier_method=outlier_method,
+            outlier_drop=outlier_drop,
+            outlier_param=outlier_param,
             null_threshold=null_threshold,
             encoding_method=encoding_method,
             scaling_method=scaling_method,

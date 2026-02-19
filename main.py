@@ -16,7 +16,8 @@ from remove_target import remove_target
 from add_target import add_target
 from divider import divider
 
-log_file = "logs.txt"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+log_file = os.path.join(BASE_DIR, "logs.txt")
 
 logging.basicConfig(
     filename=log_file,
@@ -26,6 +27,39 @@ logging.basicConfig(
     force=True,
 )
 
+def _reset_log_file_for_new_run() -> None:
+    """
+    Ensure each pipeline run starts with a fresh log file.
+    In a long-lived Python process, the FileHandler stays open and will append
+    across runs unless we explicitly recreate it.
+    """
+    root = logging.getLogger()
+    target = os.path.abspath(log_file)
+
+    # Remove/close any existing FileHandler pointing at our log file.
+    for h in list(root.handlers):
+        if isinstance(h, logging.FileHandler):
+            base = getattr(h, "baseFilename", None)
+            try:
+                if base and os.path.abspath(str(base)) == target:
+                    root.removeHandler(h)
+                    try:
+                        h.flush()
+                    except Exception:
+                        pass
+                    try:
+                        h.close()
+                    except Exception:
+                        pass
+            except Exception:
+                continue
+
+    fh = logging.FileHandler(log_file, mode="w", encoding="utf-8")
+    fh.setLevel(logging.INFO)
+    fh.setFormatter(logging.Formatter("%(asctime)s | %(levelname)s | %(message)s"))
+    root.addHandler(fh)
+    root.setLevel(logging.INFO)
+
 def prismaflow_pipeline(
     df,
     target_col=None,
@@ -34,6 +68,9 @@ def prismaflow_pipeline(
     columns_to_keep=None,
     scaling_skipping=None,
     handle_outliers=True,
+    outlier_method="iqr",
+    outlier_drop=True,
+    outlier_param=None,
     null_threshold=0.05,
     encoding_method="label",
     steps=None,
@@ -42,6 +79,7 @@ def prismaflow_pipeline(
     return_df=False,
     collect_metrics=False,
 ):
+    _reset_log_file_for_new_run()
 
     if df is None:
 
@@ -69,6 +107,7 @@ def prismaflow_pipeline(
         encoding_method = "label"
 
     handle_outliers = bool(handle_outliers)
+    outlier_drop = bool(outlier_drop)
 
     scaling_method = (scaling_method or "standard").strip().lower()
     if scaling_method not in {"standard", "minmax"}:
@@ -76,6 +115,15 @@ def prismaflow_pipeline(
 
     outlier_skipping = list(outlier_skipping or [])
     scaling_skipping = list(scaling_skipping or [])
+
+    outlier_method = (outlier_method or "iqr").strip().lower()
+    if outlier_method not in {"iqr", "zscore", "modified_zscore"}:
+        outlier_method = "iqr"
+
+    try:
+        outlier_param = None if outlier_param is None else float(outlier_param)
+    except Exception:
+        outlier_param = None
 
     all_steps = {
         "manual_columns",
@@ -141,11 +189,40 @@ def prismaflow_pipeline(
 
     if handle_outliers and ("handle_outliers" in enabled_steps):
         rows_before = int(df.shape[0])
-        df = remove_outliers(df, True, exclude_cols=[row_number_col, *outlier_skipping])
+        extra_kwargs = {}
+        if outlier_param is not None:
+            if outlier_method == "iqr":
+                extra_kwargs["multiplier"] = outlier_param
+            elif outlier_method == "zscore":
+                extra_kwargs["zscore_threshold"] = outlier_param
+            else:
+                extra_kwargs["modified_zscore_threshold"] = outlier_param
+
+        total_outliers_handled = None
+        if metrics is not None and not outlier_drop:
+            df, total_outliers_handled = remove_outliers(
+                df,
+                outlier_drop,
+                exclude_cols=[row_number_col, *outlier_skipping],
+                method=outlier_method,
+                return_total=True,
+                **extra_kwargs,
+            )
+        else:
+            df = remove_outliers(
+                df,
+                outlier_drop,
+                exclude_cols=[row_number_col, *outlier_skipping],
+                method=outlier_method,
+                **extra_kwargs,
+            )
         if metrics is not None:
             dropped_rows = max(0, rows_before - int(df.shape[0]))
             metrics["rows_dropped_outliers"] += dropped_rows
-            metrics["outliers_removed"] += dropped_rows
+            if outlier_drop:
+                metrics["outliers_removed"] += dropped_rows
+            else:
+                metrics["outliers_removed"] += int(total_outliers_handled or 0)
 
     if "encoding" in enabled_steps:
         df = encode_features(df, encoding_method, exclude_cols=keep)

@@ -3,22 +3,34 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PrismaFlow — Preprocessing Pipeline</title>
+    <title>PrismaFlow | Preprocessing Pipeline</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml" />
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <div>
-          <div class="brand">PrismaFlow</div>
-          <div class="subtitle">Upload a CSV, preview your data, then preprocess.</div>
+        <div class="brand-block">
+          <div class="brand-row">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <div class="brand">PrismaFlow</div>
+          </div>
+          <div class="subtitle">Control every transformation. Own every outcome.</div>
         </div>
       </header>
 
       <main class="grid">
         <section class="card">
-          <h2>Upload CSV</h2>
+          <h2>DATA SOURCE</h2>
           <form class="upload" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+            <div class="source-select" role="group" aria-label="File type">
+              <div class="source-title">Source</div>
+              <input type="hidden" name="source_type" id="source_type" value="csv" />
+              <button class="source-btn active" type="button" data-source="csv">CSV</button>
+              <button class="source-btn" type="button" data-source="excel" disabled>Excel</button>
+              <button class="source-btn" type="button" data-source="databases" disabled>Databases</button>
+              <button class="source-btn" type="button" data-source="json" disabled>JSON</button>
+            </div>
             <div class="file-row">
               <input id="file" class="file-hidden" type="file" name="file" accept=".csv,text/csv" required />
               <label class="file-picker" for="file">Choose CSV</label>
@@ -31,7 +43,7 @@
             {% if uploaded_filename %}
               <div><span class="label">Uploaded:</span> {{ uploaded_filename }}</div>
             {% else %}
-              <div><span class="label">Uploaded:</span> - </div>
+              <div><span class="label">Uploaded:</span> None </div>
             {% endif %}
           </div>
 
@@ -39,10 +51,9 @@
         </section>
 
         <section class="card">
-          <h2>Preview</h2>
+          <h2>PREVIEW</h2>
 
           <div class="preview-block">
-            <div class="preview-title">Raw Data Sample</div>
             {% if preview_html %}
               <div class="table-wrap">{{ preview_html | safe }}</div>
               {% if raw_shape %}
@@ -63,12 +74,12 @@
               {% if metrics %}
                 <div class="metrics">
                   <div class="metric">
-                    <span>Time processed</span>
+                    <span>Time Elapsed</span>
                     <span class="metric-value"><b>{{ metrics.time_processed_seconds }}</b><span class="unit">s</span></span>
                   </div>
-                  <div class="metric"><span>Outliers removed</span><b>{{ metrics.outliers_removed }}</b></div>
-                  <div class="metric"><span>Columns removed</span><b>{{ metrics.columns_removed }}</b></div>
-                  <div class="metric"><span>Rows dropped</span><b>{{ metrics.rows_dropped }}</b></div>
+                  <div class="metric"><span>Outliers Handled</span><b>{{ metrics.outliers_removed }}</b></div>
+                  <div class="metric"><span>Columns Removed</span><b>{{ metrics.columns_removed }}</b></div>
+                  <div class="metric"><span>Rows Dropped</span><b>{{ metrics.rows_dropped }}</b></div>
                 </div>
                 <div class="metrics-actions">
                   <a class="btn primary" href="{{ url_for('download') }}">Download processed CSV</a>
@@ -82,7 +93,7 @@
             </div>
           {% else %}
             <div class="preview-block">
-              <div class="preview-title">Preprocessing Type</div>
+              <div class="preview-title major">Preprocessing Type</div>
               {% if preview_html %}
                 <div class="preprocess-tabs" role="tablist" aria-label="Preprocessing Type">
                   <button class="tab-btn active" type="button" id="tab-default" role="tab" aria-selected="true" aria-controls="panel-default">
@@ -129,7 +140,7 @@
                         <button class="btn mini" type="button" data-action="clear_all" data-field="steps">Clear all</button>
                       </div>
                     </div>
-                    <div class="checklist" {% if not preview_html %}aria-disabled="true"{% endif %}>
+                    <div class="checklist checklist-steps" {% if not preview_html %}aria-disabled="true"{% endif %}>
                       {% for step in pipeline_steps %}
                         <label class="check-item">
                           <input type="checkbox" name="steps" value="{{ step.key }}" checked {% if not preview_html %}disabled{% endif %} />
@@ -149,6 +160,7 @@
                       max="100"
                       step="0.1"
                       value="5"
+                      class="input-compact"
                       {% if not preview_html %}disabled{% endif %}
                     />
                   </div>
@@ -158,11 +170,11 @@
                     <div class="radio-row">
                       <label class="radio-pill">
                         <input type="radio" name="encoding_method" value="label" checked {% if not preview_html %}disabled{% endif %} />
-                        <span>Label</span>
+                        <span>Label Encoding</span>
                       </label>
                       <label class="radio-pill">
                         <input type="radio" name="encoding_method" value="onehot" {% if not preview_html %}disabled{% endif %} />
-                        <span>One-hot</span>
+                        <span>One-Hot Encoding</span>
                       </label>
                     </div>
                   </div>
@@ -171,14 +183,50 @@
                     <label>Outlier handling</label>
                     <div class="radio-row">
                       <label class="radio-pill">
-                        <input type="radio" name="outlier_action" value="remove" checked {% if not preview_html %}disabled{% endif %} />
-                        <span>Remove outliers</span>
+                        <input type="radio" name="outlier_action" value="skip" {% if not preview_html %}disabled{% endif %} />
+                        <span>Skip</span>
                       </label>
                       <label class="radio-pill">
-                        <input type="radio" name="outlier_action" value="keep" {% if not preview_html %}disabled{% endif %} />
-                        <span>Keep outliers</span>
+                        <input type="radio" name="outlier_action" value="remove" checked {% if not preview_html %}disabled{% endif %} />
+                        <span>Remove</span>
+                      </label>
+                      <label class="radio-pill">
+                        <input type="radio" name="outlier_action" value="cap" {% if not preview_html %}disabled{% endif %} />
+                        <span>Cap</span>
                       </label>
                     </div>
+                  </div>
+
+                  <div class="form-row">
+                    <label>Outlier detection method</label>
+                    <div class="radio-row">
+                      <label class="radio-pill">
+                        <input type="radio" name="outlier_method" value="iqr" checked {% if not preview_html %}disabled{% endif %} />
+                        <span>IQR</span>
+                      </label>
+                      <label class="radio-pill">
+                        <input type="radio" name="outlier_method" value="zscore" {% if not preview_html %}disabled{% endif %} />
+                        <span>Z-Score</span>
+                      </label>
+                      <label class="radio-pill">
+                        <input type="radio" name="outlier_method" value="modified_zscore" {% if not preview_html %}disabled{% endif %} />
+                        <span>Modified Z-Score</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <label id="outlier_param_label" for="outlier_param">Outlier Method Value</label>
+                    <input
+                      id="outlier_param"
+                      name="outlier_param"
+                      type="number"
+                      step="0.1"
+                      value="1.5"
+                      class="input-compact"
+                      {% if not preview_html %}disabled{% endif %}
+                    />
+                    <div class="hint" id="outlier_param_hint">Default: 1.5 (IQR Multiplier)</div>
                   </div>
 
                   <div class="form-row">
@@ -286,7 +334,7 @@
                 </div>
               </div>
               {% else %}
-                <div class="empty">Upload a CSV to choose preprocessing type.</div>
+                <div class="empty">You need to upload a CSV file first.</div>
               {% endif %}
             </div>
           {% endif %}
@@ -303,6 +351,32 @@
           var file = input.files && input.files[0];
           nameEl.textContent = file ? file.name : "No file chosen";
         });
+      })();
+
+      (function () {
+        var hidden = document.getElementById("source_type");
+        var buttons = document.querySelectorAll(".source-btn[data-source]");
+        if (!hidden || !buttons || !buttons.length) return;
+
+        function setActive(source) {
+          hidden.value = source;
+          for (var i = 0; i < buttons.length; i++) {
+            var b = buttons[i];
+            b.classList.toggle("active", b.getAttribute("data-source") === source);
+          }
+        }
+
+        for (var i = 0; i < buttons.length; i++) {
+          (function (btn) {
+            btn.addEventListener("click", function () {
+              if (btn.disabled) return;
+              var src = btn.getAttribute("data-source") || "csv";
+              setActive(src);
+            });
+          })(buttons[i]);
+        }
+
+        setActive(hidden.value || "csv");
       })();
 
       (function () {
@@ -349,6 +423,46 @@
         }
         window.addEventListener("resize", function () {
           run();
+        });
+      })();
+
+      (function () {
+        var input = document.getElementById("outlier_param");
+        var label = document.getElementById("outlier_param_label");
+        var hint = document.getElementById("outlier_param_hint");
+        if (!input || !label || !hint) return;
+
+        function setDefaults(method) {
+          if (method === "zscore") {
+            label.textContent = "Z-Score Threshold";
+            hint.textContent = "Default: 3.0";
+            input.value = input.value ? input.value : "3.0";
+          } else if (method === "modified_zscore") {
+            label.textContent = "Modified Z-Score Threshold";
+            hint.textContent = "Default: 3.5";
+            input.value = input.value ? input.value : "3.5";
+          } else {
+            label.textContent = "IQR Multiplier";
+            hint.textContent = "Default: 1.5";
+            input.value = input.value ? input.value : "1.5";
+          }
+        }
+
+        function getSelectedMethod() {
+          var el = document.querySelector('input[name="outlier_method"]:checked');
+          return el ? el.value : "iqr";
+        }
+
+        // Initialize on load, and update when method changes.
+        setDefaults(getSelectedMethod());
+        document.addEventListener("change", function (e) {
+          var t = e.target;
+          if (!t) return;
+          if (t.name === "outlier_method") {
+            // If user hasn't typed a custom value, switch to the method default.
+            input.value = "";
+            setDefaults(t.value);
+          }
         });
       })();
 
