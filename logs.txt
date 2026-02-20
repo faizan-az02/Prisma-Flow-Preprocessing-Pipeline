@@ -1,55 +1,80 @@
-2026-02-20 16:43:00,601 | INFO | Cleaning Initiated
+2026-02-20 16:57:15,207 | INFO | Preprocessing Initiated
 --------------------------------
-2026-02-20 16:43:00,601 | INFO | === MANUAL REMOVAL OF COLUMNS STARTED ===
-2026-02-20 16:43:00,608 | INFO | Removed column "username"
-2026-02-20 16:43:00,608 | INFO | Removed column "Note"
-2026-02-20 16:43:00,608 | INFO | === MANUAL REMOVAL OF COLUMNS COMPLETED ===
+2026-02-20 16:57:15,207 | INFO | === REMOVING TARGET COLUMN STARTED ===
+2026-02-20 16:57:15,207 | INFO | === REMOVING TARGET COLUMN COMPLETED ===
 --------------------------------
-2026-02-20 16:43:00,608 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS STARTED ===
-2026-02-20 16:43:00,608 | INFO | Column "Candy" is empty in 100.0% rows
-2026-02-20 16:43:00,608 | INFO | Column "Ginger Breads" is empty in 100.0% rows
-2026-02-20 16:43:00,608 | INFO | Column "cookie_data" is empty in 100.0% rows
+2026-02-20 16:57:15,207 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS STARTED ===
 --------------------------------
-2026-02-20 16:43:00,608 | INFO | Total dropped columns: 3
-2026-02-20 16:43:00,608 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS COMPLETED ===
+2026-02-20 16:57:15,224 | INFO | Total dropped columns: 0
+2026-02-20 16:57:15,224 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS COMPLETED ===
 --------------------------------
-2026-02-20 16:43:00,608 | INFO | === AUTO REMOVAL OF NULL VALUES STARTED ===
-2026-02-20 16:43:00,608 | INFO | Filled with the mean - 25751.82 of the column "Money"
-2026-02-20 16:43:00,608 | INFO | Filled with the mean - 31.57 of the column "Potion"
-2026-02-20 16:43:00,622 | INFO | Dropped 4 rows with nulls from the column "Event_currency"
-2026-02-20 16:43:00,625 | INFO | Dropped 27 rows with nulls from the column "Total Pets"
-2026-02-20 16:43:00,625 | INFO | Dropped 16 rows with nulls from the column "Event Currency per Minute"
-2026-02-20 16:43:00,628 | INFO | Dropped 10 rows with nulls from the column "Potion per Minute"
-2026-02-20 16:43:00,628 | INFO | Filled with the mode - 2026-02-14T20:59:10.008Z of the column "updated_at"
-2026-02-20 16:43:00,628 | INFO | Dropped 0 rows with nulls from the column "row_number"
+2026-02-20 16:57:15,224 | INFO | === AUTO REMOVAL OF NULL VALUES STARTED ===
+2026-02-20 16:57:15,224 | INFO | Dropped 0 rows with nulls from the column "housing_median_age"
+2026-02-20 16:57:15,226 | INFO | Dropped 0 rows with nulls from the column "total_rooms"
+2026-02-20 16:57:15,228 | INFO | Dropped 207 rows with nulls from the column "total_bedrooms"
+2026-02-20 16:57:15,228 | INFO | Dropped 0 rows with nulls from the column "population"
+2026-02-20 16:57:15,230 | INFO | Dropped 0 rows with nulls from the column "households"
+2026-02-20 16:57:15,230 | INFO | Dropped 0 rows with nulls from the column "median_income"
+2026-02-20 16:57:15,233 | INFO | Dropped 0 rows with nulls from the column "ocean_proximity"
+2026-02-20 16:57:15,233 | INFO | Dropped 0 rows with nulls from the column "row_number"
 --------------------------------
-2026-02-20 16:43:00,628 | INFO | Total dropped rows: 57
-2026-02-20 16:43:00,628 | INFO | === AUTO REMOVAL OF NULL VALUES COMPLETED ===
+2026-02-20 16:57:15,233 | INFO | Total dropped rows: 207
+2026-02-20 16:57:15,233 | INFO | === AUTO REMOVAL OF NULL VALUES COMPLETED ===
 --------------------------------
-2026-02-20 16:43:00,628 | INFO | === DTYPE FINALIZATION STARTED ===
-2026-02-20 16:43:00,628 | INFO | Column "Money" kept as float64
-2026-02-20 16:43:00,628 | INFO | Column "Potion" kept as float64
-2026-02-20 16:43:00,628 | INFO | Column "Event_currency" kept as float64
-2026-02-20 16:43:00,628 | INFO | Column "Total Pets" kept as float64
-2026-02-20 16:43:00,628 | INFO | Column "Event Currency per Minute" kept as float64
-2026-02-20 16:43:00,628 | INFO | Column "Potion per Minute" kept as float64
-2026-02-20 16:43:00,652 | INFO | Converted column "updated_at" to datetime64[ns]
-2026-02-20 16:43:00,653 | INFO | Column "row_number" kept as int64
-2026-02-20 16:43:00,653 | INFO | === DTYPE FINALIZATION COMPLETED ===
+2026-02-20 16:57:15,233 | INFO | === DTYPE FINALIZATION STARTED ===
+2026-02-20 16:57:15,233 | INFO | Column "housing_median_age" kept as float64
+2026-02-20 16:57:15,233 | INFO | Column "total_rooms" kept as float64
+2026-02-20 16:57:15,233 | INFO | Column "total_bedrooms" kept as float64
+2026-02-20 16:57:15,233 | INFO | Column "population" kept as float64
+2026-02-20 16:57:15,233 | INFO | Column "households" kept as float64
+2026-02-20 16:57:15,233 | INFO | Column "median_income" kept as float64
+2026-02-20 16:57:15,240 | INFO | Kept Column "ocean_proximity" as string
+2026-02-20 16:57:15,240 | INFO | Column "row_number" kept as int64
+2026-02-20 16:57:15,240 | INFO | === DTYPE FINALIZATION COMPLETED ===
 --------------------------------
-2026-02-20 16:43:00,653 | INFO | === OUTLIER HANDLING STARTED ===
-2026-02-20 16:43:00,653 | INFO | Method : IQR (multiplier=1.5)
-2026-02-20 16:43:00,657 | INFO | Removed 96 outliers from column "Money"
-2026-02-20 16:43:00,661 | INFO | Removed 14 outliers from column "Potion"
-2026-02-20 16:43:00,661 | INFO | No outliers detected in column "Event_currency"
-2026-02-20 16:43:00,661 | INFO | Removed 3 outliers from column "Total Pets"
-2026-02-20 16:43:00,661 | INFO | No outliers detected in column "Event Currency per Minute"
-2026-02-20 16:43:00,661 | INFO | No outliers detected in column "Potion per Minute"
+2026-02-20 16:57:15,240 | INFO | === OUTLIER HANDLING STARTED ===
+2026-02-20 16:57:15,240 | INFO | Method : IQR (multiplier=1.5)
+2026-02-20 16:57:15,240 | INFO | No outliers detected in column "longitude"
+2026-02-20 16:57:15,240 | INFO | No outliers detected in column "latitude"
+2026-02-20 16:57:15,240 | INFO | No outliers detected in column "housing_median_age"
+2026-02-20 16:57:15,240 | INFO | Removed 1290 outliers from column "total_rooms"
+2026-02-20 16:57:15,248 | INFO | Removed 547 outliers from column "total_bedrooms"
+2026-02-20 16:57:15,248 | INFO | Removed 479 outliers from column "population"
+2026-02-20 16:57:15,256 | INFO | Removed 176 outliers from column "households"
+2026-02-20 16:57:15,256 | INFO | Removed 584 outliers from column "median_income"
 --------------------------------
-2026-02-20 16:43:00,661 | INFO | Total outliers handled: 113
-2026-02-20 16:43:00,661 | INFO | === OUTLIER HANDLING COMPLETED ===
+2026-02-20 16:57:15,256 | INFO | Total outliers handled: 3076
+2026-02-20 16:57:15,256 | INFO | === OUTLIER HANDLING COMPLETED ===
 --------------------------------
-2026-02-20 16:43:00,669 | INFO | Pipeline completed successfully
+2026-02-20 16:57:15,256 | INFO | === ENCODING STARTED ===
+2026-02-20 16:57:15,256 | INFO | Columns selected for encoding: ['ocean_proximity']
+2026-02-20 16:57:15,256 | INFO | Method : Label Encoding
+2026-02-20 16:57:15,256 | INFO | Label encoded column "ocean_proximity"
+2026-02-20 16:57:15,256 | INFO | === ENCODING COMPLETED ===
 --------------------------------
-2026-02-20 16:43:00,670 | INFO | Time elapsed: 0.07 seconds
+2026-02-20 16:57:15,256 | INFO | === FEATURE SELECTION STARTED ===
+2026-02-20 16:57:15,256 | INFO | Running Variance Filtering
+2026-02-20 16:57:15,264 | INFO | Variance Threshold Removed Columns: []
+2026-02-20 16:57:15,264 | INFO | Remaining Columns After Variance Filter: 10
+2026-02-20 16:57:15,264 | INFO | Running Correlation Filtering
+2026-02-20 16:57:15,264 | INFO | Correlation Removed Columns: ['households']
+2026-02-20 16:57:15,264 | INFO | Remaining Columns After Correlation Filter: 9
+2026-02-20 16:57:15,264 | INFO | === FEATURE SELECTION COMPLETED ===
+--------------------------------
+2026-02-20 16:57:15,264 | INFO | === TEMPORAL FEATURE EXTRACTION STARTED ===
+2026-02-20 16:57:15,264 | INFO | No Date-Time columns detected.
+2026-02-20 16:57:15,264 | INFO | No Time-Only columns detected.
+2026-02-20 16:57:15,264 | INFO | === TEMPORAL FEATURE EXTRACTION COMPLETED ===
+--------------------------------
+2026-02-20 16:57:15,264 | INFO | === SCALING STARTED
+2026-02-20 16:57:15,264 | INFO | Columns selected for scaling: ['longitude', 'latitude', 'housing_median_age', 'total_rooms', 'total_bedrooms', 'population', 'median_income', 'ocean_proximity']
+2026-02-20 16:57:15,277 | INFO | Scaled columns using Standard Scaler
+2026-02-20 16:57:15,277 | INFO | === SCALING COMPLETED ===
+--------------------------------
+2026-02-20 16:57:15,277 | INFO | === ADDING TARGET COLUMN STARTED ===
+2026-02-20 16:57:15,292 | INFO | === ADDING TARGET COLUMN COMPLETED ===
+--------------------------------
+2026-02-20 16:57:15,292 | INFO | Pipeline completed successfully
+--------------------------------
+2026-02-20 16:57:15,292 | INFO | Time elapsed: 0.08 seconds
 --------------------------------
