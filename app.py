@@ -213,14 +213,32 @@ def run_default():
     except Exception as e:
         return redirect(url_for("index"))
 
+    # Parse cleaning parameters
+    manual_columns = request.form.getlist("manual_columns") or None
+    raw_threshold = (request.form.get("null_threshold") or "").strip()
+    try:
+        null_threshold_percent = float(raw_threshold) if raw_threshold != "" else 5.0
+    except Exception:
+        null_threshold_percent = 5.0
+    null_threshold = max(0.0, min(1.0, null_threshold_percent / 100.0))
+
+    # Only run basic cleaning steps: manual_columns, drop_empty_columns, handle_nulls, finalize_dtypes, handle_outliers
+    cleaning_steps = ["manual_columns", "drop_empty_columns", "handle_nulls", "finalize_dtypes", "handle_outliers"]
+
     processed_df = prismaflow_pipeline(
         df,
         target_col=None,
-        manual_columns=None,
+        manual_columns=manual_columns,
         columns_to_keep=None,
+        null_threshold=null_threshold,
+        handle_outliers=True,
+        outlier_method="iqr",
+        outlier_drop=True,
+        steps=cleaning_steps,
         output_file=None,
         return_df=True,
         collect_metrics=True,
+        mode="cleaning",
     )
     if processed_df is None or (isinstance(processed_df, tuple) and processed_df[0] is None):
         return redirect(url_for("index"))
@@ -296,6 +314,7 @@ def run_custom():
             output_file=None,
             return_df=True,
             collect_metrics=True,
+            mode="preprocessing",
         )
     except Exception as e:
         return redirect(url_for("index"))

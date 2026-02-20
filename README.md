@@ -37,23 +37,36 @@ PrismaFlow is a powerful, automated preprocessing pipeline that transforms raw d
 
 1. **Upload CSV**: Click "Choose CSV" and select your dataset
 2. **Choose Preprocessing Mode**:
-   - **Default**: Run with sensible defaults (Label encoding, 5% null threshold, IQR outlier removal, Standard scaling)
-   - **Advanced**: Customize every aspect of the pipeline
-3. **Configure Options** (Advanced mode):
-   - Select pipeline steps to execute
-   - Set null threshold percentage
-   - Choose encoding method (Label/One-Hot)
-   - Configure outlier handling (Skip/Remove/Cap) and detection method
-   - Select scaling method (Standard/MinMax)
-   - Specify columns to remove, keep, or skip for specific operations
-4. **Run Pipeline**: Click "Run Default Preprocessing" or "Run Advanced Preprocessing"
-5. **Download Results**: Get your processed CSV and detailed logs
+   - **Cleaning Data**: Quick data cleaning with essential steps only
+     - Configure null threshold percentage (default: 5%)
+     - Select columns to remove (optional)
+     - Runs: Column removal → Drop empty columns → Handle nulls → Finalize types → Handle outliers (IQR)
+   - **Advanced**: Full-featured preprocessing with complete control
+     - Select pipeline steps to execute
+     - Set null threshold percentage
+     - Choose encoding method (Label/One-Hot)
+     - Configure outlier handling (Skip/Remove/Cap) and detection method
+     - Select scaling method (Standard/MinMax)
+     - Specify columns to remove, keep, or skip for specific operations
+3. **Run Pipeline**: Click "Run Data Cleaning" or "Run Advanced Preprocessing"
+4. **Download Results**: Get your processed CSV and detailed logs
+5. **View Data Report**: Click "Data Report" button to see column statistics (null %, unique values, data types)
 
 
 ## 🔧 Pipeline Steps
 
-PrismaFlow executes preprocessing steps in the following order:
+PrismaFlow offers two modes with different step configurations:
 
+### 🧹 Cleaning Data Mode
+Runs essential cleaning steps only (ideal for quick data preparation):
+1. **Manual Columns Removal** (`manual_columns`): Removes user-specified columns
+2. **Drop Empty Columns** (`drop_empty_columns`): Removes columns with ≥95% null/empty values
+3. **Handle Null Values** (`handle_nulls`): Imputes or drops rows based on null threshold
+4. **Finalize Data Types** (`finalize_dtypes`): Converts data types and detects datetime columns
+5. **Handle Outliers** (`handle_outliers`): Removes outliers using IQR method
+
+### ⚙️ Advanced Preprocessing Mode
+Full pipeline with all available steps (executed in order):
 1. **Target Column Removal** (`remove_target`): Temporarily removes the target column for processing
 2. **Manual Columns Removal** (`manual_columns`): Removes user-specified columns
 3. **Drop Empty Columns** (`drop_empty_columns`): Removes columns with ≥95% null/empty values
@@ -139,27 +152,43 @@ Prisma-Flow-Preprocessing-Pipeline/
 - **Scrollable Table**: Easy navigation through large datasets
 - **Export Ready**: All information needed for data profiling
 
+### Cleaning Data Mode
+- **Null Threshold Configuration**: Set percentage threshold for null value handling
+- **Column Removal**: Select specific columns to remove before cleaning
+- **Quick Processing**: Fast execution with essential cleaning steps only
+
 ### Advanced Configuration
 - **Step Selection**: Enable/disable individual pipeline steps
 - **Per-Column Control**: Fine-tune outlier handling and scaling per column
 - **Real-Time Validation**: Disabled options when no data is uploaded
+- **Full Pipeline Control**: Access to all preprocessing transformations
 
 ---
 
 ## 📝 Logging
 
-Every pipeline run generates detailed logs in `logs.txt`:
+Every pipeline run generates detailed logs in `logs.txt`. The log header indicates the mode:
 
+**Cleaning Data Mode:**
 ```
-2026-02-19 10:34:00,493 | INFO | Starting Prismaflow Pipeline
+2026-02-19 10:34:00,493 | INFO | Cleaning Initiated
 2026-02-19 10:34:00,503 | INFO | === MANUAL REMOVAL OF COLUMNS STARTED ===
 2026-02-19 10:34:00,503 | INFO | Removed column "fdc_id"
 2026-02-19 10:34:00,618 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS STARTED ===
-2026-02-19 10:34:00,618 | INFO | Total dropped columns: 0
+...
+```
+
+**Advanced Preprocessing Mode:**
+```
+2026-02-19 10:34:00,493 | INFO | Preprocessing Initiated
+2026-02-19 10:34:00,503 | INFO | === MANUAL REMOVAL OF COLUMNS STARTED ===
+2026-02-19 10:34:00,503 | INFO | Removed column "fdc_id"
+2026-02-19 10:34:00,618 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS STARTED ===
 ...
 ```
 
 Logs include:
+- Mode indicator - Cleaning/Preprocessing
 - Step-by-step execution details
 - Column removals and transformations
 - Row counts and statistics

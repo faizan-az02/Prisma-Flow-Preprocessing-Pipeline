@@ -78,6 +78,7 @@ def prismaflow_pipeline(
     output_file="processed_dataset.csv",
     return_df=False,
     collect_metrics=False,
+    mode="preprocessing",
 ):
     _reset_log_file_for_new_run()
 
@@ -89,7 +90,8 @@ def prismaflow_pipeline(
             return None, {"error": "DataFrame is None"}
         return None if return_df else False
 
-    logging.info(f"Starting Prismaflow Pipeline")
+    mode_label = "Cleaning" if mode == "cleaning" else "Preprocessing"
+    logging.info(f"{mode_label} Initiated")
     start_time = time.time()
     divider()
 

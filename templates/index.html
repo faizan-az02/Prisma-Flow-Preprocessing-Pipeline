@@ -100,7 +100,7 @@
               {% if preview_html %}
                 <div class="preprocess-tabs" role="tablist" aria-label="Preprocessing Type">
                   <button class="tab-btn active" type="button" id="tab-default" role="tab" aria-selected="true" aria-controls="panel-default">
-                    Default
+                    Cleaning Data
                   </button>
                   <button class="tab-btn" type="button" id="tab-advanced" role="tab" aria-selected="false" aria-controls="panel-advanced">
                     Advanced
@@ -108,28 +108,58 @@
                 </div>
 
                 <div id="panel-default" class="tab-panel">
-                  <div class="defaults">
-                    <div class="metric"><span>Encoding</span><b>Label</b></div>
-                    <div class="metric"><span>Null threshold</span><span class="metric-value"><b>5</b><span class="unit">%</span></span></div>
-                    <div class="metric"><span>Outlier handling</span><b>IQR Based Removal</b></div>
-                    <div class="metric"><span>Scaling</span><b>Standard</b></div>
-                  </div>
+                  <form class="custom" action="{{ url_for('run_default') }}" method="post">
+                    <div class="form-row">
+                      <label for="clean_null_threshold">Null Threshold Percentage</label>
+                      <input
+                        id="clean_null_threshold"
+                        name="null_threshold"
+                        type="number"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="5"
+                        class="input-compact"
+                        {% if not preview_html %}disabled{% endif %}
+                      />
+                      <div class="hint">Drop rows if null % exceeds this threshold; otherwise impute</div>
+                    </div>
 
-                  <div class="pipeline-flow">
-                    <div class="shape">Pipeline</div>
-                    <ol class="pipeline-list">
-                      {# Default preprocessing doesn't include user-selected column removal #}
-                      {% for step in pipeline_steps if step.key != "manual_columns" %}
-                        <li>{{ step.label }}</li>
-                      {% endfor %}
-                    </ol>
-                  </div>
+                    <div class="form-row">
+                      <div class="row-head">
+                        <label>Columns To Remove</label>
+                        <div class="row-actions">
+                          <button class="btn mini" type="button" data-action="select_all" data-field="manual_columns">Select all</button>
+                          <button class="btn mini" type="button" data-action="clear_all" data-field="manual_columns">Clear all</button>
+                        </div>
+                      </div>
+                      <div class="checklist" {% if not preview_html %}aria-disabled="true"{% endif %}>
+                        {% for col in columns %}
+                          <label class="check-item">
+                            <input type="checkbox" name="manual_columns" value="{{ col }}" {% if not preview_html %}disabled{% endif %} />
+                            <span>{{ col }}</span>
+                          </label>
+                        {% endfor %}
+                      </div>
+                    </div>
 
-                  <div class="metrics-actions">
-                    <form action="{{ url_for('run_default') }}" method="post">
-                      <button class="btn primary" type="submit">Run Default Preprocessing</button>
-                    </form>
-                  </div>
+                    <div class="pipeline-flow">
+                      <div class="shape">Cleaning Steps</div>
+                      <ol class="pipeline-list">
+                        <li>Selected Columns Removal</li>
+                        <li>Drop Empty Columns</li>
+                        <li>Handle Null Values</li>
+                        <li>Finalize Data Types</li>
+                        <li>IQR Based Outlier Removal</li>
+                      </ol>
+                    </div>
+
+                    <div class="metrics-actions">
+                      <button class="btn primary" type="submit" {% if not preview_html %}disabled{% endif %}>
+                        Run Data Cleaning
+                      </button>
+                    </div>
+                  </form>
                 </div>
 
                 <div id="panel-advanced" class="tab-panel hidden">
