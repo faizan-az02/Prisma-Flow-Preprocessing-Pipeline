@@ -1,80 +1,89 @@
-2026-02-20 16:57:15,207 | INFO | Preprocessing Initiated
+2026-02-21 19:05:16,615 | INFO | Cleaning Initiated
 --------------------------------
-2026-02-20 16:57:15,207 | INFO | === REMOVING TARGET COLUMN STARTED ===
-2026-02-20 16:57:15,207 | INFO | === REMOVING TARGET COLUMN COMPLETED ===
+2026-02-21 19:05:16,622 | INFO | === MANUAL REMOVAL OF COLUMNS STARTED ===
+2026-02-21 19:05:16,626 | INFO | Removed column "fdc_id"
+2026-02-21 19:05:16,629 | INFO | Removed column "food_name"
+2026-02-21 19:05:16,631 | INFO | Removed column "data_type"
+2026-02-21 19:05:16,631 | INFO | === MANUAL REMOVAL OF COLUMNS COMPLETED ===
 --------------------------------
-2026-02-20 16:57:15,207 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS STARTED ===
+2026-02-21 19:05:16,631 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS STARTED ===
 --------------------------------
-2026-02-20 16:57:15,224 | INFO | Total dropped columns: 0
-2026-02-20 16:57:15,224 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS COMPLETED ===
+2026-02-21 19:05:16,761 | INFO | Total dropped columns: 0
+2026-02-21 19:05:16,761 | INFO | === AUTO REMOVAL OF EMPTY COLUMNS COMPLETED ===
 --------------------------------
-2026-02-20 16:57:15,224 | INFO | === AUTO REMOVAL OF NULL VALUES STARTED ===
-2026-02-20 16:57:15,224 | INFO | Dropped 0 rows with nulls from the column "housing_median_age"
-2026-02-20 16:57:15,226 | INFO | Dropped 0 rows with nulls from the column "total_rooms"
-2026-02-20 16:57:15,228 | INFO | Dropped 207 rows with nulls from the column "total_bedrooms"
-2026-02-20 16:57:15,228 | INFO | Dropped 0 rows with nulls from the column "population"
-2026-02-20 16:57:15,230 | INFO | Dropped 0 rows with nulls from the column "households"
-2026-02-20 16:57:15,230 | INFO | Dropped 0 rows with nulls from the column "median_income"
-2026-02-20 16:57:15,233 | INFO | Dropped 0 rows with nulls from the column "ocean_proximity"
-2026-02-20 16:57:15,233 | INFO | Dropped 0 rows with nulls from the column "row_number"
+2026-02-21 19:05:16,761 | INFO | === AUTO REMOVAL OF NULL VALUES STARTED ===
+2026-02-21 19:05:16,777 | INFO | Dropped 46 rows with nulls from the column "food_category"
+2026-02-21 19:05:16,789 | INFO | Filled with the mode - Beaver Street Fisheries Inc. of the column "brand_owner"
+2026-02-21 19:05:16,795 | INFO | Filled with the mode - AHOLD of the column "brand_name"
+2026-02-21 19:05:16,818 | INFO | Filled with the mode - REDUCED FAT MILK, VITAMIN A PALMITATE, VITAMIN D3. of the column "ingredients"
+2026-02-21 19:05:16,820 | INFO | Filled with the mean - 92.54 of the column "serving_size"
+2026-02-21 19:05:16,824 | INFO | Filled with the mode - g of the column "serving_unit"
+2026-02-21 19:05:16,827 | INFO | Filled with the mode - 1 Tbsp of the column "household_serving"
+2026-02-21 19:05:16,835 | INFO | Dropped 462 rows with nulls from the column "calories"
+2026-02-21 19:05:16,848 | INFO | Dropped 352 rows with nulls from the column "carbs_g"
+2026-02-21 19:05:16,851 | INFO | Filled with the mean - 106.56 of the column "calcium_mg"
+2026-02-21 19:05:16,855 | INFO | Dropped 79 rows with nulls from the column "fat_g"
+2026-02-21 19:05:16,868 | INFO | Dropped 98 rows with nulls from the column "protein_g"
+2026-02-21 19:05:16,868 | INFO | Filled with the mean - 4.4 of the column "saturated_fat_g"
+2026-02-21 19:05:16,868 | INFO | Filled with the mean - 24.41 of the column "vitamin_c_mg"
+2026-02-21 19:05:16,868 | INFO | Filled with the mean - 2.57 of the column "fiber_g"
+2026-02-21 19:05:16,868 | INFO | Filled with the mean - 2.41 of the column "iron_mg"
+2026-02-21 19:05:16,876 | INFO | Dropped 181 rows with nulls from the column "sodium_mg"
+2026-02-21 19:05:16,884 | INFO | Filled with the mean - 13.18 of the column "sugar_g"
+2026-02-21 19:05:16,885 | INFO | Filled with the mean - 59.89 of the column "cholesterol_mg"
+2026-02-21 19:05:16,885 | INFO | Dropped 0 rows with nulls from the column "health_score"
+2026-02-21 19:05:16,885 | INFO | Dropped 0 rows with nulls from the column "food_type"
+2026-02-21 19:05:16,885 | INFO | Dropped 0 rows with nulls from the column "row_number"
 --------------------------------
-2026-02-20 16:57:15,233 | INFO | Total dropped rows: 207
-2026-02-20 16:57:15,233 | INFO | === AUTO REMOVAL OF NULL VALUES COMPLETED ===
+2026-02-21 19:05:16,885 | INFO | Total dropped rows: 1218
+2026-02-21 19:05:16,885 | INFO | === AUTO REMOVAL OF NULL VALUES COMPLETED ===
 --------------------------------
-2026-02-20 16:57:15,233 | INFO | === DTYPE FINALIZATION STARTED ===
-2026-02-20 16:57:15,233 | INFO | Column "housing_median_age" kept as float64
-2026-02-20 16:57:15,233 | INFO | Column "total_rooms" kept as float64
-2026-02-20 16:57:15,233 | INFO | Column "total_bedrooms" kept as float64
-2026-02-20 16:57:15,233 | INFO | Column "population" kept as float64
-2026-02-20 16:57:15,233 | INFO | Column "households" kept as float64
-2026-02-20 16:57:15,233 | INFO | Column "median_income" kept as float64
-2026-02-20 16:57:15,240 | INFO | Kept Column "ocean_proximity" as string
-2026-02-20 16:57:15,240 | INFO | Column "row_number" kept as int64
-2026-02-20 16:57:15,240 | INFO | === DTYPE FINALIZATION COMPLETED ===
+2026-02-21 19:05:16,885 | INFO | === DTYPE FINALIZATION STARTED ===
+2026-02-21 19:05:16,901 | INFO | Kept Column "food_category" as string
+2026-02-21 19:05:16,910 | INFO | Kept Column "brand_owner" as string
+2026-02-21 19:05:16,917 | INFO | Kept Column "brand_name" as string
+2026-02-21 19:05:16,936 | INFO | Kept Column "ingredients" as string
+2026-02-21 19:05:16,936 | INFO | Column "serving_size" kept as float64
+2026-02-21 19:05:16,948 | INFO | Kept Column "serving_unit" as string
+2026-02-21 19:05:16,958 | INFO | Kept Column "household_serving" as string
+2026-02-21 19:05:16,958 | INFO | Column "calories" kept as float64
+2026-02-21 19:05:16,958 | INFO | Column "carbs_g" kept as float64
+2026-02-21 19:05:16,958 | INFO | Column "calcium_mg" kept as float64
+2026-02-21 19:05:16,958 | INFO | Column "fat_g" kept as float64
+2026-02-21 19:05:16,958 | INFO | Column "protein_g" kept as float64
+2026-02-21 19:05:16,958 | INFO | Column "saturated_fat_g" kept as float64
+2026-02-21 19:05:16,958 | INFO | Column "vitamin_c_mg" kept as float64
+2026-02-21 19:05:16,958 | INFO | Column "fiber_g" kept as float64
+2026-02-21 19:05:16,958 | INFO | Column "iron_mg" kept as float64
+2026-02-21 19:05:16,958 | INFO | Column "sodium_mg" kept as float64
+2026-02-21 19:05:16,958 | INFO | Column "sugar_g" kept as float64
+2026-02-21 19:05:16,958 | INFO | Column "cholesterol_mg" kept as float64
+2026-02-21 19:05:16,958 | INFO | Column "health_score" kept as int64
+2026-02-21 19:05:16,967 | INFO | Kept Column "food_type" as string
+2026-02-21 19:05:16,967 | INFO | Column "row_number" kept as int64
+2026-02-21 19:05:16,967 | INFO | === DTYPE FINALIZATION COMPLETED ===
 --------------------------------
-2026-02-20 16:57:15,240 | INFO | === OUTLIER HANDLING STARTED ===
-2026-02-20 16:57:15,240 | INFO | Method : IQR (multiplier=1.5)
-2026-02-20 16:57:15,240 | INFO | No outliers detected in column "longitude"
-2026-02-20 16:57:15,240 | INFO | No outliers detected in column "latitude"
-2026-02-20 16:57:15,240 | INFO | No outliers detected in column "housing_median_age"
-2026-02-20 16:57:15,240 | INFO | Removed 1290 outliers from column "total_rooms"
-2026-02-20 16:57:15,248 | INFO | Removed 547 outliers from column "total_bedrooms"
-2026-02-20 16:57:15,248 | INFO | Removed 479 outliers from column "population"
-2026-02-20 16:57:15,256 | INFO | Removed 176 outliers from column "households"
-2026-02-20 16:57:15,256 | INFO | Removed 584 outliers from column "median_income"
+2026-02-21 19:05:16,967 | INFO | === OUTLIER HANDLING STARTED ===
+2026-02-21 19:05:16,967 | INFO | Method : IQR (multiplier=1.5)
+2026-02-21 19:05:16,975 | INFO | Removed 4575 outliers from column "serving_size"
+2026-02-21 19:05:16,991 | INFO | Removed 1522 outliers from column "calories"
+2026-02-21 19:05:17,000 | INFO | Removed 7 outliers from column "carbs_g"
+2026-02-21 19:05:17,008 | INFO | Removed 2034 outliers from column "calcium_mg"
+2026-02-21 19:05:17,016 | INFO | Removed 1518 outliers from column "fat_g"
+2026-02-21 19:05:17,026 | INFO | Removed 643 outliers from column "protein_g"
+2026-02-21 19:05:17,036 | INFO | Removed 2008 outliers from column "saturated_fat_g"
+2026-02-21 19:05:17,045 | INFO | Removed 565 outliers from column "vitamin_c_mg"
+2026-02-21 19:05:17,050 | INFO | Removed 1565 outliers from column "fiber_g"
+2026-02-21 19:05:17,058 | INFO | Removed 343 outliers from column "iron_mg"
+2026-02-21 19:05:17,068 | INFO | Removed 1242 outliers from column "sodium_mg"
+2026-02-21 19:05:17,076 | INFO | Removed 2598 outliers from column "sugar_g"
+2026-02-21 19:05:17,083 | INFO | Removed 215 outliers from column "cholesterol_mg"
+2026-02-21 19:05:17,087 | INFO | Removed 1215 outliers from column "health_score"
 --------------------------------
-2026-02-20 16:57:15,256 | INFO | Total outliers handled: 3076
-2026-02-20 16:57:15,256 | INFO | === OUTLIER HANDLING COMPLETED ===
+2026-02-21 19:05:17,087 | INFO | Total outliers handled: 20050
+2026-02-21 19:05:17,087 | INFO | === OUTLIER HANDLING COMPLETED ===
 --------------------------------
-2026-02-20 16:57:15,256 | INFO | === ENCODING STARTED ===
-2026-02-20 16:57:15,256 | INFO | Columns selected for encoding: ['ocean_proximity']
-2026-02-20 16:57:15,256 | INFO | Method : Label Encoding
-2026-02-20 16:57:15,256 | INFO | Label encoded column "ocean_proximity"
-2026-02-20 16:57:15,256 | INFO | === ENCODING COMPLETED ===
+2026-02-21 19:05:17,087 | INFO | Pipeline completed successfully
 --------------------------------
-2026-02-20 16:57:15,256 | INFO | === FEATURE SELECTION STARTED ===
-2026-02-20 16:57:15,256 | INFO | Running Variance Filtering
-2026-02-20 16:57:15,264 | INFO | Variance Threshold Removed Columns: []
-2026-02-20 16:57:15,264 | INFO | Remaining Columns After Variance Filter: 10
-2026-02-20 16:57:15,264 | INFO | Running Correlation Filtering
-2026-02-20 16:57:15,264 | INFO | Correlation Removed Columns: ['households']
-2026-02-20 16:57:15,264 | INFO | Remaining Columns After Correlation Filter: 9
-2026-02-20 16:57:15,264 | INFO | === FEATURE SELECTION COMPLETED ===
---------------------------------
-2026-02-20 16:57:15,264 | INFO | === TEMPORAL FEATURE EXTRACTION STARTED ===
-2026-02-20 16:57:15,264 | INFO | No Date-Time columns detected.
-2026-02-20 16:57:15,264 | INFO | No Time-Only columns detected.
-2026-02-20 16:57:15,264 | INFO | === TEMPORAL FEATURE EXTRACTION COMPLETED ===
---------------------------------
-2026-02-20 16:57:15,264 | INFO | === SCALING STARTED
-2026-02-20 16:57:15,264 | INFO | Columns selected for scaling: ['longitude', 'latitude', 'housing_median_age', 'total_rooms', 'total_bedrooms', 'population', 'median_income', 'ocean_proximity']
-2026-02-20 16:57:15,277 | INFO | Scaled columns using Standard Scaler
-2026-02-20 16:57:15,277 | INFO | === SCALING COMPLETED ===
---------------------------------
-2026-02-20 16:57:15,277 | INFO | === ADDING TARGET COLUMN STARTED ===
-2026-02-20 16:57:15,292 | INFO | === ADDING TARGET COLUMN COMPLETED ===
---------------------------------
-2026-02-20 16:57:15,292 | INFO | Pipeline completed successfully
---------------------------------
-2026-02-20 16:57:15,292 | INFO | Time elapsed: 0.08 seconds
+2026-02-21 19:05:17,087 | INFO | Time elapsed: 0.47 seconds
 --------------------------------

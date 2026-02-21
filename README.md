@@ -35,7 +35,7 @@ PrismaFlow is a powerful, automated preprocessing pipeline that transforms raw d
 
 ### Web Interface
 
-1. **Upload CSV**: Click "Choose CSV" and select your dataset
+1. **Upload Data**: Click your intended source and select your dataset
 2. **Choose Preprocessing Mode**:
    - **Cleaning Data**: Quick data cleaning with essential steps only
      - Configure null threshold percentage (default: 5%)
@@ -58,7 +58,8 @@ PrismaFlow is a powerful, automated preprocessing pipeline that transforms raw d
 PrismaFlow offers two modes with different step configurations:
 
 ### 🧹 Cleaning Data Mode
-Runs essential cleaning steps only (ideal for quick data preparation):
+Ideal for visualization
+Runs essential cleaning steps only:
 1. **Manual Columns Removal** (`manual_columns`): Removes user-specified columns
 2. **Drop Empty Columns** (`drop_empty_columns`): Removes columns with ≥95% null/empty values
 3. **Handle Null Values** (`handle_nulls`): Imputes or drops rows based on null threshold
@@ -66,7 +67,8 @@ Runs essential cleaning steps only (ideal for quick data preparation):
 5. **Handle Outliers** (`handle_outliers`): Removes outliers using IQR method
 
 ### ⚙️ Advanced Preprocessing Mode
-Full pipeline with all available steps (executed in order):
+Get your data ready for models 
+Full pipeline with all available steps:
 1. **Target Column Removal** (`remove_target`): Temporarily removes the target column for processing
 2. **Manual Columns Removal** (`manual_columns`): Removes user-specified columns
 3. **Drop Empty Columns** (`drop_empty_columns`): Removes columns with ≥95% null/empty values
@@ -218,12 +220,6 @@ Logs include:
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ---
 

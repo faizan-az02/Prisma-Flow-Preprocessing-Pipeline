@@ -122,7 +122,7 @@
                         class="input-compact"
                         {% if not preview_html %}disabled{% endif %}
                       />
-                      <div class="hint">Drop rows if null % exceeds this threshold; otherwise impute</div>
+                      <div class="hint">Drop rows if null % is less than this threshold, otherwise impute</div>
                     </div>
 
                     <div class="form-row">
@@ -184,7 +184,7 @@
                   </div>
 
                   <div class="form-row">
-                    <label for="null_threshold">Threshold Percentage For Dropping Rows With Null Values</label>
+                    <label for="null_threshold">Null Threshold Percentage</label>
                     <input
                       id="null_threshold"
                       name="null_threshold"
@@ -196,6 +196,7 @@
                       class="input-compact"
                       {% if not preview_html %}disabled{% endif %}
                     />
+                    <div class="hint">Drop rows if null % is less than this threshold, otherwise impute</div>
                   </div>
 
                   <div class="form-row">
@@ -259,7 +260,7 @@
                       class="input-compact"
                       {% if not preview_html %}disabled{% endif %}
                     />
-                    <div class="hint" id="outlier_param_hint">Default: 1.5 (IQR Multiplier)</div>
+                    <div class="hint" id="outlier_param_hint">Default: 1.5 - IQR Multiplier</div>
                   </div>
 
                   <div class="form-row">
