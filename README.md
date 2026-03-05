@@ -2,7 +2,7 @@
 
 > **Clean, Transform, And Explore Your CSV Data—In One Flow.**
 
-PrismaFlow is a powerful, automated preprocessing pipeline that transforms raw data into ML-ready datasets. With an intuitive web interface and flexible CLI, it handles everything from null value imputation to feature engineering—all while giving you complete control over every transformation step.
+PrismaFlow is a powerful, automated preprocessing pipeline that transforms raw data into ML-ready datasets. With an intuitive web interface, it handles everything from null value imputation to feature engineering—all while giving you complete control over every transformation step.
 
 ---
 
